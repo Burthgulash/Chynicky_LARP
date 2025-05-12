@@ -16,6 +16,7 @@ p{
 
 .kalendar-akci {
     margin-top: 60px;
+    font-family: "Roboto";
 }
 
 .ozveny-stinu-tlacitko {
@@ -150,7 +151,8 @@ nav {
     margin-top: 0px;
     top: 0;
     left: 0;
-    background-image: url(../../kvido\ html-img/foto/Nav.panel/temný\ les\ 3.jpg);
+    background-image: url("kvido\ html-img/foto/Nav.panel/temný\ les\ 3.jpg");
+
 }
 
 /* poloha */
@@ -181,7 +183,7 @@ nav {
     right: -150px;
     width: 150px;
     height: 100%;
-    background-color: rgb(112, 128, 144);
+    background-color: slategray;
     transition: right 0.3s;
     flex-direction: column;
     z-index: 5;

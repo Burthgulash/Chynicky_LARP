@@ -13,27 +13,6 @@ function toggleMenu() {
     } else {
         document.removeEventListener("click", menuOutsideClick);
     }
-    //pokud mobile tak var na jiny kod
-    if (JSON.parse(localStorage.getItem(mobileOrNot)).mobileOrNot === false) {
-        mobileOrNot = false
-        console.log(mobileOrNot)
-    } else {
-        mobileOrNot = true
-        console.log(mobileOrNot)
-    }
-    /* */
-    if (mobileOrNot = true) {
-        // Click-to-toggle submenu
-        document.addEventListener("DOMContentLoaded", () => {
-            const submenuToggle = document.querySelector(".ma-submenu");
-            const menuItem = document.querySelector(".menu-item-s-submenu");
-
-            submenuToggle.addEventListener("click", (event) => {
-                event.preventDefault(); // Prevent jumping if href="#"
-                menuItem.classList.toggle("open");
-            });
-        });
-    }
     function menuOutsideClick(event) {
         if (!sideMenu.contains(event.target) && !menuButton.contains(event.target)) {
             // Clicked outside the menu and button, so close the menu
@@ -42,6 +21,7 @@ function toggleMenu() {
             document.removeEventListener("click", menuOutsideClick);
         }
     }
+    // Click-to-toggle submenu
 }
 
 /* */
