@@ -12,14 +12,24 @@ const nextBtn = document.getElementById("next");
 let currentIndex = 1;
 
 // 4. This function shows the image in the lightbox
-function showImage(index) {
-  // Set the big image's src to match the clicked thumbnail
+function showImage(index, direction = null) {
+  // Remove any old animation class
+  lightboxImg.classList.remove("slide-left", "slide-right");
+
+  // Set the image source
   lightboxImg.src = images[index].src;
 
-  // Update the index to the current one
+  // If a direction was provided, add animation class
+  if (direction === "left") {
+    lightboxImg.classList.add("slide-left");
+  } else if (direction === "right") {
+    lightboxImg.classList.add("slide-right");
+  }
+
+  // Update the current index
   currentIndex = index;
 
-  // Make the lightbox visible
+  // Show the lightbox
   lightbox.classList.remove("hidden");
 }
 
@@ -54,4 +64,34 @@ nextBtn.addEventListener("click", () => {
   // Go forward one image, or wrap around to the first one
   currentIndex = (currentIndex + 1) % images.length;
   showImage(currentIndex); // show the new image
+});
+
+// These will store the X position where the user touched
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Listen for when the user first touches the screen
+lightbox.addEventListener("touchstart", (e) => {
+  touchStartX = e.changedTouches[0].screenX; // Where finger touched
+});
+
+// Listen for when the user lifts their finger
+lightbox.addEventListener("touchend", (e) => {
+  touchEndX = e.changedTouches[0].screenX; // Where finger left
+
+  // Check how far the user swiped (positive = right, negative = left)
+  let distance = touchEndX - touchStartX;
+
+  // Only respond to significant swipes (e.g., more than 50 pixels)
+  if (Math.abs(distance) > 50) {
+    if (distance < 0) {
+      // Swiped left → next image
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex, "left"); // Tell it to animate left
+    } else {
+      // Swiped right → previous image
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showImage(currentIndex, "right"); // Tell it to animate right
+    }
+  }
 });

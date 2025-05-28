@@ -379,3 +379,36 @@ a{
 .arrow.right {
   right: 20px;
 }
+
+/* Animation: Slide in from the right */
+@keyframes slideInFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Animation: Slide in from the left */
+@keyframes slideInFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0.5;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Add these classes to the image temporarily */
+.slide-left {
+  animation: slideInFromRight 0.3s ease;
+}
+
+.slide-right {
+  animation: slideInFromLeft 0.3s ease;
+}
