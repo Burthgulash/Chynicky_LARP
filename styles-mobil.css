@@ -25,7 +25,6 @@ nav {
 .divny-flex-menu-container {
     display: flex;
     justify-content: center;
-    align-items: center;
     flex-direction: column;
 }
 
@@ -44,7 +43,6 @@ nav {
 }
 
 .divny-flex-menu-mece-container {
-    flex: 90px;
     text-align: center;
 }
 
@@ -60,6 +58,7 @@ nav {
     object-fit: contain;
     cursor: pointer;
     text-align: left;
+    margin-bottom: 20px;
 }
 
 /* poloha */

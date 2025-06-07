@@ -13,8 +13,8 @@ p{
     grid-template-columns: 1fr 1fr;
     font-family: "Roboto";
 }
-
-.ozveny-stinu-tlacitko {
+/*pro tlacitko na jinou akci*/
+.akce-tlacitko {
     background-color: transparent;
     border: 2px solid rgb(86, 86, 86);
     border-radius: 2px;
@@ -25,13 +25,22 @@ p{
     cursor: pointer;
 }
 
-.ozveny-stinu-tlacitko:hover {
+.akce-tlacitko:hover {
     background-color: rgb(86, 86, 86);
     color: white;
     border: none;
     padding: 7px 32px 7px 32px;
 }
 
+.akce-tlacitko-light {
+    color: white
+}
+
+.akce-tlacitko-dark {
+    color: black;
+}
+
+/**/
 .ozveny-stinu2, .ozveny-stinu2-navrat, .ozveny-stinu2-coming-soon{
     display: flex;
     width: 100%;
@@ -165,7 +174,7 @@ nav {
     margin-top: 0px;
     top: 0;
     left: 0;
-    background-image: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/IMG_6357.jpg);
+    background-image: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
 
 }
 
