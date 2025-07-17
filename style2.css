@@ -392,16 +392,18 @@ a{
   top: 50%;
   cursor: pointer;
   user-select: none;
-  padding: 10px;
+  padding: 20px 30px;
   border-radius: 50%;
 }
 
 .arrow.left {
   left: 20px;
+  padding-left: 10px !important;
 }
 
 .arrow.right {
   right: 20px;
+  padding-right: 10px !important;
 }
 
 /* Animation: Slide in from the right */

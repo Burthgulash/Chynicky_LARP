@@ -1,27 +1,27 @@
 export const data = [
     {
-        nazev: "Návrat mocného",
-        datum:[
-            "14.6.-", 
+        nazev: "Návrat mocného (Již proběhlo)",
+        datum: [
+            "14.6.-",
             "15.6.2025",
         ],
-        organizatori:[
+        organizatori: [
             "Kvido Redl",
             "Hugo Redl",
             "Kristián Páca",
         ],
-        obrazek:"https://burthgulash.github.io/Chynicky_LARP/larphlavni/img/Výstřižek.PNG",
-        link:"https://burthgulash.github.io/Chynicky_LARP/Navrat-mocneho/Navrat-mocneho.html"
+        obrazek: "https://burthgulash.github.io/Chynicky_LARP/larphlavni/img/Výstřižek.PNG",
+        link: "https://burthgulash.github.io/Chynicky_LARP/Navrat-mocneho/Navrat-mocneho.html"
     },
     {
-        nazev:"Již brzy",
-        datum:[
+        nazev: "Již brzy",
+        datum: [
             "Již brzy",
         ],
-        organizatori:[
+        organizatori: [
             "Již brzy"
         ],
-        obrazek:"https://burthgulash.github.io/Chynicky_LARP/larphlavni/img/questionmark2.2.png",
-        link:"#"
+        obrazek: "https://burthgulash.github.io/Chynicky_LARP/larphlavni/img/questionmark2.2.png",
+        link: "#"
     }
 ]

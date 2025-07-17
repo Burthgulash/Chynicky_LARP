@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shorcut icon" href="favicon.svg">
     <title>Kalendář akcí</title>
-    <link rel=" stylesheet" href="styles/kalendar-akci.css">
+    <link rel="stylesheet" href="styles/kalendar-akci.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -76,8 +76,8 @@
                     <div class="organizatori">
                         <p class="organizatori-text">Organizátoři :</p>
                         <p class="organizatori-text">Kvido Redl</p>
-                        <p class="organizatori-text" s>Hugo Redl</p>
-                        <p class="organizatori-text" s>Kristian Páca</p>
+                        <p class="organizatori-text">Hugo Redl</p>
+                        <p class="organizatori-text">Kristian Páca</p>
                     </div>
                 </div>
                 <div class="ozveny2-img">
@@ -114,11 +114,43 @@
 
     </div>
     <iframe id="theme-sync" src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html" style="display:none;"></iframe>
-    <script type="module" src="https://burthgulash.github.io/Chynicky_LARP/larphlavni/scripts/script-generace-kalendare/generace-kalendare.js"></script>
+    <script type="module" src="../scripts/script-generace-kalendare/generace-kalendare.js"></script>
     <script src="https://burthgulash.github.io/Chynicky_LARP/generace-menu.js"></script>
     <script src="../obecny.js"></script>
-    <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/light-mod.js"></script>
+    <script type="module" src="../scripts/light-mod.js"></script>
     <!-- Hidden iframe to store and sync theme -->
+
+    <!--popevers pro org-->
+    <div popover id="Hugo Redl">
+        <img class="foto" src="../kvido html-img/foto/O nás-img/20250309_090631.jpg" alt="icon"
+            width="150px">
+        <h2>Hugo</h2>
+        <h3>Štítonoš, berserk. Svou sekerou rozmlátí vše, co se mu postaví do cesty. Na něj rozhodně
+            neútočte,
+            pokud
+            nemáte dostatečnou početní převahu, a i tak si to pořádně rozmyslete. Často, mimo jiné, řeší
+            rozpočet.
+        </h3>
+    </div>
+    <div popover="" id="Kvido Redl">
+        <img class="foto" src="../kvido html-img/foto/O nás-img/20250309_081702.jpg" alt="icon"
+            width="150px">
+        <h2>Kvido, Ereth</h2>
+        <h3>Lukostřelec a obstojný šermíř. Střežte se jeho šípům, a hlavně si dávejte pozor na rychlá
+            přepadení
+            ze
+            zálohy. Navíc je tvůrce většiny herních mechanik.
+        </h3>
+    </div>
+    <div popover="" id="Kristián Páca">
+        <img class="foto" src="../kvido html-img/foto/O nás-img/20250309_093520.jpg" alt="icon"
+            width="150px">
+        <h2>Kristian, Haakon</h2>
+        <h3>Bard a čaroděj. Pokud s ním budete smlouvat, nikdy nezískáte přívětivou cenu. V boji zvládne
+            přemoct
+            většinu nepřátel. K tomu vytváří spoustu pravidel
+        </h3>
+    </div>
 </body>
 
 </html>

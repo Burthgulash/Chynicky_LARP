@@ -1,4 +1,4 @@
-import { data } from "https://burthgulash.github.io/Chynicky_LARP/larphlavni/scripts/script-generace-kalendare/kalendar-data.js"
+import { data } from "./kalendar-data.js";
 
 let htmlRendered = ""
 
@@ -11,8 +11,13 @@ data.forEach((data, index) => {
     }*/
     let htmlRenderedOrganizatori = "";
     data.organizatori.forEach(organizator => {
+        if (organizator === "Již brzy") {
+            htmlRenderedOrganizatori += `
+            <p class="organizatori-text">${organizator}</p>`
+            return
+        }
         htmlRenderedOrganizatori += `
-    <p class="organizatori-text">${organizator}</p>
+    <button class="organizatori-text" popovertarget="${organizator}">${organizator}</button>
     `
     });
 
