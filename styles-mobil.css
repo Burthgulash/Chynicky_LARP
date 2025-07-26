@@ -21,6 +21,7 @@ nav {
     text-align: left;
 
 }
+
 /*Pro divny flex menu*/
 .divny-flex-menu-container {
     display: flex;
@@ -43,7 +44,8 @@ nav {
 }
 
 .divny-flex-menu-mece-container {
-    text-align: center;
+    width: 90px;
+    text-align: left;
 }
 
 .divny-flex-menu-podnadpis {
@@ -69,7 +71,7 @@ nav {
     z-index: 10;
 }
 
-.nadpis{
+.nadpis {
     text-align: left;
     margin-left: 20px;
     margin-bottom: 5px;
@@ -94,7 +96,7 @@ nav {
 }
 
 .side-menu {
-    position: fixed;  
+    position: fixed;
     right: -150px;
     width: 150px;
     height: 100%;
@@ -142,67 +144,68 @@ nav {
     padding: 15px;
     display: block;
 }
+
 .side-menu a:hover {
     background: darkgray;
 }
 
 /* písmo */
-h4{
+h4 {
     font-style: oblique;
     margin-top: -7px;
-    
+
 }
 
-h3{
-   padding-top: 0;
-   margin-top: 0;
+h3 {
+    padding-top: 0;
+    margin-top: 0;
 
-    
+
 }
 
-h1{
+h1 {
     font-size: 33px;
     margin-top: 3px;
 }
 
-.italic{
-   font-style: italic;
+.italic {
+    font-style: italic;
 }
 
-.nahoru{
+.nahoru {
     margin-top: -120px;
     position: relative;
- }
+}
 
- .nahoru2{
+.nahoru2 {
     margin-top: -100px !important;
 
 }
 
- .dolu{
+.dolu {
     margin-top: 120px;
     position: relative;
- }
+}
 
- .bez-mezer{
+.bez-mezer {
     margin-top: 0;
     padding-top: 0;
     line-height: 1;
- }
+}
 
- .worker{
+.worker {
     display: flex;
     justify-content: center;
     gap: 20px;
     height: 100px;
- }
+}
 
- .icons{
+.icons {
     display: flex;
     justify-content: space-between;
- }
+}
 
-.icons img{
+.icons img {
     width: 100px;
     padding: 10px;
     justify-content: center;
@@ -210,58 +213,66 @@ h1{
     margin-left: 10%;
 }
 
-.icons h2{
+.icons h2 {
     flex: 1;
     padding: 10xp;
     text-align: center;
 }
 
-.icons h3{
+.icons h3 {
     flex: 1;
     padding: 10xp;
     text-align: center;
 }
 
 .per-foto {
-    display: flex; 
-    justify-content: center; 
-    gap: 10px; 
-    flex-wrap: wrap; 
-    max-width: 90%; 
-    margin: 0 auto; 
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    max-width: 90%;
+    margin: 0 auto;
 }
 
 .per-foto img {
-    width: auto; /* Umožní přizpůsobit šířku */
-    max-width: 300px; /* Nastaví maximální šířku obrázku */
-    height: auto; /* Zachová poměr stran */
-    object-fit: contain; /* Zajistí správné zobrazení bez deformace */
-    border-radius: 10px; /* Zaoblení rohů */
+    width: auto;
+    /* Umožní přizpůsobit šířku */
+    max-width: 300px;
+    /* Nastaví maximální šířku obrázku */
+    height: auto;
+    /* Zachová poměr stran */
+    object-fit: contain;
+    /* Zajistí správné zobrazení bez deformace */
+    border-radius: 10px;
+    /* Zaoblení rohů */
 }
 
-a{
-   color: aqua;
+a {
+    color: aqua;
 }
 
-.icons2{
+.icons2 {
     display: flex;
     justify-content: center;
- }
+}
 
-.icons2 img{
+.icons2 img {
     width: 150px;
     justify-content: center;
     margin-right: 10%;
     margin-left: 10%;
 }
+
 /**/
 /*pro o nas*/
 
-.organizatori2, .cepka2 {
+.organizatori2,
+.cepka2 {
     margin: 5px 15px 5px 15px;
 }
 
-.organizatori h2, .cepka h2 {
+.organizatori h2,
+.cepka h2 {
     font-size: 40px;
     margin-left: 10px;
     margin-right: 10px;
@@ -277,24 +288,28 @@ a{
     grid-template-columns: 1fr;
 }
 
-.cepka{
+.cepka {
     display: flex;
     flex-direction: column;
 }
 
-.cepka2{
+.cepka2 {
     display: grid;
     grid-template-columns: 1fr;
 }
-@media only screen and (min-width:600px){
-    .foto-mobil{
+
+@media only screen and (min-width:600px) {
+    .foto-mobil {
         width: 50%;
-    };
+    }
+
+    ;
 }
 
-.foto-mobil{
+.foto-mobil {
     width: 60%;
 }
+
 /*
 @media only screen and (max-width: 450px) {
     .cepka2{
@@ -310,10 +325,13 @@ a{
 
 /* pro os2*/
 
-.info, .info2-1, .info2-2 {
+.info,
+.info2-1,
+.info2-2 {
     grid-template-columns: 1fr;
 }
-.ico{
+
+.ico {
     width: 30%;
 }
 
@@ -326,86 +344,88 @@ a{
 /*pro zvetsene obrazky*/
 
 .zvetsene {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.9);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index: 1000;
 }
 
 .zvetsene.hidden {
-  display: none;
+    display: none;
 }
 
 .zvetsene img {
-  max-width: 90%;
-  max-height: 80vh;
-  border-radius: 10px;
+    max-width: 90%;
+    max-height: 80vh;
+    border-radius: 10px;
 }
 
 .close {
-  position: absolute;
-  top: 10px;
-  right: 30px;
-  font-size: 50px;
-  color: white;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 30px;
+    font-size: 50px;
+    color: white;
+    cursor: pointer;
 }
 
 .arrow {
-  color: white;
-  font-size: 60px;
-  position: absolute;
-  top: 50%;
-  cursor: pointer;
-  user-select: none;
-  padding: 20px;
-  border-radius: 50%;
+    color: white;
+    font-size: 60px;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    user-select: none;
+    padding: 20px;
+    border-radius: 50%;
 }
 
 .arrow.left {
-  left: 20px;
+    left: 20px;
 }
 
 .arrow.right {
-  right: 20px;
+    right: 20px;
 }
 
 /* Animation: Slide in from the right */
 @keyframes slideInFromRight {
-  from {
-    transform: translateX(100%);
-    opacity: 0.5;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateX(100%);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Animation: Slide in from the left */
 @keyframes slideInFromLeft {
-  from {
-    transform: translateX(-100%);
-    opacity: 0.5;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
+    from {
+        transform: translateX(-100%);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
 }
 
 /* Add these classes to the image temporarily */
 .slide-left {
-  animation: slideInFromRight 0.3s ease;
+    animation: slideInFromRight 0.3s ease;
 }
 
 .slide-right {
-  animation: slideInFromLeft 0.3s ease;
+    animation: slideInFromLeft 0.3s ease;
 }

@@ -1,7 +1,7 @@
 // pro side menu
 function toggleMenu() {
     const sideMenu = document.getElementById("sideMenu");
-    // const menuButton = document.querySelector(".menu");
+    const menuButton = document.querySelector(".menu");
 
     sideMenu.classList.toggle("side-menu-open");
     //  menuButton.classList.toggle("menu-open");
@@ -12,13 +12,17 @@ function toggleMenu() {
     } else {
         document.removeEventListener("click", menuOutsideClick);
     }
-    function menuOutsideClick(event) {
-        if (!sideMenu.contains(event.target) && !menuButton.contains(event.target)) {
-            // Clicked outside the menu and button, so close the menu
-            sideMenu.classList.remove("side-menu-open");
-            menuButton.classList.remove("menu-open");
-            document.removeEventListener("click", menuOutsideClick);
-        }
+}
+
+// Move this function OUTSIDE toggleMenu!
+function menuOutsideClick(event) {
+    const sideMenu = document.getElementById("sideMenu");
+    const menuButton = document.querySelector(".menu");
+    if (!sideMenu.contains(event.target) && !menuButton.contains(event.target)) {
+        // Clicked outside the menu and button, so close the menu
+        sideMenu.classList.remove("side-menu-open");
+        menuButton.classList.remove("menu-open");
+        document.removeEventListener("click", menuOutsideClick);
     }
 }
 
@@ -27,8 +31,8 @@ function toggleMenu() {
 // pro nav bar
 function updatePadding() {
     const nav = document.querySelector("nav");
-    const content = document.querySelector("body"); // Adjust selector for your page content
-    content.style.paddingTop = `${nav.offsetHeight}px`;
+    const body = document.querySelector("body"); // Adjust selector for your page content
+    body.style.paddingTop = `${nav.offsetHeight}px`;
 }
 
 // Run on page load & window resize

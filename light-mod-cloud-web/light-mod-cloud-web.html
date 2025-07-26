@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="shorcut icon" href="img/close_24dp_EA3323_FILL0_wght400_GRAD0_opsz24.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nezkousej</title>
 </head>
@@ -9,17 +10,18 @@
     
 </body>
 <script>
-     window.addEventListener("message", (event) => {
-    if (event.data?.type === "set-theme") {
-      localStorage.setItem("theme", event.data.value);
-    }
+    window.addEventListener("message", (event) => {
+      console.log(event)
+      if (event.data?.type === "set-theme") {
+        localStorage.setItem("theme", event.data.value);
+      }
 
-    if (event.data === "get-theme") {
-      event.source.postMessage(
-        { type: "theme", value: localStorage.getItem("theme") || "dark" },
-        event.origin
-      );
-    }
+      if (event.data === "get-theme") {
+        event.source.postMessage(
+          { type: "theme", value: localStorage.getItem("theme") || "dark" },
+          event.origin
+        );
+      }
   });
 </script>
 </html>

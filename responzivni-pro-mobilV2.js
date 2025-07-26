@@ -17,7 +17,7 @@
         } else if (/CrOS/.test(uzivatel)) {
             device = "Chrome OS PC";
         } else if (/Linux/.test(uzivatel) && !/Android/.test(uzivatel)) {
-            device = "Linux PC"; 
+            device = "Linux PC";
         }
         return device;
     }
@@ -34,20 +34,19 @@
         let currentPage = window.location.pathname;
         let correctPage = currentPage.replace("-mobil.html", ".html");
 
-        if (currentPage !== correctPage) {        // Check if mobile page exists before redirecting
-            fetch(mobilePage, { method: "HEAD" })
-                .then(response => {
-                    if (response.ok) {
-                        console.log("Mobile version found, redirecting to:", mobilePage);
-                        window.location.href = mobilePage;
-                    } else {
-                        console.log("Mobile version not found, staying on current page.");
-                    }
-                })
-                .catch(error => {
-                    console.warn("Error checking mobile page:", error);
+        // Check if mobile page exists before redirecting
+        fetch(correctPage, { method: "HEAD" })
+            .then(response => {
+                if (response.ok) {
+                    console.log("PC version found, redirecting to:", correctPage);
+                    window.location.href = mobilePage;
+                } else {
+                    console.log("PC version not found, staying on current page.");
+                }
+            })
+            .catch(error => {
+                console.warn("Error checking mobile page:", error);
             });
-        }
     }
 
     console.log("Detected Device:", device);

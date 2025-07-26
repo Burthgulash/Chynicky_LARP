@@ -144,10 +144,6 @@ export const fotoGalerieData = [
         akce: "OS1",
     },
     {
-        src: "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Odehrane%20LARPy/O.S.1-img/WhatsApp%20Image%202025-03-08%20at%2011.21.43%20(1).jpeg",
-        akce: "OS1",
-    },
-    {
         src: "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Odehrane%20LARPy/O.S.1-img/WhatsApp%20Image%202025-03-08%20at%2011.21.43.jpeg",
         akce: "OS1",
     },
