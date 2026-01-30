@@ -1,4 +1,4 @@
-const nav = document.querySelector("nav");
+const nav = getHeader()
 
 const title = document.querySelector(".nadpis").innerHTML;
 const smallText = document.querySelectorAll(".nadpis")[1].innerHTML
@@ -15,7 +15,7 @@ function handleListener() {
 }
 
 function adjustNav() {
-    const nav = document.querySelector("nav");
+    const nav = getHeader()
 
     const sideMenu = document.getElementById("sideMenu").innerHTML
         
@@ -85,4 +85,12 @@ function checkOverlap(element) {
         textRect.left < burgerRect.right;
 
     return horizontalOverlap;
+}
+
+function getHeader() {
+    let header = document.querySelector("header");
+    if (!header) {
+        header = document.querySelector("nav");
+    }
+    return header
 }
