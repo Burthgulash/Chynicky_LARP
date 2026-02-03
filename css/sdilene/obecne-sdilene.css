@@ -53,7 +53,7 @@ body.dark {
 }
 
 button {
-    background-color: hsl(0, 0%, 42%);
+    background-color: hsl(0, 0%, 37%);
     padding: 3px 8px;
     border: none;
     border-radius: 5px;
@@ -61,7 +61,7 @@ button {
 }
 
 button:hover {
-    background-color: hsl(0, 0%, 52%);
+    background-color: hsl(0, 0%, 47%);
 }
 
 /*RŮZNÉ STYLY PRO TEXT/PISMO MOŽNA SMAZAT NEBO ZMĚNIT*/
@@ -185,12 +185,31 @@ img {
     background-color: var(--bg-accent-clr);
 }
 
+.pravidla-link {
+    /* display: inline-block; */
+    padding: 1em;
+    background-color: var(--bg-accent-clr);
+    margin: 5px;
+    border-radius: 7px;
+}
+
+.pravidla-links-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 3em;
+    margin-top: 15px;
+}
+
 .prihlasit {
     color: aqua;
     padding: 1em;
+    background-color: var(--bg-accent-clr);
+    display: inline-block;
     /* font-size: 7px nevim co zkousis to bz bylo extreme maly*/
 }
 
+/* utililty clasy */
 .bold-100 {
     font-weight: 100;
 }

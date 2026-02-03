@@ -33,43 +33,52 @@ document.querySelector("#sideMenu").innerHTML = `
         <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz/Hranicni%20tvrz.html" onclick="toggleMenu()">Hraniční tvrz</a>
     </div>
 </div>
-<button class="darkXlight" id="button-theme-switch">🌗</button>
+<button class="darkXlight" id="button-theme-switch"></button>
 `
 window.dispatchEvent(new Event("side-menu"))
 
-const arrows = document.querySelectorAll(".menu-sipka")
-arrows.forEach(arrow => {
-    const menuItem = arrow.closest(".menu-item-s-submenu")
-    const submenu = menuItem.querySelector(".submenu")
-    if (navigator.userAgent.includes("mobile")) {
-        arrow.addEventListener("click", (e) => {
+function runArrowCode() {
+    const arrows = document.querySelectorAll(".menu-sipka")
+    console.log(arrows)
+    arrows.forEach(arrow => {
+        const menuItem = arrow.closest(".menu-item-s-submenu")
+        const submenu = menuItem.querySelector(".submenu")
+        console.log(menuItem, submenu)
+        if (navigator.userAgent.includes("Mobile")) {
+            console.log("mobile")
+            console.log(arrow)
+            arrow.addEventListener("click", (e) => {
+                const menuItem = e.target.closest(".menu-item-s-submenu")
+                console.log(menuItem)
+                if (menuItem.classList.contains("submenu-clicked")) {
+                    menuItem.classList.remove("submenu-open")
+                    menuItem.classList.remove("submenu-clicked")
+                    return;
+                }
+                menuItem.classList.add("submenu-open")
+                menuItem.classList.add("submenu-clicked")
+            })
+            console.log("listen")
+            return
+        }
+        arrow.addEventListener("mouseover", (e) => {
             const menuItem = e.target.closest(".menu-item-s-submenu")
-            if (menuItem.classList.contains("submenu-clicked")) {
-                menuItem.classList.remove("submenu-open")
-                menuItem.classList.remove("submenu-clicked")
-                return;
-            }
             menuItem.classList.add("submenu-open")
-            menuItem.classList.add("submenu-clicked")
         })
-        return
-    }
-    arrow.addEventListener("mouseover", (e) => {
-        const menuItem = e.target.closest(".menu-item-s-submenu")
-        menuItem.classList.add("submenu-open")
-    })
-    submenu.addEventListener("mouseleave", (e) => {
-        const menuItem = e.target.closest(".menu-item-s-submenu")
-        menuItem.classList.remove("submenu-open")
-    })
-    arrow.addEventListener("mouseleave", (e) => {
-        setTimeout(() => {
-            if (submenu.matches(":hover")) return;
+        submenu.addEventListener("mouseleave", (e) => {
+            const menuItem = e.target.closest(".menu-item-s-submenu")
             menuItem.classList.remove("submenu-open")
-        }, 200)
-    })
-});
+        })
+        arrow.addEventListener("mouseleave", (e) => {
+            setTimeout(() => {
+                if (submenu.matches(":hover")) return;
+                menuItem.classList.remove("submenu-open")
+            }, 200)
+        })
+    });
+}
 
+window.addEventListener("responsivniNav", runArrowCode) // je to k tomu aby responsivni nav mohl se nacist a az pak se nacetly DOM elementy do JS
 const arrowSvg = `
 <svg xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
