@@ -85,13 +85,14 @@ function activateEasterEgg() {
 /* */
 // pro minimap
 const minimapBtn = document.getElementById("toggle-minimap");
-
 // just check if the btn exists on the page to prevent errors on pages without the btn
 if (minimapBtn) {
-minimapBtn.addEventListener("click", toggleMinimap);
+    minimapBtn.addEventListener("click", toggleMinimap);
 }
+
 function toggleMinimap() {
     const miniMap = document.getElementById("mini-map");
+    console.log(miniMap)
     miniMap.classList.toggle("show")
     miniMap.src = miniMap.src; // Reload the iframe to ensure proper rendering
     if (miniMap.classList.contains("show")) {

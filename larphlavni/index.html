@@ -46,19 +46,26 @@
                     </svg>
                 </div>
                 <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html" onclick="toggleMenu()">Z Popelu Kalicha</a>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html"
+                        onclick="toggleMenu()">Z Popelu Kalicha</a>
                 </div>
             </div>
             <a href="https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html" onclick="toggleMenu()">O nás</a>
-            <a href="https://burthgulash.github.io/Chynicky_LARP/pribehy/pribehy.html" onclick="toggleMenu()">Příběhy</a>
+            <a href="https://burthgulash.github.io/Chynicky_LARP/pribehy/pribehy.html"
+                onclick="toggleMenu()">Příběhy</a>
 
             <div class="menu-item-s-submenu">
-                <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Odehrane%20LARPy.html">Odehrané LARPy</a> 
+                <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Odehrane%20LARPy.html">Odehrané
+                    LARPy</a>
                 <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Navrat-mocneho/Navrat-mocneho.html" onclick="toggleMenu()">Návrat mocného</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu2/Ozvěny%20stínů%202.html" onclick="toggleMenu()">Ozvěny Stínů 2</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu/Ozvěny%20stínů.html" onclick="toggleMenu()">Ozvěny stínů</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz/Hranicni%20tvrz.html" onclick="toggleMenu()">Hraniční tvrz</a>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Navrat-mocneho/Navrat-mocneho.html"
+                        onclick="toggleMenu()">Návrat mocného</a>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu2/Ozvěny%20stínů%202.html"
+                        onclick="toggleMenu()">Ozvěny Stínů 2</a>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu/Ozvěny%20stínů.html"
+                        onclick="toggleMenu()">Ozvěny stínů</a>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz/Hranicni%20tvrz.html"
+                        onclick="toggleMenu()">Hraniční tvrz</a>
                 </div>
             </div>
             <button class="darkXlight" id="button-theme-switch">🌗</button>
@@ -71,57 +78,81 @@
     <div class="kalendar-akci">
         <p class="kalendar-nazev">Kalendář akcí</p>
         <div class="kalendar-akci2">
-            <!--Návrat mocného-->
-            <div class="ozveny-stinu2-navrat">
+
+
+            <div class="akce-container">
                 <div class="ozveny2-popis">
-                    <a href="../Navrat-mocneho/Navrat-mocneho.html">
-                        <button class="ozveny-stinu-tlacitko">JDI DO KALENDAR-DATA.JS</button>
+                    <a href="https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html">
+                        <button id="akce-tlacitko" class="akce-tlacitko">Z popelu kalicha</button>
                     </a>
                     <div class="datumy">
                         <div style="margin: 0 0 10px 0;">
                             <p class="datum-right">Datum :</p>
                         </div>
                         <div class="moznost">
-                            <p class="datum-left">14.6.2025 - </p>
-                            <p class="datum-left3">15.6.2025</p>
+
+                            <p class="datum-left">5.6.-</p>
+
+                            <p class="datum-left">7.6 2026</p>
+
                         </div>
+                    </div>
+                    <div class="temp-misto">
+                        <p class="datum-right">Místo :</p>
+
+                        <button popovertarget="Školní Farma (Chýnice 29)">
+                            <p class="datum-left">LALOK priklad</p>
+                        </button>
                     </div>
                     <div class="organizatori">
                         <p class="organizatori-text">Organizátoři :</p>
-                        <p class="organizatori-text">Kvido Redl</p>
-                        <p class="organizatori-text">Hugo Redl</p>
-                        <p class="organizatori-text">Kristian Páca</p>
+
+                        <button class="organizatori-text" popovertarget="Kvido Redl">Kvido Redl</button>
+
+                        <button class="organizatori-text" popovertarget="Hugo Redl">Hugo Redl</button>
+
+                        <button class="organizatori-text" popovertarget="Kristián Páca">Kristián Páca</button>
+
                     </div>
                 </div>
                 <div class="ozveny2-img">
-                    <img style="width: 100%; justify-content: center; margin: 5px 0 5px 0;" src="img/Výstřižek.PNG">
-                </div>
-            </div>
-            <!---->
-            <!---->
-            <div class="ozveny-stinu2-coming-soon">
-                <div class="ozveny2-popis">
-                    <a href="#">
-                        <button class="ozveny-stinu-tlacitko">Z popelu kalicha</button>
-                    </a>
-                    <div class="datumy">
-                        <p class="datum-right">Datum :</p>
-                        <p class="datum-left">5-7.6 2026</p>
-                        <p class="datum-left"></p>
-                    </div>
-                    <div class="organizatori-div">
-                        <p class="organizatori-text">Organizátoři :</p>
-                        <p class="organizatori-text">Kvido Redl</p>
-                        <p class="organizatori-text">Hugo redl</p>
-                        <p class="organizatori-text">Kristian Páca</p>
-                    </div>
-                </div>
-                <div class="ozveny2-img">
-                    <img style=" width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="img/questionmark2.2.png">
+                    <img style="width: 100%; justify-content: center; margin: 5px 0 5px 0;"
+                        src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/Z.Popelu.kalicha-foto/Prapor-chatgpt.png">
                 </div>
             </div>
 
+            <div class="akce-container">
+                <div class="ozveny2-popis">
+                    <a href="#">
+                        <button id="akce-tlacitko" class="akce-tlacitko">Již brzy</button>
+                    </a>
+                    <div class="datumy">
+                        <div style="margin: 0 0 10px 0;">
+                            <p class="datum-right">Datum :</p>
+                        </div>
+                        <div class="moznost">
+
+                            <p class="datum-left">Již brzy</p>
+
+                        </div>
+                    </div>
+                    <div class="misto">
+                        <p class="datum-right">Místo :</p>
+
+                        <p class="datum-left">LALOK priklad</p>
+                    </div>
+                    <div class="organizatori">
+                        <p class="organizatori-text">Organizátoři :</p>
+
+                        <p class="organizatori-text">Již brzy</p>
+                    </div>
+                </div>
+                <div class="ozveny2-img">
+                    <img style="width: 100%; justify-content: center; margin: 5px 0 5px 0;"
+                        src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/questionmark2.2.png"
+                        id="icon-img" data-name="questionmark2.2">
+                </div>
+            </div>
         </div>
     </div>
 

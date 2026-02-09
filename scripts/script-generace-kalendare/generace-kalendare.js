@@ -28,7 +28,48 @@ data.forEach((data, index) => {
         htmlRenderedDatum += `
     <p class="datum-left">${datum}</p>
     `
-    });
+    })
+
+    let htmlRenderedMisto = ""
+    const isOsmLinkHtmlRenderedMisto = data.misto.osmLink ? true : false
+    const htmlTagRenderedMisto = isOsmLinkHtmlRenderedMisto ? "button" : "p"
+    if (isOsmLinkHtmlRenderedMisto) {
+        const htmlPopoverRenderedMisto = `
+            <div class="popover" popover id="Školní Farma (Chýnice 29)">
+                <h2>Místo</h2>
+                <p>${data.misto.misto}</p>
+                <br>
+                <iframe class="mini-map" id="mini-map"
+                    src="${data.misto.osmLink}"
+                    style="border: 1px solid black"></iframe>
+                <br>
+                <a href="${data.link}">Více info na stránce ${data.nazev}</a>
+            </div>
+        `
+
+        let htmlPopoverRenderedMistoDomNode = document.createElement("div")
+        htmlPopoverRenderedMistoDomNode.innerHTML = htmlPopoverRenderedMisto
+        document.body.appendChild(htmlPopoverRenderedMistoDomNode)
+        window.addEventListener("DOMContentLoaded", () => {
+            document.querySelector(".misto-btn").addEventListener("click", () => {
+                const miniMap = document.getElementById("mini-map")
+                miniMap.src = miniMap.src; // Reload the iframe to ensure proper rendering
+            })
+        })
+    }
+    htmlRenderedMisto = `
+        ${ data.misto.misto || typeof data.misto === "string" ? 
+            `
+            <p class="datum-right">Místo :</p>
+            <${htmlTagRenderedMisto} class="datum-left misto-btn" ${isOsmLinkHtmlRenderedMisto ? `popovertarget="${data.misto.misto}"` : ""}>
+                ${data.misto.misto ? data.misto.misto : data.misto}
+            </${htmlTagRenderedMisto}>
+            `
+            :
+            ""
+        }
+    `
+
     htmlRendered += `
 <div class="akce-container">
     <div class="ozveny2-popis">
@@ -43,6 +84,15 @@ data.forEach((data, index) => {
                 ${htmlRenderedDatum}
             </div>
         </div>
+            ${ data.misto.misto || typeof data.misto === "string" ? 
+            `
+            <div class="misto">
+                ${htmlRenderedMisto}
+            </div>
+            `
+            :
+            ""
+        }
         <div class="organizatori">
             <p class="organizatori-text">Organizátoři :</p>
             ${htmlRenderedOrganizatori}
