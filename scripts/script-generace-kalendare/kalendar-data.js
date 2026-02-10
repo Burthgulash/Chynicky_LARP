@@ -3,8 +3,8 @@ export const data = [
     {
         nazev: "Z popelu kalicha",
         datum: [
-            "5.6.-",
-            "7.6 2026",
+            "1.5-",
+            "3.5.2026",
         ],
         organizatori: [
             "Kvido Redl",
