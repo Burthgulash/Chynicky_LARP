@@ -136,7 +136,12 @@ p {
     margin-bottom: 10px;
 }
 
-
+.akce-obrazek {
+    width: 100%;
+    justify-content: center;
+    margin: 5px 0 5px 0;
+    object-fit: contain;
+}
 
 
 .datum-right {
