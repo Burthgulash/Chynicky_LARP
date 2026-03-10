@@ -210,6 +210,11 @@ img {
     /* font-size: 7px nevim co zkousis to bz bylo extreme maly*/
 }
 
+.lalok {
+    color: var(--text-clr);
+    font-size: 8px;
+}
+
 /* utililty clasy */
 .bold-100 {
     font-weight: 100;
