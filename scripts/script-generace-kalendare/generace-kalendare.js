@@ -99,7 +99,7 @@ data.forEach((data, index) => {
         </div>
     </div>
     <div class="ozveny2-img">
-        <img style="width: 100%; justify-content: center; margin: 5px 0 5px 0;" src="${data.obrazek}" ${jizBrzycode}>
+        <img style="" class="akce-obrazek" src="${data.obrazek}" ${jizBrzycode}>
     </div>
 </div>
 `// TODO: udelat qestion mark light mod

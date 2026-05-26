@@ -151,6 +151,7 @@ a,
     text-align: center;
     border: 1px solid #ccc;
     padding: 15px;
+    color: var(--text-clr);
 }
 
 @media only screen and (max-width: 800px) {
@@ -207,6 +208,11 @@ img {
     background-color: var(--bg-accent-clr);
     display: inline-block;
     /* font-size: 7px nevim co zkousis to bz bylo extreme maly*/
+}
+
+.lalok {
+    color: var(--text-clr);
+    font-size: 8px;
 }
 
 /* utililty clasy */
