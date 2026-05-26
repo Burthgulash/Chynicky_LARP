@@ -41,6 +41,7 @@ Pole "misto" u kazde akce muze byt:
    - "misto" je text zobrazeny vedle "Misto :".
    - "osmLink" pokud je vyplnen, vykresli se tlacitko s popoverem a iframe mapou.
    - "osmLink" najdes vzdy na akci v <iframu src="TADY"> a pokud to nemame tak si nejak porad
+   - "osmLink" znamena OpenStreetMap Embed iframe link
    - kdyz "osmLink" chybi nebo je prazdny, chova se to jako obycejny text.
 Tato logika vychazi z toho, ze skript kontroluje "data.misto.osmLink" a zaroven akceptuje
 primo string v "data.misto" aby pri jiz brzy tam nemusel byt zbutecny object.
