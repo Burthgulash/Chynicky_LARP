@@ -1,10 +1,9 @@
 export const data = [
 
     {
-        nazev: "Z popelu kalicha",
+        nazev: "Poslední ortel",
         datum: [
-            "1.5-",
-            "3.5.2026",
+            "Někdy v červnu 2027"
         ],
         organizatori: [
             "Kvido Redl",
@@ -12,7 +11,7 @@ export const data = [
             "Kristián Páca",
         ],
         obrazek: "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/Z.Popelu.kalicha-foto/Prapor-chatgpt.png",
-        link: "https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
+        link: "#",
         misto: {
             misto: "Školní Farma (Chýnice 29)",
             osmLink: "https://www.openstreetmap.org/export/embed.html?bbox=14.2695,49.9959,14.2705,49.9961&layer=mapnik&marker=49.996045,14.270132&zoom=14"
