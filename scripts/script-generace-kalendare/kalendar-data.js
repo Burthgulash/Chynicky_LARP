@@ -1,6 +1,20 @@
 export const data = [
 
     {
+        nazev: "Již brzy",
+        datum: [
+            "Již brzy",
+        ],
+        organizatori: [
+            "Kvido Redl",
+            "Hugo Redl",
+            "a další",
+        ],
+        obrazek: "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark2.2.png",
+        link: "#",
+        misto: "Pernink, kostelní 11 - apartmánová chalupa"
+    },
+    {
         nazev: "Poslední ortel",
         datum: [
             "Někdy v červnu 2027"
@@ -16,18 +30,6 @@ export const data = [
             misto: "Školní Farma (Chýnice 29)",
             osmLink: "https://www.openstreetmap.org/export/embed.html?bbox=14.2695,49.9959,14.2705,49.9961&layer=mapnik&marker=49.996045,14.270132&zoom=14"
         }
-    },
-    {
-        nazev: "Již brzy",
-        datum: [
-            "Již brzy",
-        ],
-        organizatori: [
-            "Již brzy",
-        ],
-        obrazek: "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark2.2.png",
-        link: "#",
-        misto: "Již Brzy"
     },
 ]
 
