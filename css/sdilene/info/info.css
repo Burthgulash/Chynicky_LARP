@@ -21,12 +21,6 @@
     padding: 1em;
 }
 
-/* .info2-light,
-.info2-1-light,
-.info2-2-light {
-    background-color: var(--background-color-light-accent);
-} */
-
 @media only screen and (min-width: 1300px) {
     .info {
         grid-template-columns: 1fr 1fr 1fr 1fr;
@@ -50,123 +44,10 @@
     font-size: 1.1em;
 }
 
-.icons h1 {
+.nadpis-container {
     flex: 1;
     padding: 10xp;
     text-align: center;
-}
-
-.worker {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    height: 100px;
-}
-
-.icons {
-    display: flex;
-    justify-content: space-between;
-}
-
-.icons img {
-    width: 100px;
-    padding: 10px;
-    justify-content: center;
-    margin-right: 10%;
-    margin-left: 10%;
-}
-
-.icons h2 {
-    flex: 1;
-    padding: 10xp;
-    text-align: center;
-}
-
-.icons h3 {
-    flex: 1;
-    padding: 10xp;
-    text-align: center;
-}
-
-/* O NAS MOZNA SMAZAT NEBO ZMENIT */
-/* O NAS MOZNA SMAZAT NEBO ZMENIT */
-/* O NAS MOZNA SMAZAT NEBO ZMENIT */
-
-/*pro o nas*/
-
-.cepka2 h3,
-.organizatori2 h3 {
-    margin-left: 7px;
-    margin-right: 7px;
-}
-
-.organizatori {
-    display: flex;
-    flex-direction: column;
-}
-
-.organizatori2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin: 5px 10px 5px 10px;
-    gap: 1em;
-}
-
-.organizatori-card {
-    background-color: var(--bg-accent-clr);
-    padding: 1em;
-}
-
-.cepka {
-    display: flex;
-    flex-direction: column;
-}
-
-.cepka2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    margin: 5px 10px 5px 10px;
-    gap: 1em;
-}
-
-.cepka-card {
-    background-color: var(--bg-accent-clr);
-    padding: 1em;
-}
-
-.foto {
-    width: 150px;
-}
-
-.foto2 {
-    height: 158px;
-}
-
-@media only screen and (max-width: 500px) {
-    .cepka2 {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    .organizatori2 {
-        display: grid;
-        grid-template-columns: 1fr;
-    }
-
-    .foto,
-    .foto2 {
-        width: 50% !important;
-        height: auto;
-    }
-}
-
-@media only screen and (min-width: 1400px) {
-
-    .foto,
-    .foto2 {
-        width: 40% !important;
-        height: auto;
-    }
 }
 
 /* mini map */
@@ -184,4 +65,80 @@
 .toggle-minimap-container {
     display: flex;
     justify-content: center;
+}
+
+/*=============
+Zacatek O nas
+===============*/
+
+.organizatori {
+    display: flex;
+    flex-direction: column;
+}
+
+.organizatori2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.organizatori-card {
+    background-color: var(--bg-accent-clr);
+    padding: 1em;
+    border-radius: 15px;
+}
+
+.cepka {
+    display: flex;
+    flex-direction: column;
+}
+
+.cepka2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.cepka-card {
+    background-color: var(--bg-accent-clr);
+    border-radius: 15px;
+    padding: 1em;
+}
+
+.foto {
+    width: 150px;
+}
+
+
+@media only screen and (min-width: 1400px) {
+    .foto {
+        width: 40% !important;
+        height: auto;
+    }
+}
+
+
+@media only screen and (max-width: 650px) {
+    .organizatori2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .cepka2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .organizatori2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .foto {
+        width: 50% !important;
+        height: auto;
+    }
 }
