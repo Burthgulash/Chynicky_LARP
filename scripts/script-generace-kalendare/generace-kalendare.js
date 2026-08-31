@@ -14,7 +14,7 @@ data.forEach((data, index) => {
     if (organizator === "Již brzy") {
       htmlRenderedOrganizatori += `
             <p class="organizatori-text">${organizator}</p>`;
-      jizBrzycode = `id=icon-img data-name="questionmark2.2"`;
+      jizBrzycode = `id=icon-img data-name="questionmark"`;
       return;
     }
     htmlRenderedOrganizatori += `

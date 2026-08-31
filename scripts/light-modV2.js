@@ -85,11 +85,11 @@ function updateThemeIcon() {
 
     if (document.body.classList.contains("dark")) {
         themebtn.innerHTML = `
-            <img src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/slunce-icon2.png">
+            <img src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/slunce-icon.png">
         `
     } else {
         themebtn.innerHTML = `
-            <img style="margin-left: 8px;" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/Mesic-icon2.png">
+            <img style="margin-left: 8px;" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/Mesic-icon.png">
         `
     }
 }
