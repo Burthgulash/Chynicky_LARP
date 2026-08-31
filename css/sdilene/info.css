@@ -1,0 +1,144 @@
+.info-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    padding: 7px 15px 7px 15px;
+    width: 100%;
+    gap: 1rem;
+}
+
+.info2,
+.info2-1,
+.info2-2 {
+    border-radius: 15px;
+    background-color: var(--bg-accent-clr);
+    padding: 1em;
+}
+
+@media only screen and (min-width: 1300px) {
+    .info {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .info {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .info {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info p {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+.nadpis-container {
+    flex: 1;
+    padding: 10xp;
+    text-align: center;
+}
+
+/* mini map */
+.mini-map {
+    width: 100%;
+    height: 40%;
+    display: none;
+}
+
+#toggle-minimap {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-minimap-container {
+    display: flex;
+    justify-content: center;
+}
+
+/*=============
+Zacatek O nas
+===============*/
+
+.organizatori {
+    display: flex;
+    flex-direction: column;
+}
+
+.organizatori2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.organizatori-card {
+    background-color: var(--bg-accent-clr);
+    padding: 1em;
+    border-radius: 15px;
+}
+
+.cepka {
+    display: flex;
+    flex-direction: column;
+}
+
+.cepka2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.cepka-card {
+    background-color: var(--bg-accent-clr);
+    border-radius: 15px;
+    padding: 1em;
+}
+
+.foto {
+    width: 150px;
+}
+
+
+@media only screen and (min-width: 1400px) {
+    .foto {
+        width: 40% !important;
+        height: auto;
+    }
+}
+
+
+@media only screen and (max-width: 650px) {
+    .organizatori2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .cepka2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .organizatori2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .foto {
+        width: 50% !important;
+        height: auto;
+    }
+}

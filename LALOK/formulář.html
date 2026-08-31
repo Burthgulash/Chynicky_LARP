@@ -1,30 +1,33 @@
 <! DOCTYPE html>
 
 <head>
-    <title>Folmulář na zaslání laloku</title>
-    <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css">
-    <link rel="stylesheet" href="../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../css/sdilene/info/info.css">
+  <title>Folmulář na zaslání laloku</title>
+  <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css" />
+  <link rel="stylesheet" href="../css/sdilene/menu/menu.css" />
+  <link rel="stylesheet" href="../css/sdilene/info.css" />
 </head>
 
 <body>
-    <form action="action_page.php" method="get">
+  <form action="action_page.php" method="get">
+    <label for="jmeno">Jméno:</label>
+    <input type="text" id="jmeno" name="jmeno" placeholder="Evžen" />
 
-        <label for="jmeno">Jméno:</label>
-        <input type="text" id="jmeno" name="jmeno" placeholder="Evžen">
+    <label for="prijmeni">příjmení:</label>
+    <input type="text" id="prijmeni" name="prijmeni" placeholder="Novák" />
 
-        <label for="prijmeni">příjmení:</label>
-        <input type="text" id="prijmeni" name="prijmeni" placeholder="Novák">
-         
-        <br>
-        <br>
+    <br />
+    <br />
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" placeholder="skibidi.sigma@example.com">
-        
-        <hr>   
-        <input type="submit">
-        <input type="reset">
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      id="email"
+      name="email"
+      placeholder="skibidi.sigma@example.com"
+    />
 
-    </form>
+    <hr />
+    <input type="submit" />
+    <input type="reset" />
+  </form>
 </body>
