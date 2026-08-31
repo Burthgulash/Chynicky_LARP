@@ -48,6 +48,7 @@ p {
     background-color: var(--bg-accent-clr) !important;
     border-radius: 15px;
     padding: 1rem;
+    gap: 1em
 }
 
 .organizatori-div {
@@ -97,6 +98,7 @@ p {
 
 .akce-popis {
     flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
