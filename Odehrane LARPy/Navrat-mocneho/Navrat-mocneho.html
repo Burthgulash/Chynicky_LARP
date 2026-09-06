@@ -2,43 +2,21 @@
 <html lang="cz">
 
 <head>
-    <script src="../../responzivni-pro-pocitacV2.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../../css/sdilene/info/info.css">
+    <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="shorcut icon" href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg">
     <title>Návrat mocného</title>
 </head>
 
 <body>
 
-    <nav>
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="icons">
-                    <h1 class="nadpis">Návrat mocného - LARP</h1>
-                </div>
-            </div>
-            <h4 class="nadpis">
-                Volně navazující pokračování LARPů
-                <a href="../Hranicni tvrz/Hranicni tvrz.html">Hraniční tvrz</a> a ruiny starého světa
-            </h4>
-        </div>
-
-        <div class="side-menu" id="sideMenu">
-        </div>
-    </nav>
+    <site-header title="Návrat mocného - LARP"
+        subtitle="Volně navazující pokračování LARPů &lt;a href='../Hranicni tvrz/Hranicni tvrz.html'&gt;Hraniční tvrz&lt;/a&gt; a ruiny starého světa"
+        image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <div class="center">
         <h3 class="italic"></h3>
         <h3>„Ačkoli se snad zdálo že skřety a podobné vysílal Karnas, Tal-de-Kar, či kdokoli podobný, trpce jsme se
@@ -72,8 +50,8 @@
 
             </section>
             <section class="info2">
-                <img id="icon-img" src="../../kvido html-img/foto/Ikony-img/cena3.png" alt="icon" width="100px"
-                    data-name="cena3">
+                <img id="icon-img" src="../../kvido html-img/foto/Ikony-img/cena.png" alt="icon" width="100px"
+                    data-name="cena">
                 <h2>Cena</h2>
                 <h3>70kč za vstupné (vstupné nevracíme, je to z důvodu že potřebujeme nakupovat věci dopředu)+ 15kč
                     pujčovné za jednoruční zbraň, pokud máte svojí, musí projít kontrolou. <br>
@@ -102,8 +80,8 @@
                 </h3>
             </section>
             <section class="info2-1">
-                <img id="icon-img" src="../../kvido html-img/foto/Ikony-img/pin2.png" alt="icon" width="100px"
-                    data-name="pin2">
+                <img id="icon-img" src="../../kvido html-img/foto/Ikony-img/pin.png" alt="icon" width="100px"
+                    data-name="pin">
                 <h2>Místo</h2>
                 <h3>LARP se bude odehrávat na školní farmě poblíž vesnice Chýnice (Chýnice 29)</h3>
                 <div class="toggle-minimap-container">
@@ -151,7 +129,8 @@
         </a>
 
         <script src="../../obecny.js"></script>
-        <script src="../../generace-menu.js"></script>
+        <script src="../../components/site-header.js"></script>
+        <script src="../../scripts/generace-menu.js"></script>
         <script src="../../scripts/responsivni-nav.js"></script>
         <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/light-modV2.js" type="module"></script>
         <iframe id="theme-sync"

@@ -1,67 +1,59 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Galerie obrázků ze všech akcí">
-    <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css">
-    <link rel="stylesheet" href="../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../css/foto-galerie.css">
-    <link rel="stylesheet" href="../css/sdilene/obrazky.css">
-    <link rel="stylesheet" href="../css/sdilene/info/info.css">
-    <link rel="shorcut icon" href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Galerie obrázků ze všech akcí" />
+    <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css" />
+    <link rel="stylesheet" href="../css/sdilene/menu/menu.css" />
+    <link rel="stylesheet" href="../css/foto-galerie.css" />
+    <link rel="stylesheet" href="../css/sdilene/obrazky.css" />
+    <link rel="stylesheet" href="../css/sdilene/info.css" />
+    <link
+      rel="shorcut icon"
+      href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
 
     <title>Galerie obrázků</title>
-</head>
+  </head>
 
-<body>
-    <nav>
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../larphlavni/img/tri mece final final.png" height="100" alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="icons">
-                    <h1 class="nadpis">Galerie obrázků</h1>
-                </div>
-            </div>
-            <!--<h4 class="nadpis">
-                Volně navazující pokračování LARPu
-                <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozvěny%20stínů.html"
-                    target="_self">Ozvěny stínů</a>
-            </h4>-->
-        </div>
-
-        <div class="side-menu" id="sideMenu">
-        </div>
-    </nav>
+  <body>
+    <site-header
+      title="Galerie obrázků"
+      image="../kvido html-img/foto/Nav.panel/tri mece final final.png"
+    ></site-header>
     <h3>Zde budou všechny fotky pořízené na novějších akcích</h3>
     <div class="filtrovani">
-        <label hidden for="filtr-akci">Vyberte akci</label>
-        <select class="filtr-select" name="Filtr" id="filtr-akci">
-            <option disabled selected hidden value="Placeholder">Vyberte akci</option>
-            <option value="OS1">Ozvěny Stinu 1</option>
-            <option value="OS2">Ozvěny Stinu 2</option>
-
-        </select>
-        <button class="filter-button" id="filtrovat-fotky">Filtrovat <i class="fas fa-filter"></i></button>
+      <label hidden for="filtr-akci">Vyberte akci</label>
+      <select class="filtr-select" name="Filtr" id="filtr-akci">
+        <option disabled selected hidden value="Placeholder">
+          Vyberte akci
+        </option>
+        <option value="OS1">Ozvěny Stinu 1</option>
+        <option value="OS2">Ozvěny Stinu 2</option>
+      </select>
+      <button class="filter-button" id="filtrovat-fotky">
+        Filtrovat <i class="fas fa-filter"></i>
+      </button>
     </div>
     <div class="per-foto foto-galerie" id="foto-galerie"></div>
 
     <script src="https://burthgulash.github.io/Chynicky_LARP/obecny.js"></script>
-    <script src="https://burthgulash.github.io/Chynicky_LARP/generace-menu.js"></script>
-    <script type="module" src="../scripts/script-foto-galerie/foto-galerie.js"></script>
+    <script src="../components/site-header.js"></script>
+    <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/generace-menu.js"></script>
+    <script
+      type="module"
+      src="../scripts/script-foto-galerie/foto-galerie.js"
+    ></script>
     <script src="../scripts/light-modV2.js" type="module"></script>
-    <iframe id="theme-sync"
-    src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-    style="display:none;"></iframe>
-</body>
-
+    <iframe
+      id="theme-sync"
+      src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
+      style="display: none"
+    ></iframe>
+  </body>
 </html>

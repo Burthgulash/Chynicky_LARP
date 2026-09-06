@@ -2,41 +2,19 @@
 <html lang="cz">
 
 <head>
-    <script src="../../responzivni-pro-pocitacV2.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../../css/sdilene/info/info.css">
+    <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="shorcut icon" href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg">
     <title>Z Popelu kalicha</title>
 </head>
 
 <body>
-    <header class="header">
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="icons">
-                    <h1 class="nadpis">Z popelu kalicha - LARP</h1>
-                </div>
-            </div>
-            <h4 class="nadpis">
-                1.5.-3.5.2026
-            </h4>
-        </div>
-
-        <nav class="side-menu" id="sideMenu">
-        </nav>
-    </header>
+    <site-header title="Z popelu kalicha - LARP" subtitle="1.5.-3.5.2026"
+        image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <main class="center">
         <p class="bold-500" style="margin-left: 5px; margin-right: 5px; padding-top: 10px;">Píše se rok 1434. Bitva u
             Lipan se odehrála už
@@ -83,8 +61,8 @@
             </section>
             <section class="info2">
                 <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/cena3.png"
-                    data-name="cena3" alt="icon" width="100px">
+                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/cena.png"
+                    data-name="cena" alt="icon" width="100px">
                 <h2>Cena</h2>
                 <p>
                     <ul>
@@ -122,8 +100,8 @@
             </section>
             <section class="info2-1">
                 <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/pin2.png"
-                    data-name="pin2" alt="icon" width="100px">
+                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/pin.png"
+                    data-name="pin" alt="icon" width="100px">
                 <h2>Místo</h2>
                 <p>LARP se bude odehrávat na školní farmě poblíž vesnice Chýnice (Chýnice 29)</p>
                 <div class="toggle-minimap-container">
@@ -188,25 +166,18 @@
         </a>
 
         <script src="../../obecny.js"></script>
-        <script src="../../generace-menu.js"></script>
+        <script src="../../components/site-header.js"></script>
+        <script src="../../scripts/generace-menu.js"></script>
         <script src="../../scripts/responsivni-nav.js"></script>
         <script type="module" src="../../scripts/light-modV2.js"></script>
+        <script type="module" src="../../components/organizator-popovers.js"></script>
         <!-- Hidden iframe to store and sync theme -->
         <iframe id="theme-sync"
             src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
             style="display:none;"></iframe>
     </main>
 
-    <div class="popover" popover id="Kvido Redl">
-        <img class="foto" src="../../kvido html-img/foto/O nás-img/20250309_081702.jpg" alt="icon" width="150px">
-        <h2>Kvido, Ereth</h2>
-        <h3>Lukostřelec a obstojný šermíř. Střežte se jeho šípům, a hlavně si dávejte pozor na rychlá
-            přepadení
-            ze
-            zálohy. Navíc je tvůrce většiny herních mechanik.
-        </h3>
-        <a href="https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html">Více info na O nás</a>
-    </div>
+    <organizator-popover name="Kvido Redl"></organizator-popover>
 </body>
 
 </html>

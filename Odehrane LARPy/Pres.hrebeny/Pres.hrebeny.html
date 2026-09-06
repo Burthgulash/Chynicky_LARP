@@ -2,13 +2,12 @@
 <html lang="cz">
 
 <head>
-    <script src="../../responzivni-pro-pocitacV2.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../../css/sdilene/info/info.css">
+    <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="stylesheet" href="../../css/sdilene/obrazky.css">
     <link rel="shorcut icon" href="../../larphlavni/favicon.svg">
     <title>Přes hřebeny</title>
@@ -16,29 +15,9 @@
 
 <body>
 
-    <nav>
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu" data-src="../../kvido html-img/foto/Nav.panel/tri mece final final.png">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="icons">
-                    <h1 class="nadpis">Přes hřebeny</h1>
-                </div>
-            </div>
-            <h4 class="nadpis">
-                Víkendová akce skládající se z několika menších LARPů z období 2. světové války
-            </h4>
-        </div>
-
-        <div class="side-menu" id="sideMenu">
-        </div>
-    </nav>
+    <site-header title="Přes hřebeny"
+        subtitle="Víkendová akce skládající se z několika menších LARPů z období 2. světové války"
+        image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <!---->
     <!---->
     <!---->
@@ -72,7 +51,7 @@
                 <a href="../../O nas/O nás.html">Více informací zde.</a>
             </section>
             <section class="info2-1">
-                <img id="icon-img" data-name="pin2" src="../../kvido html-img/foto/Ikony-img/pin2.png"
+                <img id="icon-img" data-name="pin" src="../../kvido html-img/foto/Ikony-img/pin.png"
                     alt="icon" width="100px">
                 <h2>Místo</h2>
                 <h3>LARP se odehrával na pláních a v lesích v okolí Perninku, v Krušných horách. 
@@ -188,7 +167,8 @@
             Kiranshastry a Freepic. Děkuji moc!
         </h6>
 
-        <script src="../../generace-menu.js"></script>
+        <script src="../../components/site-header.js"></script>
+        <script src="../../scripts/generace-menu.js"></script>
         <script src="../../scripts/responsivni-nav.js"></script>
         <script src="../../obecny.js"></script>
 

@@ -1,79 +1,82 @@
 /* Navigační menu */
 nav {
-    position: fixed;
-    width: 100%;
-    background-image: var(--nav-img);
-    padding: 1rem;
-    z-index: 5;
-    margin-top: 0px;
-    top: 0;
-    left: 0;
-    text-align: left;
-    height: auto;
+  position: fixed;
+  width: 100%;
+  background-image: var(--nav-img);
+  padding: 1rem;
+  z-index: 5;
+  margin-top: 0px;
+  top: 0;
+  left: 0;
+  text-align: left;
+  height: auto;
 }
-
 
 /* Navigační menu */
 .header {
-    position: fixed;
-    width: 100%;
-    padding: 1rem;
-    /* height: 83px; */
-    z-index: 5;
-    margin-top: 0px;
-    top: 0;
-    left: 0;
-    background-image: var(--nav-img);
+  position: fixed;
+  width: 100%;
+  padding: 1rem;
+  /* height: 83px; */
+  z-index: 5;
+  margin-top: 0px;
+  top: 0;
+  left: 0;
+  background-image: var(--nav-img);
 }
 
 .header svg {
-    width: 1em;
-    height: 1em;
-    fill: white;
-    transition: transform 300ms ease-in-out;
-    transition: background-color 150ms ease-in-out;
+  width: 1em;
+  height: 1em;
+  fill: white;
+  transition: transform 300ms ease-in-out;
+  transition: background-color 150ms ease-in-out;
 }
 
 /*Pro divny flex menu*/
 .divny-flex-menu-container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 .divny-flex-menu-nadpis-a-mece {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 70px;
-    gap: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 70px;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .divny-flex-menu-nadpis-container {
-    flex: 1;
-    text-align: center;
+  flex: 1;
+  text-align: center;
+  margin: 0 !important;
+}
+
+.xd {
+  margin: 0;
 }
 
 .divny-flex-menu-mece-container {
-    text-align: center;
-    width: 90px;
+  text-align: center;
+  width: 90px;
 }
 
 .divny-flex-menu-podnadpis {
-    text-align: center;
-    margin-top: 7px;
-    flex: 23px;
+  text-align: center;
+  margin: 0;
 }
 
 .divny-flex-menu-mece-img {
-    width: 70px;
-    height: 70px;
-    object-fit: contain;
-    cursor: pointer;
-    text-align: left;
-    margin-bottom: 20px;
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  cursor: pointer;
+  text-align: left;
 }
 
 /* poloha */
@@ -109,44 +112,44 @@ nav {
 } */
 
 .side-menu {
-    position: fixed;
-    right: -100%;
-    width: min(400px, 70%);
-    height: 100%;
-    background-color: slategrey;
-    transition: right 0.3s;
-    flex-direction: column;
-    z-index: 5;
-    display: flex;
-    padding-top: 60px;
+  position: fixed;
+  right: -100%;
+  width: min(400px, 70%);
+  height: 100%;
+  background-color: slategrey;
+  transition: right 0.3s;
+  flex-direction: column;
+  z-index: 5;
+  display: flex;
+  padding-top: 60px;
 }
 
 .side-menu-open {
-    right: 0;
+  right: 0;
 }
 
 /*styly pro submenumenu*/
 
 .menu-item-s-submenu {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .ma-submenu {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .submenu {
-    display: none;
-    flex-direction: column;
-    padding-left: 20px;
-    margin-top: 0px;
-    transition: opacity 0.15s;
+  display: none;
+  flex-direction: column;
+  padding-left: 20px;
+  margin-top: 0px;
+  transition: opacity 0.15s;
 }
 
 .menu-item-s-submenu.submenu-open .submenu {
-    display: flex;
+  display: flex;
 }
 
 /* .menu-item-s-submenu:hover .submenu {
@@ -154,72 +157,72 @@ nav {
 } */
 
 .menu-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .menu-link a {
-    flex: 1;
+  flex: 1;
 }
 
 #menu-sipka {
-    --pad: 0.75em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 45%;
-    padding: var(--pad);
-    width: calc(1em + (var(--pad)*2));
-    height: calc(1em + (var(--pad)*2));
-    transform: rotate(90deg);
-    transition: transform 300ms ease-in-out;
+  --pad: 0.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 45%;
+  padding: var(--pad);
+  width: calc(1em + (var(--pad) * 2));
+  height: calc(1em + (var(--pad) * 2));
+  transform: rotate(90deg);
+  transition: transform 300ms ease-in-out;
 }
 
 #menu-sipka:hover {
-    background: inherit;
-    /* odsranit hover backgorundd manualne pro mobily */
+  background: inherit;
+  /* odsranit hover backgorundd manualne pro mobily */
 }
 
 .menu-item-s-submenu.submenu-open #menu-sipka {
-    transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 /* keep `.submenu-open` behavior handled via parent selector above */
 
 .menu-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* Styl pro odkazy v menu */
 .side-menu a {
-    color: white;
-    text-decoration: none;
-    padding: 15px;
-    display: block;
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+  display: block;
 }
 
 .side-menu a:hover {
-    background: darkgray;
+  background: darkgray;
 }
 
 /* Styl pro dark light tlacitko */
 .darkXlight {
-    background-color: transparent;
-    bottom: 20px;
-    right: 20px;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 15px;
-    display: block;
-    text-align: left;
+  background-color: transparent;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 15px;
+  display: block;
+  text-align: left;
 }
 
 /*pro novy the toogle s obrazkem*/
 .darkXlight img {
-    height: 50px;
+  height: 50px;
 }

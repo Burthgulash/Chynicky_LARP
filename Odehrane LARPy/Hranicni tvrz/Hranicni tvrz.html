@@ -2,61 +2,18 @@
 <html lang="cz">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../../css/sdilene/info/info.css">
+    <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="shorcut icon" href="../../larphlavni/favicon.svg">
     <title>Hraniční tvrz</title>
 </head>
 
 <body>
-    <nav>
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <h1 class="nadpis">Hraniční tvrz</h1>
-            </div>
-            <h4 class="nadpis">První LARP ze světa <a href="../Navrat-mocneho/Navrat-mocneho.html" class="modra"
-                    target="_self">Návrat Mocného</a></h4>
-        </div>
-
-        <div class="side-menu" id="sideMenu">
-            <div class="menu-item-s-submenu">
-                <a href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/index.html" class="ma-submenu"
-                    onclick="toggleMenu()">Kalendář akcí</a>
-                <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Navrat-mocneho/Navrat-mocneho.html"
-                        onclick="toggleMenu()">Návrat mocného</a>
-                </div>
-            </div>
-            <a href="https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html" onclick="toggleMenu()">O nás</a>
-            <a href="https://burthgulash.github.io/Chynicky_LARP/pribehy/pribehy.html"
-                onclick="toggleMenu()">Příběhy</a>
-
-            <div class="menu-item-s-submenu">
-                <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Odehrane%20LARPy.html">Odehrané
-                    LARPy</a>
-                <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu2/Ozvěny%20stínů%202.html"
-                        onclick="toggleMenu()">Ozvěny Stínů 2</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu/Ozvěny%20stínů.html"
-                        onclick="toggleMenu()">Ozvěny stínů</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz/Hranicni%20tvrz.html"
-                        onclick="toggleMenu()">Hraniční tvrz</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <site-header title="Hraniční tvrz" subtitle="První LARP ze světa &lt;a href='../Navrat-mocneho/Navrat-mocneho.html' class='modra' target='_self'&gt;Návrat Mocného&lt;/a&gt;"
+        image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <div class="center">
         <h3 class="italic">„“</h3>
         <h3>„Krajinou se rozléhalo dunění zvonů. Haakon, bádající v knihách, pohlédl k oknu. Naskytl se mu velmi nehezký
@@ -98,7 +55,8 @@
     </div>
     <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/responsivni-nav.js"></script>
     <script src="../../obecny.js"></script>
-    <script src="https://burthgulash.github.io/Chynicky_LARP/generace-menu.js"></script>
+    <script src="../../components/site-header.js"></script>
+    <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/generace-menu.js"></script>
     <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/light-modV2.js" type="module"></script>
     <iframe id="theme-sync"
     src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"

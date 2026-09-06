@@ -5,8 +5,8 @@ const smallText = document.querySelectorAll(".nadpis")[1].innerHTML
 
 
 
-window.addEventListener("side-menu", handleListener() )
-window.addEventListener("resize", handleListener() )
+window.addEventListener("side-menu", handleListener)
+window.addEventListener("resize", handleListener)
 
 function handleListener() {
     adjustNav()

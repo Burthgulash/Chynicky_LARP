@@ -137,8 +137,6 @@ a,
     width: 100%;
 }
 
-/*pro ty popovery ktere jsou zatim jen na kalendar akci*/
-
 :popover-open {
     display: flex;
     flex-direction: column;

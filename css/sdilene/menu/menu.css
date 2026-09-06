@@ -2,195 +2,218 @@
     ja vim ze na ted je to <header class="header">, ale je to dulezity pro weby kde to je po staru
 */
 nav {
-    position: fixed;
-    width: 100%;
-    padding: 1rem;
-    /* height: 83px; */
-    z-index: 5;
-    margin-top: 0px;
-    top: 0;
-    left: 0;
-    background-image: var(--nav-img);
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
 }
 
 nav svg {
-    width: 1em;
-    height: 1em;
-    fill: white;
-    transition: transform 300ms ease-in-out;
-    transition: background-color 150ms ease-in-out;
+  width: 1em;
+  height: 1em;
+  fill: white;
+  transition: transform 300ms ease-in-out;
+  transition: background-color 150ms ease-in-out;
 }
-
-/*  */
 
 /* Navigační menu */
-.header {
-    position: fixed;
-    width: 100%;
-    padding: 1rem;
-    /* height: 83px; */
-    z-index: 5;
-    margin-top: 0px;
-    top: 0;
-    left: 0;
-    background-image: var(--nav-img);
+header {
+  position: fixed;
+  width: 100%;
+  padding: 1rem;
+  /* height: 83px; */
+  z-index: 5;
+  margin-top: 0px;
+  top: 0;
+  left: 0;
+  background-image: var(--nav-img);
 }
 
-.header svg {
-    width: 1em;
-    height: 1em;
-    fill: white;
-    transition: transform 300ms ease-in-out;
-    transition: background-color 150ms ease-in-out;
+header svg {
+  width: 1em;
+  height: 1em;
+  fill: white;
+  transition: transform 300ms ease-in-out;
+  transition: background-color 150ms ease-in-out;
+}
+
+.header-container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  min-height: 70px;
+
+  .info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 0.5rem;
+  }
+
+  .nadpis-container {
+    flex: 1;
+    text-align: center;
+    margin: 0 !important;
+  }
+
+  .podnadpis-container {
+    text-align: center;
+    margin: 0 !important;
+  }
+
+  .menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menu-btn {
+    width: 5rem;
+    object-fit: contain;
+  }
 }
 
 /* poloha */
 .pravo {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 10;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
 }
 
 /* menu */
 .menu {
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.menu-btn {
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
+  width: 70px;
+  height: 70px;
+  cursor: pointer;
+  transition: transform 0.3s;
 }
 
 /*Nadpis*/
 .nadpis {
-    margin-top: 5px;
-    margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 0px;
 }
 
 /*Side menu*/
 .side-menu {
-    position: fixed;
-    right: -250px;
-    width: 250px;
-    height: 100%;
-    background-color: slategray;
-    transition: right 0.3s;
-    flex-direction: column;
-    z-index: 5;
-    display: flex;
-    padding-top: 60px;
-    color: black;
-    /* reset stylu pokud z nav selektoru */
-    left: initial;
-    background-image: none;
-    top: initial;
+  position: fixed;
+  right: -250px;
+  width: 250px;
+  height: 100%;
+  background-color: slategray;
+  transition: right 0.3s;
+  flex-direction: column;
+  z-index: 5;
+  display: flex;
+  padding-top: 60px;
+  color: black;
+  /* reset stylu pokud z nav selektoru */
+  left: initial;
+  background-image: none;
+  top: initial;
 }
 
 .side-menu-open {
-    right: 0;
+  right: 0;
 }
 
 .menu-link {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 #menu-sipka {
-    --pad: 0.75em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 45%;
-    padding: var(--pad);
-    width: calc(1em + (var(--pad)*2));
-    height: calc(1em + (var(--pad)*2));
-    transform: rotate(90deg);
-    transition: transform 300ms ease-in-out;
+  --pad: 0.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 45%;
+  padding: var(--pad);
+  width: calc(1em + (var(--pad) * 2));
+  height: calc(1em + (var(--pad) * 2));
+  transform: rotate(90deg);
+  transition: transform 300ms ease-in-out;
 }
 
 .menu-link a {
-    flex: 1;
+  flex: 1;
 }
 
 .menu-item-s-submenu.submenu-open #menu-sipka {
-    transform: rotate(0deg);
+  transform: rotate(0deg);
 }
 
 .center {
-    text-align: center;
+  text-align: center;
 }
 
 /*styly pro submenumenu*/
 .menu-item-s-submenu {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .ma-submenu {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .submenu {
-    display: none;
-    flex-direction: column;
-    padding-left: 20px;
-    margin-top: 0px;
-    transition: opacity 0.15s;
+  display: none;
+  flex-direction: column;
+  padding-left: 20px;
+  margin-top: 0px;
+  transition: opacity 0.15s;
 }
 
 #menu-sipka:hover {
-    transform: rotate(0deg);
-    transition: transform 0.3s ease-in-out;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
 }
 
 .menu-item-s-submenu.submenu-open .submenu,
 .submenu:hover {
-    display: flex;
+  display: flex;
 }
 
 .menu-item {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 /* Styl pro dark light tlacitko */
 .darkXlight {
-    background-color: transparent;
-    bottom: 20px;
-    right: 20px;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 15px;
-    display: block;
-    text-align: left;
+  background-color: transparent;
+  bottom: 20px;
+  right: 20px;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 15px;
+  display: block;
+  text-align: left;
 }
 
 .darkXlight img {
-    height: 50px;
+  height: 50px;
 }
 
 /* Styl pro odkazy v menu */
 .side-menu a,
 .side-menu button {
-    color: white !important;
-    text-decoration: none;
-    padding: 15px;
-    display: block;
-    border-radius: 0px;
+  color: white !important;
+  text-decoration: none;
+  padding: 15px;
+  display: block;
+  border-radius: 0px;
 }
 
 .side-menu a:hover,
 .darkXlight:hover,
 #menu-sipka:hover {
-    background: darkgray;
+  background: darkgray;
 }
