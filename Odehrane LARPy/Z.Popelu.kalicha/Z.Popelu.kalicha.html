@@ -13,29 +13,8 @@
 </head>
 
 <body>
-    <header class="header">
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="nadpis-container">
-                    <h1 class="nadpis">Z popelu kalicha - LARP</h1>
-                </div>
-            </div>
-            <h4 class="nadpis">
-                1.5.-3.5.2026
-            </h4>
-        </div>
-
-        <nav class="side-menu" id="sideMenu">
-        </nav>
-    </header>
+    <site-header title="Z popelu kalicha - LARP" subtitle="1.5.-3.5.2026"
+        image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <main class="center">
         <p class="bold-500" style="margin-left: 5px; margin-right: 5px; padding-top: 10px;">Píše se rok 1434. Bitva u
             Lipan se odehrála už
@@ -187,6 +166,7 @@
         </a>
 
         <script src="../../obecny.js"></script>
+        <script src="../../components/site-header.js"></script>
         <script src="../../scripts/generace-menu.js"></script>
         <script src="../../scripts/responsivni-nav.js"></script>
         <script type="module" src="../../scripts/light-modV2.js"></script>

@@ -11,29 +11,11 @@
     <link rel="shorcut icon" href="../larphlavni/favicon.svg" />
   </head>
   <body>
-    <nav>
-      <div class="pravo">
-        <div class="menu" onclick="toggleMenu()">
-          <img
-            class="menu-btn"
-            src="../kvido html-img/foto/Nav.panel/tri mece final final.png"
-            height="100"
-            alt="Menu"
-          />
-        </div>
-      </div>
-
-      <div class="center">
-        <div class="ozveny">
-          <h1 class="nadpis">Příběhy dávno zesnulých reků</h1>
-        </div>
-        <h4 class="nadpis">Tyto příběhy se opravdu staly, byť jen v LARPu.</h4>
-      </div>
-
-      <div class="side-menu" id="sideMenu">
-        <!--Generovano pomoci scripts/generace-menu.js-->
-      </div>
-    </nav>
+    <site-header
+      title="Příběhy dávno zesnulých reků"
+      subtitle="Tyto příběhy se opravdu staly, byť jen v LARPu."
+      image="../kvido html-img/foto/Nav.panel/tri mece final final.png"
+    ></site-header>
     <div class="center">
       <h3 class="italic">
         „Neznámá přistoupila až k okraji lesa a zahleděla se na vesnici,
@@ -68,6 +50,7 @@
       <h2>Příběh Ozvěny stínů se právě píše!</h2>
     </div>
     <script src="../scripts/responsivni-nav.js"></script>
+    <script src="../components/site-header.js"></script>
     <script src="../scripts/generace-menu.js"></script>
     <script src="../obecny.js"></script>
     <script src="../scripts/light-modV2.js" type="module"></script>

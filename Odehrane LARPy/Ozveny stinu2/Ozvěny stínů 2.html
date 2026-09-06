@@ -13,38 +13,11 @@
   </head>
 
   <body>
-    <nav>
-      <div class="pravo">
-        <div class="menu" onclick="toggleMenu()">
-          <img
-            class="menu-btn"
-            src="../../kvido html-img/foto/Nav.panel/tri mece final final.png"
-            height="100"
-            alt="Menu"
-          />
-        </div>
-      </div>
-
-      <div class="center">
-        <div class="ozveny">
-          <div class="nadpis-container">
-            <h1 class="nadpis">Ozvěny stínů 2 - Prach pod světem</h1>
-          </div>
-        </div>
-        <h4 class="nadpis">
-          Volně navazující pokračování LARPu
-          <a
-            href="https://burthgulash.github.io/Chynicky_LARP/Odehrane LARPy/Ozveny stinu/Ozvěny stínů 2.html"
-            target="_self"
-            >Ozvěny stínů</a
-          >
-        </h4>
-      </div>
-
-      <div class="side-menu" id="sideMenu">
-        <!--Generovano pomoci scripts/generace-menu.js-->
-      </div>
-    </nav>
+    <site-header
+      title="Ozvěny stínů 2 - Prach pod světem"
+      subtitle="Volně navazující pokračování LARPu &lt;a href='https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu/Ozvěny%20stínů.html' target='_self'&gt;Ozvěny stínů&lt;/a&gt;"
+      image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"
+    ></site-header>
     <div class="center">
       <h2>LARP se již odehrál</h2>
       <h3 class="italic">„Chlad a tma, to jediné co zůstalo...“</h3>
@@ -316,6 +289,7 @@
     ></iframe>
     <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/responsivni-nav.js"></script>
     <script type="module" src="../../scripts/foto-swithing.js"></script>
+    <script src="../../components/site-header.js"></script>
     <script type="module" src="../../scripts/generace-menu.js"></script>
     <!--nedavat obecny.js jako module protoze pak nebude fungovat onclick v sidemenu-->
     <script src="../../obecny.js"></script>
