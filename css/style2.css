@@ -213,7 +213,7 @@ h1{
     justify-content: center; 
     gap: 10px; 
     flex-wrap: wrap; 
-    max-width: 50%; 
+    max-width: 30%; 
     margin: 0 auto; 
 }
 
