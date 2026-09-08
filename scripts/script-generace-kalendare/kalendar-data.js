@@ -11,7 +11,7 @@ export const data = [
             "a další",
         ],
         obrazek: "https://burthgulash.github.io/kvido%20html-img/foto/Chalupa.jpg",
-        link: "#",
+        link: "https://burthgulash.github.io/Chynick_LARP/za-linii/za-linii.html",
         misto: "Pernink, kostelní 11 - apartmánová chalupa"
     },
     {
