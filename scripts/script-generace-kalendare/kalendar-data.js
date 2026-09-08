@@ -1,16 +1,16 @@
 export const data = [
 
     {
-        nazev: "Již brzy",
+        nazev: "Za linií",
         datum: [
-            "Již brzy",
+            "2.-4.11.2026",
         ],
         organizatori: [
             "Kvido Redl",
             "Hugo Redl",
             "a další",
         ],
-        obrazek: "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark2.2.png",
+        obrazek: "https://burthgulash.github.io/kvido%20html-img/foto/Chalupa.jpg",
         link: "#",
         misto: "Pernink, kostelní 11 - apartmánová chalupa"
     },
