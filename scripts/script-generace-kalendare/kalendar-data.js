@@ -10,7 +10,7 @@ export const data = [
             "Hugo Redl",
             "a další",
         ],
-        obrazek: "https://burthgulash.github.io/kvido%20html-img/foto/Chalupa.jpg",
+        obrazek: "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Chalupa.jpg",
         link: "https://burthgulash.github.io/Chynicky_LARP/za-linii/za-linii.html",
         misto: "Pernink, kostelní 11 - apartmánová chalupa"
     },
