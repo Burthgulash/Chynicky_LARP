@@ -34,6 +34,13 @@ p {
     color: var(--text-clr);
 }
 
+.akce-obrazek {
+    width: 100%;
+    justify-content: center;
+    margin: 5px 0 5px 0;
+    object-fit: contain;
+}
+
 .ozveny-stinu-tlacitko:hover,
 .akce-tlacitko:hover {
     background-color: rgb(86, 86, 86);
