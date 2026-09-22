@@ -33,23 +33,6 @@ function menuOutsideClick(event) {
 }
 /* */
 
-// pro nav bar
-function updatePadding() {
-    let nav = document.querySelector("header");
-    if (!nav) {
-    nav = document.querySelector("nav");
-    }
-    const body = document.querySelector("body"); // Adjust selector for your page content
-    body.style.paddingTop = `${nav.offsetHeight}px`;
-}
-
-// Run on page load & window resize
-window.addEventListener("responsivniNav", updatePadding) // je to k tomu aby responsivni nav mohl se nacist a az pak padding podle nej
-window.addEventListener("resize", updatePadding);
-
-/* */
-
-
 // pro easter egg
 
 let activeTime = 0; // Track time spent actively on the page

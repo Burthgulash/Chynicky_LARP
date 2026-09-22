@@ -61,7 +61,6 @@ Chynicky_LARP/
 │   └── foto-galerie.html
 ├── scripts/
 │   ├── generace-menu.js           # generuje navigaci
-│   ├── responsivni-nav.js         # responzivní menu a rozložení
 │   ├── light-modV2.js             # přepínání tématu
 │   ├── obecny.js                # má na starost zakladni veci jako otvirani menu aj.
 │   ├── script-generace-kalendare/
@@ -132,42 +131,21 @@ Důležitá část je také logika šipek a submenu:
 
 - šipky mají event listener pro hover nebo click
 - pro mobilní verzi se chování mění
-- menu se po načtení DOM připojí přes událost `side-menu`
+- obsluha šipek se připojí jednou, přímo po vygenerování menu
 
-Tato funkce je velmi důležitá, protože menu se vytváří až po vytvoření DOM a po zavolání eventu.
+Před tímto skriptem musí být načtený `components/site-header.js`, který vytvoří element `#sideMenu`.
 
-### 3) Responzivní navigace řeší překrývání textu a mobilní layout
+### 3) Sdílená hlavička a responzivní rozložení
 
-Soubor:
+Hlavičku vytváří web component `components/site-header.js`; rozložení řídí `css/sdilene/menu/menu.css`.
 
-- scripts/responsivni-nav.js
+- Menu má vždy 70 × 70 px a od textu ho dělí alespoň 12 px.
+- CSS Grid má prázdný levý sloupec, text a pravý sloupec s menu. Když je dost místa, jsou krajní sloupce stejně široké a text je uprostřed stránky.
+- Při zmenšování prostoru se nejprve zmenší prázdný levý sloupec, poté se text zalomí. Rozhoduje skutečná šířka nadpisu a podnadpisu, nikoli pevný mobilní breakpoint.
+- `ResizeObserver` v komponentě aktualizuje `--site-header-height`, podle kterého má tělo stránky horní odsazení. Reaguje i na změnu textu nebo fontu bez změny velikosti okna.
+- Změny atributů nadpisu a podnadpisu aktualizují jen text. Boční menu a jeho listenery se při změně rozložení nevytvářejí znovu.
 
-Tento systém zjistí, zda název nebo podnadpis přesahuje prostor vedle hamburger menu. Pokud ano, změní layout navigace do “kompaktního” režimu:
-
-- název se uloží do jiného HTML bloku
-- zobrazuje se menší verze menu
-- hamburger se posune do správné pozice
-- `sideMenu` se znovu vykreslí
-
-Proces je řízen přes eventy:
-
-- `window.addEventListener("side-menu", handleListener())`
-- `window.addEventListener("resize", handleListener())`
-- při změně velikosti okna se spouští `handleListener()`
-- ten pak vyvolá `window.dispatchEvent(new Event("responsivniNav"))`
-
-Díky tomu se menu po změně velikosti okna přepočítává a přizpůsobuje.
-
-#### Poznámka k implementaci
-
-Tento kód je “zajímavý” a není úplně čistý. Využívá:
-
-- přímé DOM manipulace
-- měření textu pomocí `Range` a `getBoundingClientRect()`
-- přemisťování HTML struktury v runtime
-- eventy navázané na změnu velikosti okna
-
-To je hlavní důvod, proč je tento systém v projektu poměrně komplikovaný a na údržbu citlivý.
+Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. `menu-mobil.css` zatím obsahuje pouze zachované styly bočního menu; tyto styly nejsou součástí úklidu hlavičky.
 
 ---
 
@@ -314,16 +292,7 @@ V `generace-menu.js` se vygeneruje HTML pro:
 - rozbalovací podmenu
 - tlačítko pro přepnutí režimu
 
-Po vygenerování se spustí `window.dispatchEvent(new Event("side-menu"))`.
-
-Tím se spustí další logika, která zobrazuje správné chování pro hover/click a pro responzivní variantu. V podstatě to znamená, že menu se skládá z více vrstev:
-
-1. HTML z JS
-2. eventy po načtení DOM
-3. responzivní přepnutí layoutu
-4. hover/click rozbalovací podmenu
-
-Toto je nejkomplikovanější část projektu, pokud se něco rozbije, většinou to souvisí právě s tímto mechanismem.
+Po vygenerování se jednou zavolá `runArrowCode()`, který připojí existující hover/click obsluhu šipek. Inicializace už nezávisí na událostech hlavičky a při změně velikosti okna se neopakuje.
 
 ---
 
@@ -362,7 +331,8 @@ misto: "Pernink, kostelní 11";
 - vytvoř nový HTML soubor
 - přidej stejnou navigaci a CSS importy jako u ostatních stránek
 - na konec přidej relevantní skripty:
-  - `scripts/responsivni-nav.js`
+  - `components/site-header.js` (před generováním menu)
+  - `obecny.js` (klasický skript, poskytuje `toggleMenu`)
   - `scripts/generace-menu.js`
   - `scripts/light-modV2.js`
 
@@ -419,7 +389,7 @@ Proto jsou některé cesty v JS a HTML psané přímo do GitHub Pages URL, ne je
 
 - stránky jsou silně závislé na konkrétních URL cestách
 - některé skripty jsou psané “na rychlo” a obsahují console.log, debug kódy a neoptimalizované konstrukce
-- menu a responzivní navigace jsou citlivé na DOM a eventy
+- generování bočního menu musí následovat po vytvoření hlavičky
 - generování HTML přes template stringy je náročné na údržbu
 - některé skripty spoléhají na změnu `innerHTML` v runtime, což může být nestabilní při velkém rozvoji projektu
 
@@ -428,7 +398,7 @@ Proto jsou některé cesty v JS a HTML psané přímo do GitHub Pages URL, ne je
 Nejproblematičtější části jsou:
 
 - `scripts/generace-menu.js`
-- `scripts/responsivni-nav.js`
+- `components/site-header.js`
 - `scripts/light-modV2.js`
 - `scripts/script-generace-kalendare/generace-kalendare.js`
 
@@ -443,7 +413,7 @@ Tento projekt je statický web s několika dynamickými vrstvami, které jsou pr
 Nejdůležitější logické systémy jsou:
 
 - generované menu pro všechny stránky
-- responzivní navigace a přepínání layoutu
+- responzivní CSS rozložení sdílené hlavičky
 - přepínání tématu přes hidden iframe a localStorage
 - generování kalendáře z datového souboru
 - filtrování fotografií dle akce

@@ -30,7 +30,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: 'Times New Roman', Times, serif;
-    padding-top: 100px;
+    padding-top: var(--site-header-height, 100px);
 }
 
 /*nastaveni pro light a dark mode*/

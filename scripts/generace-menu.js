@@ -35,7 +35,6 @@ document.querySelector("#sideMenu").innerHTML = `
 </div>
 <button class="darkXlight" id="button-theme-switch"></button>
 `
-window.dispatchEvent(new Event("side-menu"))
 
 function runArrowCode() {
     const arrows = document.querySelectorAll(".menu-sipka")
@@ -78,7 +77,8 @@ function runArrowCode() {
     });
 }
 
-window.addEventListener("responsivniNav", runArrowCode) // je to k tomu aby responsivni nav mohl se nacist a az pak se nacetly DOM elementy do JS
+// The header no longer rebuilds the menu on resize; initialize its handlers once.
+runArrowCode();
 const arrowSvg = `
 <svg xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 640 640"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
