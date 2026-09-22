@@ -62,8 +62,7 @@ Chynicky_LARP/
 ├── scripts/
 │   ├── generace-menu.js           # generuje navigaci
 │   ├── light-modV2.js             # přepínání tématu
-│   ├── site.js                  # jediný vstupní modul stránky
-│   ├── site-features.json        # registry funkcí, šablon a CSS
+│   ├── obecny.js                # má na starost zakladni veci jako otvirani menu aj.
 │   ├── script-generace-kalendare/
 │   │   ├── generate-kalendare.js
 │   │   ├── kalendar-data.js
@@ -77,10 +76,9 @@ Chynicky_LARP/
 │   ├── foto-galerie.css
 │   ├── o-nas.css
 │   └── sdilene/
-├── obecny.js                    # obecné chování stránky
+├── light-mod-cloud-web/
+│   └── light-mod-cloud-web.html  # iframe pro ukládání motivu
 ├── components/
-│   ├── templates/                # HTML lightboxu a organizátorů
-│   ├── site-header.js
 │   └── organizator-popovers.js
 ├── kvido html-img/
 │   └── foto/
@@ -112,14 +110,30 @@ Příklady:
 
 Většina stránek neobsahuje kompletní strukturu v JavaScriptu. CSS a HTML je zde hlavní. JavaScript se používá zejména pro dynamické generování obsahu a funkcionalitu.
 
-### 2) Jeden import a výběr funkcí
+### 2) Navigace je generovaná přes JS, ne ručně v každé stránce
 
-Každá běžná stránka načítá `scripts/site.js` a používá `<site-features>`.
-Menu a téma se zapínají automaticky. Volitelné atributy jsou `fotky`, `galerie`,
-`kalendar`, `navody` a `organizatori`. Loader načte potřebné moduly, HTML šablony
-a styly podle `scripts/site-features.json`, ve správném pořadí a jen jednou.
+Soubor:
 
-Návod pro úpravu stránek i přidávání dalších funkcí: [Funkce stránky](docs/site-features.md).
+- scripts/generace-menu.js
+
+Tento skript vypíše do elementu `#sideMenu` kompletní menu. Díky tomu se menu aktualizuje na všech stránkách jedním místem a neřeší se ho ručně v každém HTML.
+
+Co dělá:
+
+- vytvoří sekce "Kalendář akcí"
+- přidá podsekci "Z Popelu Kalicha"
+- vytvoří odkaz na "O nás"
+- vytvoří odkaz na "Příběhy"
+- vytvoří rozbalovací submenu "Odehrané LARPy"
+- přidá tlačítko pro přepnutí tématu
+
+Důležitá část je také logika šipek a submenu:
+
+- šipky mají event listener pro hover nebo click
+- pro mobilní verzi se chování mění
+- obsluha šipek se připojí jednou, přímo po vygenerování menu
+
+Před tímto skriptem musí být načtený `components/site-header.js`, který vytvoří element `#sideMenu`.
 
 ### 3) Sdílená hlavička a responzivní rozložení
 
@@ -131,7 +145,7 @@ Hlavičku vytváří web component `components/site-header.js`; rozložení ří
 - `ResizeObserver` v komponentě aktualizuje `--site-header-height`, podle kterého má tělo stránky horní odsazení. Reaguje i na změnu textu nebo fontu bez změny velikosti okna.
 - Změny atributů nadpisu a podnadpisu aktualizují jen text. Boční menu a jeho listenery se při změně rozložení nevytvářejí znovu.
 
-Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. Sdílené styly hlavičky a bočního menu jsou v `menu.css`.
+Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. `menu-mobil.css` zatím obsahuje pouze zachované styly bočního menu; tyto styly nejsou součástí úklidu hlavičky.
 
 ---
 
@@ -193,6 +207,7 @@ Tento skript má několik neoptimalit:
 
 - používá string interpolation pro velké HTML bloky
 - vytváří DOM elementy a přidává je do `document.body` dynamicky
+- používá `window.addEventListener("DOMContentLoaded", ...)` uvnitř loopu
 - přepisuje `innerHTML` kontejneru několikrát během iterace
 
 Funguje to, ale je to citlivé na údržbu a na časování při načítání stránky.
@@ -201,13 +216,43 @@ Funguje to, ale je to citlivé na údržbu a na časování při načítání st
 
 ### B) Systém témat (dark/light mode)
 
-`scripts/light-modV2.js` načítá funkce `tema` automaticky. Téma se ukládá přímo
-do `localStorage` pod klíčem `theme`. Všechny stránky na stejném originu sdílejí
-nastavení; událost `storage` aktualizuje i ostatní otevřené panely. Iframe byl
-odstraněn. Localhost a GitHub Pages mají oddělené nastavení.
+Hlavní soubory:
 
-Téma aktualizuje ikony i po dokončení volitelných funkcí, například kalendáře.
-Pokud prohlížeč úložiště zablokuje, přepínač stále funguje na aktuální stránce.
+- scripts/light-modV2.js
+- light-mod-cloud-web/light-mod-cloud-web.html
+
+Téma je synchronizováno přes hidden iframe.
+
+#### Proč je to tak složité
+
+Web používá skrytý iframe, který ukládá aktuální motiv do `localStorage` a předává hodnotu zpět hlavnímu oknu přes `postMessage`.
+
+Krok po kroku:
+
+1. stránka načte iframe
+2. iframe po `load` pošle zprávu "get-theme"
+3. iframe načte z `localStorage` hodnotu "theme"
+4. hodnota se vrátí zpět do rodičovského okna
+5. rodičovské okno volá `applyTheme(theme)`
+6. `body` dostane třídu `dark` nebo `light`
+7. obrázky a ikony se přepnout podle aktuálního režimu
+
+Jsou upravovány i obrázky v navigaci a ikony v článcích:
+
+- hamburger menu obrázek
+- ikony v sekcích
+- tlačítko pro změnu režimu
+
+Díky tomu se motiv udržuje konzistentně napříč stránkami.
+
+#### Jak to funguje v praxi
+
+Soubor `light-mod-cloud-web.html` obsahuje listener:
+
+- pokud přijde `set-theme`, uloží se do `localStorage`
+- pokud přijde `get-theme`, odešle se aktuální hodnota zpět
+
+To je klíčové, protože bez tohoto mechanismu by se motiv nemusel synchronizovat mezi stránkami a přechody mezi adresami by byly nečekané.
 
 ---
 
@@ -283,29 +328,38 @@ misto: "Pernink, kostelní 11";
 
 ### Přidat stránku
 
-Zkopíruj podobnou stránku. Ponech jeden import `scripts/site.js` a uprav atributy
-`<site-features>` podle potřeb. Například `<site-features fotky></site-features>`
-vloží prohlížeč fotek včetně HTML, CSS a obsluhy. Jednotlivé skripty, lightbox
-ani popovery organizátorů už do stránky nekopíruj.
+- vytvoř nový HTML soubor
+- přidej stejnou navigaci a CSS importy jako u ostatních stránek
+- na konec přidej relevantní skripty:
+  - `components/site-header.js` (před generováním menu)
+  - `obecny.js` (klasický skript, poskytuje `toggleMenu`)
+  - `scripts/generace-menu.js`
+  - `scripts/light-modV2.js`
 
-[Příklady, seznam funkcí a formát registru](docs/site-features.md).
+Věnuj pozornost tomu, že stránky používají absolutní GitHub Pages URL pro některé assety. Pokud měníš strukturu projektu, je dobré zkontrolovat cesty a odkazy, protože v projektu se používají jak relativní cesty, tak absolutní URL odkazy na GitHub Pages.
 
 ---
 
 ## Lokální vývoj a testování
 
-Projekt nepotřebuje build. Z kořene spusť HTTP server:
+Tento projekt neobsahuje build pipeline ani balíčkový manažer. Pro lokální práci stačí:
+
+1. otevřít soubor HTML v prohlížeči
+2. nebo spustit lokální server, například:
 
 ```bash
 python -m http.server 8000
 ```
 
-Otevři `http://localhost:8000/larphlavni/index.html`. Stránky neotvírej přes
-`file://`: moduly, JSON registr a HTML šablony potřebují HTTP server.
+Potom otevřít:
 
-Automatické kontroly funkcí lze spustit pomocí `node tests/site-features.cjs`
-v prostředí s nainstalovaným Playwright a Chromium/Chrome. Test si spouští vlastní
-lokální server; běžný web tyto vývojové závislosti nepotřebuje.
+```text
+http://localhost:8000/
+```
+
+### Důležité
+
+Protože některé skripty používají odkazy na GitHub Pages a externí assety, je vhodné testovat v podobném prostředí jako produkce. Pokud se mění cesty k obrázkům nebo adresy GitHub Pages, může se rozbít načítání obsahu.
 
 ---
 
@@ -360,7 +414,7 @@ Nejdůležitější logické systémy jsou:
 
 - generované menu pro všechny stránky
 - responzivní CSS rozložení sdílené hlavičky
-- přepínání tématu přes localStorage
+- přepínání tématu přes hidden iframe a localStorage
 - generování kalendáře z datového souboru
 - filtrování fotografií dle akce
 

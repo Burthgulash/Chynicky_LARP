@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
     <link rel="stylesheet" href="../../css/sdilene/info.css">
+    <link rel="stylesheet" href="../../css/sdilene/obrazky.css">
     <link rel="shorcut icon" href="../../larphlavni/favicon.svg">
     <title>Přes hřebeny</title>
-    <script type="module" src="../../scripts/site.js"></script>
 </head>
 
 <body>
-    <site-features fotky></site-features>
 
     <site-header title="Přes hřebeny"
         subtitle="Víkendová akce skládající se z několika menších LARPů z období 2. světové války"
@@ -54,7 +54,7 @@
                 <img id="icon-img" data-name="pin" src="../../kvido html-img/foto/Ikony-img/pin.png"
                     alt="icon" width="100px">
                 <h2>Místo</h2>
-                <h3>LARP se odehrával na pláních a v lesích v okolí Perninku, v Krušných horách.
+                <h3>LARP se odehrával na pláních a v lesích v okolí Perninku, v Krušných horách. 
                 </h3>
                 <div class="toggle-minimap-container">
                     <button id="toggle-minimap">Zobrazit mapu
@@ -167,6 +167,28 @@
             Kiranshastry a Freepic. Děkuji moc!
         </h6>
 
+        <script src="../../components/site-header.js"></script>
+        <script src="../../scripts/generace-menu.js"></script>
+        <script src="../../obecny.js"></script>
+
+        <iframe id="theme-sync"
+            src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
+            style="display:none;"></iframe>
+        <!-- Hidden iframe to store and sync theme -->
+        <script type="module" src="../../scripts/light-modV2.js"></script>
+
+        <!--ten div je na ty zvetseny fotky a nejsou tam protoze je tam JavaScript-->
+        <div id="zvetsene" class="zvetsene hidden">
+            <span id="closeBtn" class="close">&times;</span>
+            <img id="zvetsene-img" src="" alt="Large view">
+            <div class="arrow left" id="prev">&#10094;</div>
+            <div class="arrow right" id="next">&#10095;</div>
+        </div>
+        <script type="module" src="../../scripts/foto-swithing.js"></script>
+        <script src="../../scripts/light-modV2.js" type="module"></script>
+        <iframe id="theme-sync"
+            src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
+            style="display:none;"></iframe>
 </body>
 
 </html>

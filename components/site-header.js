@@ -31,7 +31,7 @@ class SiteHeader extends HTMLElement {
         </div>
         <div class="menu-container">
             <img class="menu-btn menu"
-                alt="Klikni na hamburger menu pro zobrazení nabídky">
+                alt="Klikni na hamburger menu pro zobrazení nabídky" onclick="toggleMenu()">
         </div>
     </div>
     <div class="side-menu" id="sideMenu" inert></div>
@@ -52,8 +52,7 @@ class SiteHeader extends HTMLElement {
       element.hidden = !subtitle;
     }
     if (!name || name === "image") {
-      this.querySelector(".menu-btn").src = this.getAttribute("image") ||
-        new URL("../kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final.png", import.meta.url).href;
+      this.querySelector(".menu-btn").src = this.getAttribute("image") || "";
     }
   }
 

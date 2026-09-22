@@ -1,82 +1,177 @@
-import { fotoGalerieData } from "./script-foto-galerie/foto-galerie-data.js";
+import { getImageFormat } from "./utilities/imgformat.js";
+import { fotoGalerieData } from "./script-foto-galerie/foto-galerie-data.js"
+// 1. Get all the small gallery images
+const images = document.querySelectorAll(".per-foto-obrazek");
 
-export function init() {
-  const lightbox = document.getElementById("zvetsene");
-  const image = document.getElementById("zvetsene-img");
-  const close = document.getElementById("closeBtn");
-  const previous = document.getElementById("prev");
-  const next = document.getElementById("next");
-  let images = [];
-  let currentIndex = 0;
-  let opener;
-  let oldOverflow;
-  let touchStartX = 0;
+// 2. Get the lightbox elements
+const lightbox = document.getElementById("zvetsene");
+const lightboxImg = document.getElementById("zvetsene-img");
+const closeBtn = document.getElementById("closeBtn");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
 
-  function fullSize(thumbnail) {
-    if (thumbnail.dataset.full) return thumbnail.dataset.full;
-    const filename = thumbnail.src.split("/").pop().replace(/\.[^.]+$/, "");
-    const match = fotoGalerieData.find(photo =>
-      photo.src.split("/").pop().replace(/\.[^.]+$/, "") === filename);
-    return match?.src || thumbnail.src;
-  }
+// 3. Track which image is currently being shown
+let currentIndex = 1;
 
-  function show(index, direction) {
-    if (!images.length) return;
-    currentIndex = (index + images.length) % images.length;
-    image.classList.remove("slide-left", "slide-right");
-    image.src = fullSize(images[currentIndex]);
-    image.alt = images[currentIndex].alt || "Zvětšená fotografie";
-    if (direction) image.classList.add(`slide-${direction}`);
-    for (const offset of [-1, 1]) {
-      const preload = new Image();
-      preload.src = fullSize(images[(currentIndex + offset + images.length) % images.length]);
+// 4. This function shows the image in the lightbox
+function showImage(index, direction = null) {
+    if (!images || images.length === 0) return; // Prevent errors if images are not loaded
+    const lightboxImgSrc = findJpgImage(index)
+    // Remove any old animation class
+    lightboxImg.classList.remove("slide-left", "slide-right");
+
+    // replace the webp img with a jpg or jpeg version based on the funtion + make sure its not null
+
+
+
+    // Set the image source
+    lightboxImg.src = lightboxImgSrc
+
+    // If a direction was provided, add animation class
+    if (direction === "left") {
+        lightboxImg.classList.add("slide-left");
+    } else if (direction === "right") {
+        lightboxImg.classList.add("slide-right");
     }
-  }
 
-  function hide() {
-    if (lightbox.classList.contains("hidden")) return;
-    lightbox.classList.add("hidden");
-    document.body.style.overflow = oldOverflow;
-    opener?.focus();
-  }
+    // Update the current index
+    currentIndex = index;
 
-  // Delegation also covers images created by the gallery filter after startup.
-  document.addEventListener("click", event => {
-    const thumbnail = event.target.closest(".per-foto-obrazek");
-    if (!thumbnail) return;
-    images = [...document.querySelectorAll(".per-foto-obrazek")];
-    opener = document.activeElement;
-    oldOverflow = document.body.style.overflow;
-    show(images.indexOf(thumbnail));
+    // Show the lightbox
     lightbox.classList.remove("hidden");
-    document.body.style.overflow = "hidden";
-    close.focus();
-  });
-  close.addEventListener("click", hide);
-  previous.addEventListener("click", () => show(currentIndex - 1, "right"));
-  next.addEventListener("click", () => show(currentIndex + 1, "left"));
-  lightbox.addEventListener("click", event => {
-    if (event.target === lightbox) hide();
-  });
-  window.addEventListener("keydown", event => {
-    if (lightbox.classList.contains("hidden")) return;
-    if (["Escape", "ArrowLeft", "ArrowRight", "Tab"].includes(event.key)) event.preventDefault();
-    if (event.key === "Escape") hide();
-    if (event.key === "ArrowLeft") show(currentIndex - 1, "right");
-    if (event.key === "ArrowRight") show(currentIndex + 1, "left");
-    if (event.key === "Tab") {
-      const controls = [close, previous, next];
-      const index = controls.indexOf(document.activeElement);
-      controls[(index + (event.shiftKey ? -1 : 1) + controls.length) % controls.length].focus();
+
+    // stop the user from scrolling the background
+    document.body.style.setProperty("overflow", "hidden");
+
+    preloadImages(index); // Preload images around the current one
+}
+
+// 5. When someone clicks a thumbnail, show that image in the lightbox
+images.forEach((img, index) => {
+    img.addEventListener("click", () => {
+        showImage(index); // open the lightbox with the correct image
+    });
+});
+
+// 6. Close the lightbox when the ❌ button is clicked
+closeBtn.addEventListener("click", () => {
+    hideLightbox(); // add "hidden" class to hide it
+});
+
+// 7. Also close the lightbox if user clicks the background (but NOT the image)
+lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) {
+        hideLightbox();
     }
-  });
-  lightbox.addEventListener("touchstart", event => {
-    touchStartX = event.changedTouches[0].screenX;
-  }, { passive: true });
-  lightbox.addEventListener("touchend", event => {
-    const distance = event.changedTouches[0].screenX - touchStartX;
+});
+
+// 8. Show the previous image when ← arrow is clicked
+prevBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    showImage(currentIndex, "right");
+});
+
+// 9. Show the next image when → arrow is clicked
+nextBtn.addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    showImage(currentIndex, "left");
+});
+
+// These will store the X position where the user touched
+let touchStartX = 0;
+let touchEndX = 0;
+
+// Listen for when the user first touches the screen
+lightbox.addEventListener("touchstart", (e) => {
+    touchStartX = e.changedTouches[0].screenX; // Where finger touched
+});
+
+// Listen for when the user lifts their finger
+lightbox.addEventListener("touchend", (e) => {
+    touchEndX = e.changedTouches[0].screenX; // Where finger left
+
+    // Check how far the user swiped (positive = right, negative = left)
+    let distance = touchEndX - touchStartX;
+
+    // Only respond to significant swipes (e.g., more than 50 pixels)
     if (Math.abs(distance) > 50) {
-      show(currentIndex + (distance < 0 ? 1 : -1), distance < 0 ? "left" : "right");
+        if (distance < 0) {
+            // Swiped left → next image
+            currentIndex = (currentIndex + 1) % images.length;
+            showImage(currentIndex, "left");
+        } else {
+            // Swiped right → previous image
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            showImage(currentIndex, "right");
+        }
     }
-  }, { passive: true });
+});
+
+// Add a listener for the "Escape" key to close the lightbox
+window.addEventListener("keydown", (event) => {
+    escapeLightbox(event)
+})
+
+function escapeLightbox(event) {
+    if (event.key === "Escape") {
+        hideLightbox();
+    }
+}
+// Add a listener for the Arrows key to switch the lightbox
+window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        showImage(currentIndex, "right");
+    } else if (event.key === "ArrowRight") {
+        currentIndex = (currentIndex + 1) % images.length;
+        showImage(currentIndex, "left");
+    }
+});
+
+function preloadImages(index) {
+    // Preload images based on the fotoGalerieData
+
+    // Preload the next 3 images
+    for (let i = index; i <= index + 3 && i < images.length; i++) {
+        const img = new Image();
+        const JpgImageSrc = findJpgImage(i);
+        if (JpgImageSrc) img.src = JpgImageSrc;
+    }
+
+    // Preload the previous 3 images
+    for (let i = index - 1; i >= index - 3 && i >= 0; i--) {
+        const img = new Image();
+        const JpgImageSrc = findJpgImage(i);
+        if (JpgImageSrc) img.src = JpgImageSrc;
+    }
+}
+
+function findJpgImage(index) {
+    if (!images[index]) return null; // Prevent out-of-bounds access
+
+    let foundJpgImage = "";
+
+    // Get filename without extension
+    const imgWebpSrc = images[index].src;
+    const imgWebpFilename = imgWebpSrc.split('/').pop().replace('.webp', '');
+
+    // Try to find best match from fotoGalerieData
+    const match = fotoGalerieData.find(obj => {
+        const fullName = obj.src.split('/').pop();
+        return fullName.includes(imgWebpFilename); // simple filename match
+    });
+
+    if (match) {
+        foundJpgImage = match.src;
+    } else {
+        console.warn("No match found for:", imgWebpFilename, "or something else went wrong. showing the webp version");
+        foundJpgImage = imgWebpSrc; // fallback to .webp
+    }
+    return foundJpgImage;
+}
+
+function hideLightbox() {
+    lightbox.classList.add("hidden")
+    // Allow scrolling again
+    document.body.style.removeProperty("overflow");
 }
