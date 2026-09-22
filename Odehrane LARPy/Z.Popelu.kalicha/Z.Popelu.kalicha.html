@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css">
     <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="shorcut icon" href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg">
     <title>Z Popelu kalicha</title>
+    <script type="module" src="../../scripts/site.js"></script>
 </head>
 
 <body>
+    <site-features organizatori></site-features>
     <site-header title="Z popelu kalicha - LARP" subtitle="1.5.-3.5.2026"
         image="../../kvido html-img/foto/Nav.panel/tri mece final final.png"></site-header>
     <main class="center">
@@ -71,8 +72,7 @@
                     <li>Půjčovné za jednoruční zbraň - <b>20kč</b> <br>
                     (Zbraň si půjčovat nemusíte, pokud máte vlastní, musí ale projít kontrolou.)</li>
                     <li>Cesta na farmu z Prahy - Pod 18let a s pražským průkazem do mhd za <b>12kč</b>, jinak za <b>24kč.</b><br>
-                    (Jízdenky si kupuje každý sám za sebe, vřele doporučujeme užití mobilní aplikace PID lítačka.)</li> 
-
+                    (Jízdenky si kupuje každý sám za sebe, vřele doporučujeme užití mobilní aplikace PID lítačka.)</li>
 
                 <a target="_blank" href="https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha-Rozpočet.pdf">Plán rozpočtu zde</a></p>
                     </ul>
@@ -165,18 +165,8 @@
             <p>lalok</p>
         </a>
 
-        <script src="../../obecny.js"></script>
-        <script src="../../components/site-header.js"></script>
-        <script src="../../scripts/generace-menu.js"></script>
-        <script type="module" src="../../scripts/light-modV2.js"></script>
-        <script type="module" src="../../components/organizator-popovers.js"></script>
-        <!-- Hidden iframe to store and sync theme -->
-        <iframe id="theme-sync"
-            src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-            style="display:none;"></iframe>
     </main>
 
-    <organizator-popover name="Kvido Redl"></organizator-popover>
 </body>
 
 </html>

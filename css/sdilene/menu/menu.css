@@ -172,6 +172,10 @@ header svg {
   height: 50px;
 }
 
+.darkXlight[hidden] {
+  display: none;
+}
+
 /* Styl pro odkazy v menu */
 .side-menu a,
 .side-menu button {

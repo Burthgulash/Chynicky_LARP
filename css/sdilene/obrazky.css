@@ -114,3 +114,13 @@
   animation: slideInFromLeft 0.5s ease;
   /* Extended duration */
 }
+
+.zvetsene button {
+  background: transparent;
+  border: none;
+  font-family: inherit;
+}
+
+.zvetsene button:focus-visible {
+  outline: 2px solid white;
+}

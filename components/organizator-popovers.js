@@ -59,6 +59,8 @@ class OrganizatorPopover extends HTMLElement {
   }
 }
 
-if (!customElements.get("organizator-popover")) {
-  customElements.define("organizator-popover", OrganizatorPopover);
+export function init() {
+  if (!customElements.get("organizator-popover")) {
+    customElements.define("organizator-popover", OrganizatorPopover);
+  }
 }

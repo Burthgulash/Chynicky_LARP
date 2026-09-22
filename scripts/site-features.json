@@ -1,0 +1,39 @@
+{
+  "zaklad": {
+    "default": true,
+    "module": "../obecny.js"
+  },
+  "menu": {
+    "default": true,
+    "module": "./generace-menu.js"
+  },
+  "tema": {
+    "default": true,
+    "dependsOn": ["menu"],
+    "module": "./light-modV2.js"
+  },
+  "organizatori": {
+    "module": "../components/organizator-popovers.js",
+    "template": "../components/templates/organizatori.html"
+  },
+  "fotky": {
+    "module": "./foto-swithing.js",
+    "template": "../components/templates/lightbox.html",
+    "styles": ["../css/sdilene/obrazky.css"]
+  },
+  "galerie": {
+    "dependsOn": ["fotky"],
+    "module": "./script-foto-galerie/foto-galerie.js",
+    "styles": ["../css/foto-galerie.css"]
+  },
+  "kalendar": {
+    "dependsOn": ["organizatori"],
+    "module": "./script-generace-kalendare/generace-kalendare.js",
+    "styles": ["../css/kalendar-akci.css"]
+  },
+  "navody": {
+    "dependsOn": ["organizatori"],
+    "module": "../navody/navody-js/generace-navody-hlavni.js",
+    "styles": ["../css/kalendar-akci.css"]
+  }
+}

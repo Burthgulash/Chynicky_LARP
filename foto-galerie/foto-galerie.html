@@ -6,8 +6,6 @@
     <meta name="description" content="Galerie obrázků ze všech akcí" />
     <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css" />
     <link rel="stylesheet" href="../css/sdilene/menu/menu.css" />
-    <link rel="stylesheet" href="../css/foto-galerie.css" />
-    <link rel="stylesheet" href="../css/sdilene/obrazky.css" />
     <link rel="stylesheet" href="../css/sdilene/info.css" />
     <link
       rel="shorcut icon"
@@ -19,9 +17,11 @@
     />
 
     <title>Galerie obrázků</title>
+    <script type="module" src="../scripts/site.js"></script>
   </head>
 
   <body>
+    <site-features galerie></site-features>
     <site-header
       title="Galerie obrázků"
       image="../kvido html-img/foto/Nav.panel/tri mece final final.png"
@@ -42,18 +42,5 @@
     </div>
     <div class="per-foto foto-galerie" id="foto-galerie"></div>
 
-    <script src="../obecny.js"></script>
-    <script src="../components/site-header.js"></script>
-    <script src="../scripts/generace-menu.js"></script>
-    <script
-      type="module"
-      src="../scripts/script-foto-galerie/foto-galerie.js"
-    ></script>
-    <script src="../scripts/light-modV2.js" type="module"></script>
-    <iframe
-      id="theme-sync"
-      src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-      style="display: none"
-    ></iframe>
   </body>
 </html>

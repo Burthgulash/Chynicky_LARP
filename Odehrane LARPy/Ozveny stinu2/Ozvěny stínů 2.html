@@ -3,16 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../css/sdilene/menu/menu-mobil.css" />
     <link rel="stylesheet" href="../../css/sdilene/obecne-sdilene.css" />
     <link rel="stylesheet" href="../../css/sdilene/menu/menu.css" />
     <link rel="stylesheet" href="../../css/sdilene/info.css" />
-    <link rel="stylesheet" href="../../css/sdilene/obrazky.css" />
     <link rel="shorcut icon" href="../../larphlavni/favicon.svg" />
     <title>Ozvěny stínů 2</title>
+    <script type="module" src="../../scripts/site.js"></script>
   </head>
 
   <body>
+    <site-features fotky></site-features>
     <site-header
       title="Ozvěny stínů 2 - Prach pod světem"
       subtitle="Volně navazující pokračování LARPu &lt;a href='https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozveny%20stinu/Ozvěny%20stínů.html' target='_self'&gt;Ozvěny stínů&lt;/a&gt;"
@@ -274,24 +274,6 @@
         <h6>lalok</h6>
       </a>
       <!--ten div je na ty zvetseny fotky a nejsou tam proto6e je tam da JavaScript-->
-      <div id="zvetsene" class="zvetsene hidden">
-        <span id="closeBtn" class="close">&times;</span>
-        <img id="zvetsene-img" src="" alt="Large view" />
-        <div class="arrow left" id="prev">&#10094;</div>
-        <div class="arrow right" id="next">&#10095;</div>
-      </div>
     </div>
-    <!-- Hidden iframe to store and sync theme -->
-    <iframe
-      id="theme-sync"
-      src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-      style="display: none"
-    ></iframe>
-    <script type="module" src="../../scripts/foto-swithing.js"></script>
-    <script src="../../components/site-header.js"></script>
-    <script type="module" src="../../scripts/generace-menu.js"></script>
-    <!--nedavat obecny.js jako module protoze pak nebude fungovat onclick v sidemenu-->
-    <script src="../../obecny.js"></script>
-    <script type="module" src="../../scripts/light-modV2.js"></script>
-  </body>
+</body>
 </html>
