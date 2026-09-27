@@ -43,8 +43,7 @@ Chynicky_LARP/
 ├── larphlavni/
 │   └── index.html                  # hlavní stránka s kalendářem akcí
 ├── navody/
-│   ├── navody-hlavni.html
-│   └── navody-js/
+│   └── navody-hlavni.html
 ├── O nas/
 │   └── O nás.html
 ├── Odehrane LARPy/
@@ -62,11 +61,12 @@ Chynicky_LARP/
 ├── scripts/
 │   ├── generace-menu.js           # generuje navigaci
 │   ├── light-modV2.js             # přepínání tématu
-│   ├── obecny.js                # má na starost zakladni veci jako otvirani menu aj.
-│   ├── script-generace-kalendare/
-│   │   ├── generate-kalendare.js
+│   ├── obecny.js                  # otevírání menu a další společné funkce
+│   ├── navody/                    # data a vykreslení návodů
+│   ├── kalendar/
+│   │   ├── generace-kalendare.js
 │   │   ├── kalendar-data.js
-│   ├── script-foto-galerie/
+│   ├── galerie/
 │   │   ├── foto-galerie.js
 │   │   └── foto-galerie-data.js
 │   └── utilities/
@@ -145,7 +145,7 @@ Hlavičku vytváří web component `components/site-header.js`; rozložení ří
 - `ResizeObserver` v komponentě aktualizuje `--site-header-height`, podle kterého má tělo stránky horní odsazení. Reaguje i na změnu textu nebo fontu bez změny velikosti okna.
 - Změny atributů nadpisu a podnadpisu aktualizují jen text. Boční menu a jeho listenery se při změně rozložení nevytvářejí znovu.
 
-Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. `menu-mobil.css` zatím obsahuje pouze zachované styly bočního menu; tyto styly nejsou součástí úklidu hlavičky.
+Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. Styly hlavičky i mobilního menu jsou v `css/sdilene/menu/menu.css`.
 
 ---
 
@@ -156,8 +156,8 @@ Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstran�
 Hlavní soubory:
 
 - larphlavni/index.html
-- scripts/script-generace-kalendare/generace-kalendare.js
-- scripts/script-generace-kalendare/kalendar-data.js
+- scripts/kalendar/generace-kalendare.js
+- scripts/kalendar/kalendar-data.js
 
 Kalendář se nevytváří ručně v HTML, ale generuje z datového pole v `kalendar-data.js`.
 
@@ -193,7 +193,7 @@ To je důležité, protože v datech je rozdíl mezi:
 
 Skript `generace-kalendare.js` projde všechny položky v `data`, vytvoří pro každou akci:
 
-- název akce jako tlačítko
+- název akce jako odkaz
 - pole datumů
 - místo
 - seznam organizátorů
@@ -201,16 +201,7 @@ Skript `generace-kalendare.js` projde všechny položky v `data`, vytvoří pro 
 
 Pro organizátory se vytváří rozbalovací nebo interaktivní popover. Pokud je jméno některého organizátora výjimečné, skript zvlášť rozpozná text "Již brzy" a nastaví speciální ikonku.
 
-#### Důležitá poznámka
-
-Tento skript má několik neoptimalit:
-
-- používá string interpolation pro velké HTML bloky
-- vytváří DOM elementy a přidává je do `document.body` dynamicky
-- používá `window.addEventListener("DOMContentLoaded", ...)` uvnitř loopu
-- přepisuje `innerHTML` kontejneru několikrát během iterace
-
-Funguje to, ale je to citlivé na údržbu a na časování při načítání stránky.
+Karty se sestaví z dat a do stránky se vloží jednou. Popover s mapou je součástí příslušné karty.
 
 ---
 
@@ -263,8 +254,8 @@ To je klíčové, protože bez tohoto mechanismu by se motiv nemusel synchronizo
 Hlavní soubory:
 
 - foto-galerie/foto-galerie.html
-- scripts/script-foto-galerie/foto-galerie-data.js
-- scripts/script-foto-galerie/foto-galerie.js
+- scripts/galerie/foto-galerie-data.js
+- scripts/galerie/foto-galerie.js
 
 Galerie funguje tak, že:
 
@@ -302,7 +293,7 @@ Po vygenerování se jednou zavolá `runArrowCode()`, který připojí existují
 
 Edituj soubor:
 
-- scripts/script-generace-kalendare/kalendar-data.js
+- scripts/kalendar/kalendar-data.js
 
 Přidej novou položku do pole `data` ve formátu:
 
@@ -332,7 +323,7 @@ misto: "Pernink, kostelní 11";
 - přidej stejnou navigaci a CSS importy jako u ostatních stránek
 - na konec přidej relevantní skripty:
   - `components/site-header.js` (před generováním menu)
-  - `obecny.js` (klasický skript, poskytuje `toggleMenu`)
+  - `scripts/obecny.js` (klasický skript, poskytuje `toggleMenu`)
   - `scripts/generace-menu.js`
   - `scripts/light-modV2.js`
 
@@ -400,7 +391,7 @@ Nejproblematičtější části jsou:
 - `scripts/generace-menu.js`
 - `components/site-header.js`
 - `scripts/light-modV2.js`
-- `scripts/script-generace-kalendare/generace-kalendare.js`
+- `scripts/kalendar/generace-kalendare.js`
 
 Tyto soubory jsou “dvojí” – funkční, ale zároveň místem, kde je nejvíce pravděpodobné, že po úpravách nastanou problémy s načítáním nebo rozložením.
 

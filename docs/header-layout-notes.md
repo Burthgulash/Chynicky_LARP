@@ -38,7 +38,7 @@ This supersedes the earlier recommendation of a fixed 48rem breakpoint and diffe
 
 ## Side menu scope
 
-The drawer CSS in both menu stylesheets is unchanged from `.side-menu` onwards. Existing toggle/outside-click functions and hover/click arrow handlers are unchanged. Only arrow initialization was decoupled from the old header event. `menu-mobil.css` remains because it contains drawer styling; do not remove it as dead header code.
+The drawer styles now live in `css/sdilene/menu/menu.css`. The referenced `menu-mobil.css` was absent and its links were removed in the later cleanup. Existing toggle/outside-click functions and hover/click arrow handlers are unchanged.
 
 Existing drawer accessibility and positioning issues remain separate work: the trigger is still a clickable image, and outside-click closing still does not restore `inert`. The calendar's existing horizontal content overflow can also put the fixed drawer beyond the phone screen; the new header itself is width-constrained, but no calendar or drawer layout fix was included.
 

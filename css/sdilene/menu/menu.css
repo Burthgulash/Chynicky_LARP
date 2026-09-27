@@ -115,10 +115,6 @@ header svg {
   transform: rotate(0deg);
 }
 
-.center {
-  text-align: center;
-}
-
 /*styly pro submenumenu*/
 .menu-item-s-submenu {
   position: relative;
