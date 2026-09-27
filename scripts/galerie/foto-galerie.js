@@ -1,5 +1,4 @@
-import { fotoGalerieData } from "https://burthgulash.github.io/Chynicky_LARP/scripts/script-foto-galerie/foto-galerie-data.js";
-console.log(fotoGalerieData)
+import { fotoGalerieData } from "./foto-galerie-data.js";
 // kod pro one time placeholder v selectu pro ios a safari
 const select = document.getElementById("filtr-akci");
 let hasBeenOpened = false;

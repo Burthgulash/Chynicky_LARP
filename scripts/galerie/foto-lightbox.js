@@ -1,5 +1,4 @@
-import { getImageFormat } from "./utilities/imgformat.js";
-import { fotoGalerieData } from "./script-foto-galerie/foto-galerie-data.js"
+import { fotoGalerieData } from "./foto-galerie-data.js"
 // 1. Get all the small gallery images
 const images = document.querySelectorAll(".per-foto-obrazek");
 
