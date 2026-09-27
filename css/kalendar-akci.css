@@ -22,7 +22,9 @@ p {
 }
 
 /*pro tlacitko na jinou akci*/
-.akce-tlacitko {
+.kalendar-akci2 .akce-tlacitko {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     border: 2px solid rgb(86, 86, 86);
     border-radius: 2px;
@@ -35,7 +37,7 @@ p {
 }
 
 .akce-tlacitko:hover {
-    background: rgb(86, 86, 86) !important;
+    background: rgb(86, 86, 86);
     color: white;
     border-color: rgb(86, 86, 86);
 }
@@ -45,7 +47,7 @@ p {
     display: flex;
     /* width: 100%; */
     flex-direction: row;
-    background-color: var(--bg-accent-clr) !important;
+    background-color: var(--bg-accent-clr);
     border-radius: 15px;
     padding: 1rem;
     gap: 1em
@@ -118,6 +120,6 @@ p {
 
 @media only screen and (max-width: 800px) {
     .kalendar-akci2 {
-        grid-template-columns: 1fr !important;
+        grid-template-columns: 1fr;
     }
 }
