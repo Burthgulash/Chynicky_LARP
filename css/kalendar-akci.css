@@ -63,6 +63,7 @@ p {
 .organizatori-text {
     display: inline-block;
     flex: 1;
+    margin-bottom: 4px;
 }
 
 .datum-left {
@@ -120,14 +121,9 @@ p {
 }
 
 .akce-img {
+    width: 100%;
     flex: 1;
     display: flex;
-}
-
-
-.popis-ozveny-stinu {
-    text-align: center;
-    font-family: "Roboto", Arial;
 }
 
 @media only screen and (max-width: 800px) {
