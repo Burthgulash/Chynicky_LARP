@@ -4,7 +4,7 @@ Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, p
 
 **Web tvoří obyčejné HTML, CSS a JavaScript.** Nemá framework, databázi, backend, `package.json` ani build. Obsah upravíš v souborech a prohlížeč je rovnou načte. Node.js je potřeba jen pro testy.
 
-Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/larphlavni/index.html). Vstupní stránka v repozitáři je `larphlavni/index.html`; v kořeni žádný `index.html` není.
+Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html). Vstupní stránka v repozitáři je `kalendar-akci/index.html`; v kořeni žádný `index.html` není.
 
 ## První spuštění
 
@@ -16,7 +16,7 @@ Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.gi
    ```
 
    Na Windows lze použít `py -3 -m http.server 8000 --bind 127.0.0.1`. Stejně poslouží Live Server v editoru. Projekt nic neinstaluje přes npm.
-3. Otevři [lokální hlavní stránku](http://localhost:8000/larphlavni/index.html).
+3. Otevři [lokální hlavní stránku](http://localhost:8000/kalendar-akci/index.html).
 4. Po úpravě souboru obnov stránku. Server ukončíš pomocí `Ctrl+C`.
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
@@ -88,6 +88,8 @@ Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z 
 
 Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. `Již brzy` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít.
 
+Mapy míst používají vložené iframe Mapy.cz (nyní Mapy.com). V kalendáři se otevírají kliknutím na místo, v detailech akcí tlačítkem „Zobrazit mapu“. Školní farma i Pernink mají bod označující místo konání. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu.
+
 Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS karet. **Zatím jde o nedokončenou část:** pole `datum` se zobrazuje pod „Přibližné náklady“ a `organizatori` pod „Doba výroby“, přesto v datech stále obsahují termíny a jména organizátorů. Neber tuto strukturu jako hotový vzor návodu. Stránka návodů zatím není ve společném menu.
 
 ### Světlý a tmavý motiv
@@ -126,11 +128,11 @@ Pro místo s mapou použij místo řetězce objekt:
 ```js
 misto: {
   misto: "Školní Farma (Chýnice 29)",
-  osmLink: "https://www.openstreetmap.org/export/embed.html?bbox=14.2695,49.9959,14.2705,49.9961&layer=mapnik&marker=49.996045,14.270132"
+  mapyLink: "https://mapy.com/s/hufumuzega"
 }
 ```
 
-Bez `osmLink` se zobrazí pouze text. Nového organizátora přidej do `organizerData` v `components/organizator-popovers.js` a vlož jeho `<organizator-popover name="…">` do příslušné stránky.
+`mapyLink` zkopíruj z atributu `src` v kódu **Sdílet → Vložit mapu do vlastních stránek** na Mapy.com, podle [oficiálního návodu](https://help.mapy.com/cs/nastroje/vlozeni-mapy/). Použij odkaz pro vloženou mapu, který zobrazuje mapu s bodem a ovládáním, nikoli běžný odkaz ke sdílení. Bez `mapyLink` se zobrazí pouze text. Nového organizátora přidej do `organizerData` v `components/organizator-popovers.js` a vlož jeho `<organizator-popover name="…">` do příslušné stránky.
 
 ### Upravit nebo vytvořit stránku
 
@@ -150,7 +152,7 @@ V kořeni repozitáře spusť s Node.js 22 nebo novějším:
 node --test tests/renderers.test.mjs
 ```
 
-Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, mapový popover, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků, iframe, přístupnost ani skutečné klikání v prohlížeči.
+Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, mapové popovery kalendáře, adresy map v detailech, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků či map v iframe, přístupnost ani skutečné klikání v prohlížeči.
 
 Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
 

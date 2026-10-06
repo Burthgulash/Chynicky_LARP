@@ -6,7 +6,10 @@ export const data = [
     obrazek:
       "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark.png",
     link: "#",
-    misto: "Pernink, kostelní 11 - apartmánová chalupa",
+    misto: {
+      misto: "Pernink, kostelní 11 - apartmánová chalupa",
+      mapyLink: "https://mapy.com/s/pejegocono",
+    },
   },
   {
     nazev: "Poslední ortel",
@@ -17,26 +20,14 @@ export const data = [
     link: "#",
     misto: {
       misto: "Školní Farma (Chýnice 29)",
-      osmLink:
-        "https://www.openstreetmap.org/export/embed.html?bbox=14.2695,49.9959,14.2705,49.9961&layer=mapnik&marker=49.996045,14.270132&zoom=14",
+      mapyLink: "https://mapy.com/s/hufumuzega",
     },
   },
 ];
 
 /*
-PROSIM CIST POKUD ZADAVAS MISTO DO DAT!!!
-
-Pole "misto" u kazde akce muze byt:
-1) string -> generace-kalendare.js vykresli jen text (bez tlacitka, bez mapy).
-2) object { misto: string, osmLink?: string }
-   - "misto" je text zobrazeny vedle "Misto :".
-   - "osmLink" pokud je vyplnen, vykresli se tlacitko s popoverem a iframe mapou.
-   - "osmLink" najdes vzdy na akci v <iframu src="TADY"> a pokud to nemame tak si nejak porad
-   - "osmLink" znamena OpenStreetMap Embed iframe link
-   - kdyz "osmLink" chybi nebo je prazdny, chova se to jako obycejny text.
-Tato logika vychazi z toho, ze skript kontroluje "data.misto.osmLink" a zaroven akceptuje
-primo string v "data.misto" aby pri jiz brzy tam nemusel byt zbutecny object.
-
-
-Doufam ze to chapes.
+Pole "misto" může být text nebo objekt { misto: string, mapyLink?: string }.
+"mapyLink" je adresa z atributu src v kódu Mapy.com → Sdílet → Vložit mapu
+do vlastních stránek. Běžný odkaz ke sdílení není odkaz pro vloženou mapu.
+S mapyLink se místo zobrazí jako tlačítko s mapovým popoverem, bez něj jen jako text.
 */

@@ -7,7 +7,7 @@ document.querySelector(".kalendar-akci2").innerHTML = data.map((event, index) =>
     : `<button class="organizatori-text" popovertarget="${name}">${name}</button>`
   ).join("");
   const place = typeof event.misto === "string" ? event.misto : event.misto?.misto;
-  const mapUrl = event.misto?.osmLink;
+  const mapUrl = event.misto?.mapyLink;
   const placeId = `misto-${index}`;
 
   return `
@@ -26,7 +26,7 @@ document.querySelector(".kalendar-akci2").innerHTML = data.map((event, index) =>
                  <div class="popover" popover id="${placeId}">
                    <h2>Místo</h2>
                    <p>${place}</p>
-                   <iframe class="mini-map" src="${mapUrl}" title="Mapa místa ${place}"></iframe>
+                   <iframe class="mini-map" src="${mapUrl}" title="Mapa místa ${place}" loading="lazy"></iframe>
                    <a href="${event.link}">Více info na stránce ${event.nazev}</a>
                  </div>`
               : `<p class="datum-left">${place}</p>`}

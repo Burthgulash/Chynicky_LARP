@@ -2,7 +2,7 @@
 document.querySelector("#sideMenu").innerHTML = `
 <div class="menu-item-s-submenu">
     <div class="menu-link">
-        <a href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/index.html" class="ma-submenu"
+        <a href="https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html" class="ma-submenu"
             onclick="toggleMenu()">Kalendář akcí</a>
             <svg class="menu-sipka" id="menu-sipka" xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 640 640"><!--Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->

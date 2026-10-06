@@ -26,6 +26,6 @@ Téma nastavuje `scripts/light-modV2.js` třídou `body.dark` nebo `body.light`.
 
 Styly načítá každá HTML stránka pomocí `<link>`; není zde bundler ani kompilace CSS. Cestu uprav podle hloubky stránky (`../css/…` nebo `../../css/…`). Pořadí `<link>` může ovlivnit výsledný styl, proto ho při drobné změně bez důvodu nepřehazuj.
 
-Pozor na široké selektory: `kalendar-akci.css` nastavuje všechny `p` na stránce a `foto-galerie.css` všechny `h3`. `info.css` nastavuje `.mini-map` jako skrytou; její zobrazení na detailech akcí ovládá `scripts/obecny.js`. Samotné načtení `obrazky.css` nezapíná lightbox, ten potřebuje také HTML prvky a `scripts/galerie/foto-lightbox.js`.
+Pozor na široké selektory: `kalendar-akci.css` nastavuje všechny `p` na stránce a `foto-galerie.css` všechny `h3`. `info.css` nastavuje `.mini-map` jako skrytou; její zobrazení na detailech akcí ovládá `scripts/obecny.js`. Mapy mají výšku 280 px a šířku 100 % kontejneru. Mapový popover kalendáře a jeho iframe styluje `kalendar-akci.css`, který omezuje šířku okna podle obrazovky. Samotné načtení `obrazky.css` nezapíná lightbox, ten potřebuje také HTML prvky a `scripts/galerie/foto-lightbox.js`.
 
 Po úpravě vzhledu ověř dotčenou stránku v úzkém i širokém okně a v obou tématech. Test `node --test tests/renderers.test.mjs` kontroluje generované HTML, nikoli rozložení a barvy.

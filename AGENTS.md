@@ -12,7 +12,7 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 ## Základ projektu
 
 - Jde o statický web z HTML, CSS a běžného JavaScriptu. Není tu framework, backend, databáze, `package.json`, správce balíčků ani build.
-- Vstup je `larphlavni/index.html`, nikoli `index.html` v kořeni. Web je určený pro GitHub Pages pod `/Chynicky_LARP/`.
+- Vstup je `kalendar-akci/index.html`, nikoli `index.html` v kořeni. Web je určený pro GitHub Pages pod `/Chynicky_LARP/`.
 - Pro náhled použij HTTP server; `file://` nefunguje spolehlivě s moduly. Příkaz a omezení lokálního náhledu jsou v README.
 - Node.js 22+ slouží pro existující testy. Pro běh webu ho návštěvník nepotřebuje.
 
@@ -31,7 +31,7 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 
 ### Data a obsah
 
-- Kalendář importuje `data` z `scripts/kalendar/kalendar-data.js` a zapisuje karty jednou do `.kalendar-akci2`. Pořadí určuje pole, `datum` je pole textů. `misto` je text nebo `{ misto, osmLink? }`.
+- Kalendář importuje `data` z `scripts/kalendar/kalendar-data.js` a zapisuje karty jednou do `.kalendar-akci2`. Pořadí určuje pole, `datum` je pole textů. `misto` je text nebo `{ misto, mapyLink? }`; `mapyLink` je `src` vložené mapy z Mapy.com.
 - Návody mají svůj datový soubor a krátký renderer ve `scripts/navody/`. Jejich současná pole `datum` a `organizatori` neodpovídají popiskům nákladů a doby výroby; tato část ještě není hotová.
 - Archiv `Odehrane LARPy/Odehrane LARPy.html` a texty detailů jsou ruční HTML. Úprava kalendáře je automaticky nemění.
 - Organizátoři a mapy používají nativní `popover`/`popovertarget`. Jméno organizátora musí přesně odpovídat profilu v `components/organizator-popovers.js` a elementu na stránce. `Již brzy` je text bez popoveru.
