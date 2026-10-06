@@ -1,57 +1,97 @@
-# Header implementation notes — PR #49
+# Jak funguje společná hlavička a menu
 
-Updated 2026-09-19. Implemented locally on `uklid-codebase`, based on PR head `6b22837`. No commit or push was made.
+Aktualizováno 1. 10. 2026 podle místního kódu. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Současný stav a návrhy na další úklid jsou oddělené.
 
-## Agreed layout
+## Rozdělení práce
 
-There is no desktop/mobile breakpoint. The menu is 70 × 70 CSS pixels at every width, with at least 12px clearance from the text.
+| Soubor | Úloha |
+| --- | --- |
+| `components/site-header.js` | Definuje `<site-header>`, vytvoří hlavičku a prázdné `#sideMenu`, měří výšku hlavičky. |
+| `css/sdilene/menu/menu.css` | Rozložení hlavičky, obrázek menu, vysouvání panelu a podnabídky. |
+| `css/sdilene/obecne-sdilene.css` | Odsazení obsahu pod pevnou hlavičkou a proměnné pro témata. |
+| `scripts/generace-menu.js` | Jednou naplní panel odkazy a tlačítkem tématu, připojí obsluhu šipek. |
+| `scripts/obecny.js` | Globální `toggleMenu()`, zavření mimo panel, volitelná minimapa a easter egg. |
+| `scripts/light-modV2.js` | Modul pro přepínání tématu, obrázků ikon a komunikaci s iframe. |
+| `light-mod-cloud-web/light-mod-cloud-web.html` | Stránka v iframe; ukládá `localStorage.theme` na produkční doméně. |
+
+Hlavičku nyní používá 12 HTML stránek. Na jedné stránce má být právě jeden `<site-header>` a jeden iframe `#theme-sync`. Komponenta používá běžný DOM; společné CSS přímo styluje její obsah.
+
+## Vložení do stránky
+
+```html
+<site-header
+  title="Název stránky"
+  subtitle="Volitelný podnadpis"
+  image="../kvido html-img/foto/Nav.panel/tri mece final final.png"
+></site-header>
+```
+
+`title` je text; při prázdné hodnotě se použije `LARP`. Prázdný `subtitle` se skryje. Podnadpis podporuje HTML odkazy, které některé stránky používají pro související akce. HTML se v atributu zapisuje s `&lt;` a `&gt;` a má pocházet pouze od autora stránky. `image` je počáteční obrázek menu; modul tématu ho následně přepíše podle vzhledu.
+
+Na konec `<body>` nové stránky vlož následující blok. Počet `../` uprav podle umístění souboru:
+
+```html
+<iframe id="theme-sync"
+  src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
+  style="display:none;"></iframe>
+<script src="../components/site-header.js"></script>
+<script src="../scripts/obecny.js"></script>
+<script src="../scripts/generace-menu.js"></script>
+<script type="module" src="../scripts/light-modV2.js"></script>
+```
+
+Komponenta musí běžet před generováním menu, aby existovalo `#sideMenu`. Modul tématu potřebuje iframe a vygenerované `#button-theme-switch`. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` hledá globální funkci. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
+
+Existující stránky mají bloky v různém pořadí. Moduly se vykonávají po zpracování HTML, takže mohou v souboru předcházet pozdějším klasickým skriptům nebo iframe. Na Ozvěnách stínů 2 je i `generace-menu.js` modulem. Pro nové stránky používej ukázku výše, aby závislosti byly zřejmé.
+
+## Rozložení a změny velikosti
+
+Hlavička je pevná nahoře a má `max-width: 100vw`. Nemá breakpoint pro mobil a počítač. Obrázek menu má vždy 70 × 70 CSS pixelů a od textu zbývá nejméně 12 px.
 
 ```css
 grid-template-columns:
   minmax(0, 1fr)
   minmax(0, max-content)
-  minmax(calc(70px + 12px), 1fr);
+  minmax(calc(var(--menu-size) + var(--menu-gap)), 1fr);
 ```
 
-The title and subtitle occupy column two. The menu aligns to the far right of column three. The first column is empty; it needs no placeholder element.
+Text zabírá druhý sloupec, menu je u pravého okraje třetího. První sloupec je prázdný. Při dostatku místa mají krajní sloupce stejnou šířku a text je uprostřed celé hlavičky. Na úzké obrazovce pravý sloupec zachová 82 px, levý se zmenší až na nulu a text se zalomí. `min-width: 0` a `overflow-wrap: anywhere` brání přetékání dlouhého textu.
 
-When space permits, the outside columns have equal widths and the text is exactly centered in the header. As space decreases, the right column stops at 82px while the left column continues shrinking. Once the left column reaches zero, the text wraps within the remaining width. The wider of the title and subtitle determines the natural text width.
+`ResizeObserver` sleduje výšku vnitřního `<header>` a zapisuje ji do `--site-header-height` na `<body>`. Společné CSS používá `padding-top: var(--site-header-height, 100px)`. Odsazení reaguje na zalomení textu, změnu atributů nebo písma. JavaScript nepřepočítává vodorovné rozložení.
 
-This supersedes the earlier recommendation of a fixed 48rem breakpoint and different desktop/mobile menu sizes.
+Komponenta vytvoří vnitřní DOM jen jednou. Změna atributu upraví pouze příslušný text nebo obrázek; změna šířky neobnovuje menu. Otevřený panel, tlačítko tématu i listenery zůstávají zachované. Při odpojení komponenty se pozorování ukončí a proměnná výšky odstraní.
 
-## Responsibilities
+Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `menu2.css` a `menu-mobil.css` už toto řešení nepoužívá; nevracej jejich importy.
 
-- `components/site-header.js` creates one stable header and drawer container. Attribute changes update only the relevant title, subtitle, or image, preserving menu state and listeners. Subtitles intentionally support page-authored HTML links. An empty subtitle is hidden.
-- `css/sdilene/menu/menu.css` owns the responsive grid. `min-width: 0` and `overflow-wrap: anywhere` keep long text within its track. The fixed header has `max-width: 100vw` so unrelated page overflow cannot stretch it beyond the phone screen.
-- The component's `ResizeObserver` writes the actual header height to `--site-header-height` on the body. `css/sdilene/obecne-sdilene.css` uses it for top padding. This handles initial load, wrapping, changed text, and font changes without measuring horizontal text/menu overlap.
-- `scripts/generace-menu.js` runs its existing `runArrowCode()` once after inserting the drawer content. It no longer depends on an event from the removed header script.
+## Menu a téma
 
-## Removed or repaired
+- Panel má šířku 250 px. Zavřený má `right: -250px`, otevřený třídu `.side-menu-open` a `right: 0`. Z komponenty vzniká s atributem `inert`.
+- `toggleMenu()` přepíná třídu i `inert` a přidá/odebere obsluhu kliknutí mimo panel. `menuOutsideClick()` nyní odebere pouze třídu a listener; `inert` neobnoví.
+- `runArrowCode()` běží jednou po naplnění menu. Pokud `navigator.userAgent` obsahuje `Mobile`, šipky reagují na kliknutí; jinak na hover. Po opuštění šipky se zavření odloží o 200 ms, aby šlo přejet na podnabídku.
+- Modul tématu nejprve použije `dark`. V `iframe.onload` odešle `get-theme` na `https://burthgulash.github.io`; odpověď `{ type: "theme", value: "dark" | "light" }` aplikuje třídou na `<body>`.
+- Tlačítko odešle `{ type: "set-theme", value: ... }` iframe a ihned změní místní vzhled. Iframe ukládá klíč `theme` do `localStorage`. Nejde o backend ani o průběžnou synchronizaci otevřených karet.
+- `updateIcons()` přepíše obrázek menu a všechny prvky `#icon-img`. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`.
 
-- Removed `scripts/responsivni-nav.js` and its imports, including production-hosted imports. It measured overlap and replaced the header/drawer DOM.
-- Removed the old `.pravo`, `.divny-flex-menu-*`, and legacy header layout rules. Removed the obsolete theme-image fallback for that header markup.
-- Removed header resize/padding logic from `obecny.js`; the component now owns that responsibility.
-- Removed the missing `menu2.css` import and the remaining import of the already-deleted `responzivni-pro-pocitacV2.js`.
-- Corrected the header component path on `Odehrane LARPy/Odehrane LARPy.html`.
-- Updated production-hosted header-related script imports to relative paths so local previews and the PR use their own code.
-- Updated the README's header/menu initialization description.
+## Známá omezení
 
-## Side menu scope
+- Spouštěč menu je klikací `<img>` a šipky jsou SVG bez klávesnicového ovládání. Chybí obsluha Escape, správa fokusu a přístupný název tlačítka tématu. Zavření mimo panel nechává skryté odkazy bez `inert`.
+- Detekce podle `Mobile` nepopisuje spolehlivě dostupné vstupy. Šipky mají opakované `id="menu-sipka"`; více ikon na stránce má opakované `id="icon-img"`.
+- Odkazy menu a obrázky tématu směřují na produkci i při místním náhledu. Odkaz na Z Popelu Kalicha stále míří do `/Chynicky_LARP/Z.Popelu.kalicha/`, ale místní stránka leží v `Odehrane LARPy/Z.Popelu.kalicha/`.
+- Iframe tématu se načítá z produkce. Bez odpovědi zůstane počáteční tmavý vzhled; tlačítko stále mění místní vzhled. Již dokončené načtení iframe před připojením `onload` může být zmeškáno. Iframe nekontroluje původ zprávy ani hodnotu tématu; hlavní stránka kontroluje pouze původ, nikoli `event.source`.
+- Přes hřebeny obsahuje dva iframe `#theme-sync` i dva importy modulu tématu. `getElementById()` pracuje s prvním iframe; modul stejného URL se vyhodnotí jen jednou.
+- Hlavička je omezena šířkou viewportu, ale panel takové omezení nemá. Přetékání obsahu kalendáře může ovlivnit jeho polohu; úprava hlavičky tento problém neřešila.
 
-The drawer styles now live in `css/sdilene/menu/menu.css`. The referenced `menu-mobil.css` was absent and its links were removed in the later cleanup. Existing toggle/outside-click functions and hover/click arrow handlers are unchanged.
+## Malé návrhy na další úklid
 
-Existing drawer accessibility and positioning issues remain separate work: the trigger is still a clickable image, and outside-click closing still does not restore `inert`. The calendar's existing horizontal content overflow can also put the fixed drawer beyond the phone screen; the new header itself is width-constrained, but no calendar or drawer layout fix was included.
+Tyto návrhy nejsou v dokumentační úpravě implementované:
 
-## Verification
+1. **Sjednotit blok importů a odstranit duplicity.** Na Přes hřebeny ponechat jediný iframe a import tématu; další stránky upravovat podle ukázky výše. Kvůli čtyřem skriptům není potřeba build systém.
+2. **Mít jednu cestu pro stav panelu.** Otevření i obě možnosti zavření mohou sdílet krátkou funkci nastavující třídu, `inert` a stav přístupného tlačítka. Obrázek vložit do běžného `<button>` pro klávesnicové ovládání bez knihovny.
+3. **Smazat nepoužívaný kód a ladicí výpisy.** `arrowSvg` v `generace-menu.js` nemá čtenáře, `menuBtn` v `toggleMenu()` se nepoužívá a `runArrowCode()` opakovaně loguje DOM. Jejich smazání nemění potřebné chování.
+4. **Prověřit potřebu iframe tématu.** Pokud preference platí jen pro stránky na jednom původu, přímý `localStorage` v modulu odstraní iframe i protokol zpráv. Lokální server by měl vlastní preferenci. Pokud musí sdílet produkční nastavení, most zachovat a opravit načítání a kontrolu zpráv.
 
-- Chromium/Chrome: all 12 pages containing `site-header`, checked through a local server under the `/Chynicky_LARP/` URL prefix.
-- Widths: 320, 375, 390, 480, 600, 768, 1024, 1440, then back to 390px.
-- Verified menu dimensions, minimum clearance, title containment, grid overflow, desktop centering, height/body-offset agreement, and drawer DOM identity across resizing.
-- Verified open/close, outside click, desktop submenu hover, light theme switching, and preservation of an open drawer across resizing.
-- Verified short versus long titles at the same 600px width; the short title remained centered and the longer one moved left. At 320px the long title reclaimed the entire empty left track.
-- Verified dynamic title/subtitle updates, linked subtitles, missing subtitles, increased title font size, and preservation of the theme button node.
-- Phone emulation: verified the homepage header stays within the viewport despite calendar overflow, and tested touch submenu open/close after repeated resizing on the O nás page.
-- No page JavaScript errors or missing local JS/CSS requests during the final run. External fonts/services were blocked; same-site remote images were served from local files and theme storage used an inert fixture. This was not a live external-service or Safari/Firefox test.
-- Visually inspected desktop and narrow header screenshots. Syntax checks passed for the edited JavaScript. Git whitespace checks passed with CRLF endings recognized.
+## Ověření
 
-Source references: [PR #49](https://github.com/Burthgulash/Chynicky_LARP/pull/49), [CSS grid track sizing](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/grid-template-columns).
+Dne 1. 10. 2026 byl popis porovnán s celými společnými skripty, souvisejícím CSS a všemi 12 HTML stránkami s hlavičkou. Tato aktualizace mění pouze dokumentaci; chování v prohlížeči nebylo znovu testováno.
+
+Předchozí verze dokumentu z 19. 9. 2026 zaznamenávala testy v Chromium/Chrome na všech 12 stránkách při šířkách 320–1440 px: rozložení a odsazení, zachování DOM při resize, změny atributů, otevření/zavření menu, hover/touch podnabídky a světlé téma. Externí služby byly blokované a úložiště tématu nahrazovalo testovací iframe. Tyto historické výsledky nepotvrzují živou synchronizaci s produkcí ani chování v Safari/Firefox.

@@ -1,418 +1,191 @@
-# Chynicky_LARP
+# Chýnické LARP akce
 
-Toto je statický web projektu Chýnické LARP akce. Stránky slouží jako hlavní informační a prezentační web pro kalendář akcí, popisy příběhů, archiv odehraných LARPů, fotogalerii a základní navigaci mezi jednotlivými sekcemi.
+Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, příběhy a fotky. LARP je hra, ve které účastníci naživo hrají své postavy.
 
-Web je hostovaný přes GitHub Pages na adrese:
+**Web tvoří obyčejné HTML, CSS a JavaScript.** Nemá framework, databázi, backend, `package.json` ani build. Obsah upravíš v souborech a prohlížeč je rovnou načte. Node.js je potřeba jen pro testy.
 
-https://burthgulash.github.io/Chynicky_LARP/
+Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/larphlavni/index.html). Vstupní stránka v repozitáři je `larphlavni/index.html`; v kořeni žádný `index.html` není.
 
-## Obsah
+## První spuštění
 
-- Přehled projektu
-- Struktura složek
-- Jak web funguje v praxi
-- Komplexní systémy a jejich logika
-- Jak přidat novou akci nebo stránku
-- Lokální vývoj a testování
-- Poznámky k aktuálnímu stavu projektu
+1. Otevři složku repozitáře v editoru.
+2. Spusť z jejího kořene statický HTTP server. Pokud máš Python 3:
 
----
+   ```sh
+   python -m http.server 8000 --bind 127.0.0.1
+   ```
 
-## Přehled projektu
+   Na Windows lze použít `py -3 -m http.server 8000 --bind 127.0.0.1`. Stejně poslouží Live Server v editoru. Projekt nic neinstaluje přes npm.
+3. Otevři [lokální hlavní stránku](http://localhost:8000/larphlavni/index.html).
+4. Po úpravě souboru obnov stránku. Server ukončíš pomocí `Ctrl+C`.
 
-Jedná se o klasický front-end projekt bez build procesu, bez frameworku a bez databáze. Většina funkcionality je řešena přímo v HTML, CSS a JavaScriptu.
+HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-Hlavní části:
+**Lokální náhled zatím není úplně nezávislý na produkci.** Importy skriptů a stylů jsou relativní, ale menu odkazuje na veřejný web a řada obrázků i iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku přímo na `localhost`; kliknutí v menu tě může odvést na produkci. Google Fonts, mapy a externí dokumenty také potřebují síť.
 
-- hlavní kalendář akcí na stránce larphlavni/index.html
-- sekce O nás, Příběhy, Odehrané LARPy a další podstránky
-- generované menu pro všechny stránky
-- responzivní navigace pro mobilní a desktop verzi
-- systém tmavého/světlého režimu
-- generování kalendáře ze souboru dat
-- filtrování fotek v galerii podle akce
+## Který soubor upravit
 
-Tento projekt je typický “static content site”: obsah se mění hlavně úpravou jednotlivých HTML souborů a datových JS souborů.
+| Co chceš změnit | Kde začít |
+| --- | --- |
+| Termín, název, místo nebo obrázek akce v kalendáři | `scripts/kalendar/kalendar-data.js` |
+| Vzhled karet kalendáře a jejich HTML | `css/kalendar-akci.css`, `scripts/kalendar/generace-kalendare.js` |
+| Text konkrétní akce, pravidla, přihlášení | Příslušné HTML v `Odehrane LARPy/` |
+| Seznam odehraných akcí | `Odehrane LARPy/Odehrane LARPy.html` — karty jsou ručně v HTML |
+| O nás nebo příběhy | `O nas/O nás.html`, `pribehy/pribehy.html` |
+| Odkazy a položky společného menu | `scripts/generace-menu.js` |
+| Nadpis jedné stránky | Atributy jejího `<site-header>` |
+| Společná hlavička a boční menu | `components/site-header.js`, `css/sdilene/menu/menu.css`, `scripts/obecny.js` |
+| Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js`, `light-mod-cloud-web/light-mod-cloud-web.html` |
+| Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
+| Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
+| Fotky pro samostatnou galerii a velké náhledy | `scripts/galerie/foto-galerie-data.js`; náhledy v detailech akcí jsou v jejich HTML |
+| Obrázky a ikony | `kvido html-img/foto/` |
 
----
+Další orientace:
 
-## Struktura složek
+- `scripts/galerie/foto-galerie.js` filtruje samostatnou galerii; `foto-lightbox.js` ovládá zvětšení fotek v detailech akcí.
+- `scripts/utilities/imgformat.js` zjišťuje příponu obrázku pro přepínání ikon.
+- `tests/renderers.test.mjs` je malá kontrola generovaných karet a ručně psaného archivu.
+- [Pravidla a přehled CSS](css/css.md), [podrobnosti hlavičky](docs/header-layout-notes.md) a [pokyny pro AI](AGENTS.md) doplňují tento úvod.
+- `LALOK/` jsou samostatné žertovné stránky, na které vedou odkazy z některých akcí. Nejsou vzorem společné hlavičky.
+- `mista-akci/mista-akci.html` je zatím prázdný soubor.
 
-```text
-Chynicky_LARP/
-├── larphlavni/
-│   └── index.html                  # hlavní stránka s kalendářem akcí
-├── navody/
-│   └── navody-hlavni.html
-├── O nas/
-│   └── O nás.html
-├── Odehrane LARPy/
-│   ├── Odehrane LARPy.html
-│   ├── Hranicni tvrz/
-│   ├── Navrat-mocneho/
-│   ├── Ozveny stinu/
-│   ├── Ozveny stinu2/
-│   ├── Pres.hrebeny/
-│   └── Z.Popelu.kalicha/
-├── pribehy/
-│   └── pribehy.html
-├── foto-galerie/
-│   └── foto-galerie.html
-├── scripts/
-│   ├── generace-menu.js           # generuje navigaci
-│   ├── light-modV2.js             # přepínání tématu
-│   ├── obecny.js                  # otevírání menu a další společné funkce
-│   ├── navody/                    # data a vykreslení návodů
-│   ├── kalendar/
-│   │   ├── generace-kalendare.js
-│   │   ├── kalendar-data.js
-│   ├── galerie/
-│   │   ├── foto-galerie.js
-│   │   └── foto-galerie-data.js
-│   └── utilities/
-│       └── imgformat.js
-├── css/
-│   ├── kalendar-akci.css
-│   ├── foto-galerie.css
-│   ├── o-nas.css
-│   └── sdilene/
-├── light-mod-cloud-web/
-│   └── light-mod-cloud-web.html  # iframe pro ukládání motivu
-├── components/
-│   └── organizator-popovers.js
-├── kvido html-img/
-│   └── foto/
-├── README.md
-└── LICENSE
+## Jak se stránka skládá
+
+### Hlavička a menu
+
+HTML obsahuje například:
+
+```html
+<site-header
+  title="Kalendář akcí"
+  subtitle="Organizujeme malé LARPové akce"
+  image="../kvido html-img/foto/Nav.panel/tri mece final final.png">
+</site-header>
 ```
 
----
+`components/site-header.js` zaregistruje vlastní HTML element, vytvoří nadpis, obrázkové tlačítko a prázdné boční menu `#sideMenu`. `scripts/generace-menu.js` menu naplní a jednou připojí ovládání šipek. `scripts/obecny.js` poskytuje globální `toggleMenu()` pro otevření a zavření; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách aktivního prohlížení stránky.
 
-## Jak web funguje v praxi
+Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Když ubývá místo, nejprve se zmenší prázdný levý sloupec a poté se zalomí text. Tato hlavička nemá pevný mobilní breakpoint. `ResizeObserver` měří jen její výšku a nastavuje `--site-header-height` pro horní odsazení stránky. Při změně šířky ani nadpisu se menu nevytváří znovu.
 
-### 1) HTML stránka je hlavní stavební jednotka
+Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto pořadí společných částí:
 
-Každá stránka je samostatný HTML dokument. Na většině stránek se najde blok podobný tomuto:
+```html
+<iframe id="theme-sync"
+  src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
+  style="display:none;"></iframe>
+<script src="../components/site-header.js"></script>
+<script src="../scripts/obecny.js"></script>
+<script src="../scripts/generace-menu.js"></script>
+<script type="module" src="../scripts/light-modV2.js"></script>
+```
 
-- navigace v elementu nav
-- logo / titul / nadpis stránky
-- side-menu
-- obsah stránky
-- import stylů
-- import JS skriptů na konci body
+Hlavička musí existovat před generováním menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Datové renderery a motiv jsou moduly. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
 
-Příklady:
+### Kalendář a návody
 
-- larphlavni/index.html
-- O nas/O nás.html
-- pribehy/pribehy.html
-- foto-galerie/foto-galerie.html
+Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum.
 
-Většina stránek neobsahuje kompletní strukturu v JavaScriptu. CSS a HTML je zde hlavní. JavaScript se používá zejména pro dynamické generování obsahu a funkcionalitu.
+Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. `Již brzy` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít.
 
-### 2) Navigace je generovaná přes JS, ne ručně v každé stránce
+Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS karet. **Zatím jde o nedokončenou část:** pole `datum` se zobrazuje pod „Přibližné náklady“ a `organizatori` pod „Doba výroby“, přesto v datech stále obsahují termíny a jména organizátorů. Neber tuto strukturu jako hotový vzor návodu. Stránka návodů zatím není ve společném menu.
 
-Soubor:
+### Světlý a tmavý motiv
 
-- scripts/generace-menu.js
+`light-modV2.js` nejprve nastaví tmavý motiv, po načtení iframe požádá zprávou `get-theme` o uloženou hodnotu a při kliknutí odešle `set-theme`. Iframe ukládá klíč `theme` do svého `localStorage` a vrací zprávu typu `theme`. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon.
 
-Tento skript vypíše do elementu `#sideMenu` kompletní menu. Díky tomu se menu aktualizuje na všech stránkách jedním místem a neřeší se ho ručně v každém HTML.
+Iframe je statická pomocná stránka na GitHub Pages. Motiv se neukládá do databáze ani uživatelského účtu. Rodičovský skript má napevno origin `https://burthgulash.github.io`; pouhé přepsání iframe na lokální cestu proto současnou synchronizaci neopraví. Přímé `localStorage` by stačilo pro stránky na stejném originu, pokud nechceme zachovat společný motiv i s lokálním náhledem nebo jiným hostingem.
 
-Co dělá:
+### Galerie a zvětšování fotek
 
-- vytvoří sekce "Kalendář akcí"
-- přidá podsekci "Z Popelu Kalicha"
-- vytvoří odkaz na "O nás"
-- vytvoří odkaz na "Příběhy"
-- vytvoří rozbalovací submenu "Odehrané LARPy"
-- přidá tlačítko pro přepnutí tématu
+Samostatná stránka `foto-galerie/foto-galerie.html` ukáže obrázky z pole `fotoGalerieData` až po výběru akce a kliknutí na „Filtrovat“. Záznam má tvar `{ src: "adresa fotky", akce: "OS2" }`; kód akce musí odpovídat hodnotě v `<select>`. První otevření výběru odstraní placeholder kvůli chování Safari/iOS.
 
-Důležitá část je také logika šipek a submenu:
+Galerie zatím nemá odkaz ve společném menu ani zapojený lightbox. Zvětšování funguje samostatně v detailech Ozvěny stínů, Ozvěny stínů 2 a Přes hřebeny. `foto-lightbox.js` tam pracuje s `.per-foto-obrazek` a prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Podporuje šipky, Escape a přejetí prstem; pro velký obrázek hledá odpovídající originál v datech galerie, jinak použije náhled. Na stránku bez tohoto HTML ho nepřidávej.
 
-- šipky mají event listener pro hover nebo click
-- pro mobilní verzi se chování mění
-- obsluha šipek se připojí jednou, přímo po vygenerování menu
-
-Před tímto skriptem musí být načtený `components/site-header.js`, který vytvoří element `#sideMenu`.
-
-### 3) Sdílená hlavička a responzivní rozložení
-
-Hlavičku vytváří web component `components/site-header.js`; rozložení řídí `css/sdilene/menu/menu.css`.
-
-- Menu má vždy 70 × 70 px a od textu ho dělí alespoň 12 px.
-- CSS Grid má prázdný levý sloupec, text a pravý sloupec s menu. Když je dost místa, jsou krajní sloupce stejně široké a text je uprostřed stránky.
-- Při zmenšování prostoru se nejprve zmenší prázdný levý sloupec, poté se text zalomí. Rozhoduje skutečná šířka nadpisu a podnadpisu, nikoli pevný mobilní breakpoint.
-- `ResizeObserver` v komponentě aktualizuje `--site-header-height`, podle kterého má tělo stránky horní odsazení. Reaguje i na změnu textu nebo fontu bez změny velikosti okna.
-- Změny atributů nadpisu a podnadpisu aktualizují jen text. Boční menu a jeho listenery se při změně rozložení nevytvářejí znovu.
-
-Starý skript pro měření kolizí a přepisování HTML hlavičky byl odstraněn. Styly hlavičky i mobilního menu jsou v `css/sdilene/menu/menu.css`.
-
----
-
-## Komplexní systémy
-
-### A) Kalendář akcí
-
-Hlavní soubory:
-
-- larphlavni/index.html
-- scripts/kalendar/generace-kalendare.js
-- scripts/kalendar/kalendar-data.js
-
-Kalendář se nevytváří ručně v HTML, ale generuje z datového pole v `kalendar-data.js`.
-
-#### Datová struktura
-
-Každá akce má informace:
-
-- `nazev`
-- `datum` jako pole datumů
-- `organizatori` jako pole jmen
-- `obrazek`
-- `link`
-- `misto`
-
-#### Možné formáty místa
-
-V `kalendar-data.js` je dokumentováno, že `misto` může být:
-
-1. jednoduchý string
-   - zobrazí se jako obyčejný text
-   - bez mapy a bez tlačítka
-
-2. objekt `{ misto: string, osmLink?: string }`
-   - `misto` se zobrazí vedle labelu "Místo :"
-   - pokud je `osmLink` vyplněný, skript vytvoří tlačítko a popover s embedded mapou
-
-To je důležité, protože v datech je rozdíl mezi:
-
-- akce se známým místem, kde stačí text
-- akce, kde má být vložená OpenStreetMap mapa
-
-#### Jak se generuje HTML
-
-Skript `generace-kalendare.js` projde všechny položky v `data`, vytvoří pro každou akci:
-
-- název akce jako odkaz
-- pole datumů
-- místo
-- seznam organizátorů
-- obrázek akce
-
-Pro organizátory se vytváří rozbalovací nebo interaktivní popover. Pokud je jméno některého organizátora výjimečné, skript zvlášť rozpozná text "Již brzy" a nastaví speciální ikonku.
-
-Karty se sestaví z dat a do stránky se vloží jednou. Popover s mapou je součástí příslušné karty.
-
----
-
-### B) Systém témat (dark/light mode)
-
-Hlavní soubory:
-
-- scripts/light-modV2.js
-- light-mod-cloud-web/light-mod-cloud-web.html
-
-Téma je synchronizováno přes hidden iframe.
-
-#### Proč je to tak složité
-
-Web používá skrytý iframe, který ukládá aktuální motiv do `localStorage` a předává hodnotu zpět hlavnímu oknu přes `postMessage`.
-
-Krok po kroku:
-
-1. stránka načte iframe
-2. iframe po `load` pošle zprávu "get-theme"
-3. iframe načte z `localStorage` hodnotu "theme"
-4. hodnota se vrátí zpět do rodičovského okna
-5. rodičovské okno volá `applyTheme(theme)`
-6. `body` dostane třídu `dark` nebo `light`
-7. obrázky a ikony se přepnout podle aktuálního režimu
-
-Jsou upravovány i obrázky v navigaci a ikony v článcích:
-
-- hamburger menu obrázek
-- ikony v sekcích
-- tlačítko pro změnu režimu
-
-Díky tomu se motiv udržuje konzistentně napříč stránkami.
-
-#### Jak to funguje v praxi
-
-Soubor `light-mod-cloud-web.html` obsahuje listener:
-
-- pokud přijde `set-theme`, uloží se do `localStorage`
-- pokud přijde `get-theme`, odešle se aktuální hodnota zpět
-
-To je klíčové, protože bez tohoto mechanismu by se motiv nemusel synchronizovat mezi stránkami a přechody mezi adresami by byly nečekané.
-
----
-
-### C) Fotogalerie
-
-**Poznamka: FotoGaerie neni zatim hotová a pripojena ke zbytku webu**
-
-Hlavní soubory:
-
-- foto-galerie/foto-galerie.html
-- scripts/galerie/foto-galerie-data.js
-- scripts/galerie/foto-galerie.js
-
-Galerie funguje tak, že:
-
-- data o fotkách jsou uložena v JS poli
-- každá fotografie má `src` a `akce`
-- uživatel vybere akci v selectu
-- po kliknutí na tlačítko se vyfiltrují fotky
-- zobrazené obrázky se vloží do `#foto-galerie`
-
-#### Důležitý detail
-
-V `foto-galerie.js` se řeší zvláštní případ pro Safari / iOS: při focusu na select se odstraní placeholder a uvolní se první volba. Tím se vyhne chování, které u některých mobilních prohlížečů nefunguje správně.
-
-To je jednoduché, ale velmi praktické, protože projekt má silnou závislost na mobilním prohlížení a iOS chování.
-
----
-
-### D) Generované menu a šipky
-
-Menu je v projektu důležitým dynamickým prvkem. Díky JS se vytváří v jediném místě. To je výhoda, protože všechny stránky mají stejnou navigaci.
-
-V `generace-menu.js` se vygeneruje HTML pro:
-
-- hlavní položky menu
-- rozbalovací podmenu
-- tlačítko pro přepnutí režimu
-
-Po vygenerování se jednou zavolá `runArrowCode()`, který připojí existující hover/click obsluhu šipek. Inicializace už nezávisí na událostech hlavičky a při změně velikosti okna se neopakuje.
-
----
-
-## Jak přidat novou akci
+## Běžné úpravy
 
 ### Přidat akci do kalendáře
 
-Edituj soubor:
-
-- scripts/kalendar/kalendar-data.js
-
-Přidej novou položku do pole `data` ve formátu:
+Do pole `data` v `scripts/kalendar/kalendar-data.js` přidej položku, například:
 
 ```js
 {
   nazev: "Název akce",
-  datum: ["14. září 2026"],
+  datum: ["12.–14. června 2027"],
   organizatori: ["Kvido Redl", "Hugo Redl"],
-  obrazek: "https://example.com/obrazek.jpg",
+  obrazek: "../kvido html-img/foto/Ikony-img/questionmark.png",
   link: "#",
-  misto: {
-    misto: "Místo konání",
-    osmLink: "https://www.openstreetmap.org/export/embed.html?..."
-  }
+  misto: "Místo konání"
+},
+```
+
+Nahraď ukázkový obsah; `link: "#"` je jen dočasný odkaz. Cesty v těchto datech se vkládají do HTML a relativní URL se tedy vyhodnocují vůči **HTML stránce**, ne vůči datovému JS souboru.
+
+Pro místo s mapou použij místo řetězce objekt:
+
+```js
+misto: {
+  misto: "Školní Farma (Chýnice 29)",
+  osmLink: "https://www.openstreetmap.org/export/embed.html?bbox=14.2695,49.9959,14.2705,49.9961&layer=mapnik&marker=49.996045,14.270132"
 }
 ```
 
-Pokud `misto` není potřeba jako mapový objekt, stačí prostý string:
+Bez `osmLink` se zobrazí pouze text. Nového organizátora přidej do `organizerData` v `components/organizator-popovers.js` a vlož jeho `<organizator-popover name="…">` do příslušné stránky.
 
-```js
-misto: "Pernink, kostelní 11";
+### Upravit nebo vytvořit stránku
+
+Texty a obrázky upravuj přímo v jejím HTML. Pro novou stránku vezmi strukturu jednoduché stránky jako `pribehy/pribehy.html`, nahraď obsah a nastav `<title>`, `lang="cs"` a atributy `<site-header>`. Načti `css/sdilene/obecne-sdilene.css`, `css/sdilene/menu/menu.css` a jen potřebné další styly. Společné skripty a iframe vlož jednou podle ukázky výše.
+
+Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářových datech nebo ručním archivu podle účelu. Nový soubor se do menu automaticky nepřidává. Při přesouvání akce do archivu uprav kalendář a archiv zvlášť; žádný automatický přesun podle data tu není.
+
+### Přidat fotografie
+
+Ulož soubory do `kvido html-img/foto/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
+
+## Kontrola změn
+
+V kořeni repozitáře spusť s Node.js 22 nebo novějším:
+
+```sh
+node --test tests/renderers.test.mjs
 ```
 
-### Přidat stránku
+Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, mapový popover, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků, iframe, přístupnost ani skutečné klikání v prohlížeči.
 
-- vytvoř nový HTML soubor
-- přidej stejnou navigaci a CSS importy jako u ostatních stránek
-- na konec přidej relevantní skripty:
-  - `components/site-header.js` (před generováním menu)
-  - `scripts/obecny.js` (klasický skript, poskytuje `toggleMenu`)
-  - `scripts/generace-menu.js`
-  - `scripts/light-modV2.js`
+Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
 
-Věnuj pozornost tomu, že stránky používají absolutní GitHub Pages URL pro některé assety. Pokud měníš strukturu projektu, je dobré zkontrolovat cesty a odkazy, protože v projektu se používají jak relativní cesty, tak absolutní URL odkazy na GitHub Pages.
+V prohlížeči ověř změněnou stránku a při zásahu do společného kódu také hlavní stránku a jeden detail akce:
 
----
+- úzké i široké okno, dlouhý nadpis a otevřené menu při změně šířky;
+- otevření/zavření menu, podmenu, oba motivy a přechod na další stránku;
+- podle změny mapu, organizátory, filtr galerie nebo lightbox;
+- konzoli a chybějící soubory v panelu Network; URL musí stále ukazovat na tvůj lokální náhled.
 
-## Lokální vývoj a testování
+## Co zlepšit a zjednodušit dál
 
-Tento projekt neobsahuje build pipeline ani balíčkový manažer. Pro lokální práci stačí:
+Následující body jsou **návrhy podle současného kódu, nikoli již provedené opravy**. Postupuj po malých změnách a u každé ověř skutečné chování.
 
-1. otevřít soubor HTML v prohlížeči
-2. nebo spustit lokální server, například:
+| Pořadí | Konkrétní problém | Nejmenší rozumná změna |
+| --- | --- | --- |
+| 1 | Menu a data návodů odkazují na `Z.Popelu.kalicha/…` mimo skutečnou složku `Odehrane LARPy/`; některé URL ikon postrádají `/Chynicky_LARP/`. Absolutní odkazy navíc odvádějí lokální náhled na produkci. | Opravit odkazy proti skutečným souborům a vlastní obsah postupně odkazovat relativně. U společného JS zohlednit různé hloubky HTML stránek, například URL odvodit od umístění skriptu. |
+| 2 | `Pres.hrebeny.html` obsahuje dvakrát iframe `#theme-sync` a import motivu. | Ponechat jednu instanci každého. Není potřeba zavádět nový systém načítání skriptů. |
+| 3 | Hlavička otevírá menu klikacím obrázkem; zavření kliknutím mimo menu nevrací `inert`. Šipky rozlišují mobil podle `userAgent`. | Použít skutečné tlačítko, sjednotit nastavení zavřeného menu a umožnit ovládání klávesnicí i dotykem. Zachovat stávající CSS Grid. |
+| 4 | Motiv vyžaduje vzdálený iframe a `postMessage`, přesto jsou produkční stránky na jednom originu. | Pokud není potřeba sdílení mezi originy, ukládat motiv přímo do `localStorage`. Pokud iframe zůstane, ověřovat také odesílatele a povolené hodnoty v jeho obsluze zpráv. |
+| 5 | Návody mají názvy polí i hodnoty převzaté z kalendáře. | Nejprve určit skutečné údaje návodu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
+| 6 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
 
-```bash
-python -m http.server 8000
-```
+Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 
-Potom otevřít:
+Pro současný rozsah stačí statické soubory, CSS Grid, nativní popovery a krátké JS moduly. Framework, databázi, nový loader nebo velký společný renderer přidávej až pro konkrétní potřebu, kterou tento postup nepokryje.
 
-```text
-http://localhost:8000/
-```
+## Předání kamarádovi nebo AI
 
-### Důležité
+Kamarádovi pošli celý repozitář nebo odkaz na něj; samotné README nemůže nahradit kód. AI můžeš dát například:
 
-Protože některé skripty používají odkazy na GitHub Pages a externí assety, je vhodné testovat v podobném prostředí jako produkce. Pokud se mění cesty k obrázkům nebo adresy GitHub Pages, může se rozbít načítání obsahu.
+> Přečti README.md a AGENTS.md, potom soubory související s mým úkolem. Jde o statický web bez buildu. Vysvětli stručně, kudy vede aktuální chování, a udělej nejmenší změnu, která řeší zadání. Zachovej společnou hlavičku a nativní popovery. Návrhy v README nejsou hotové opravy ani zadání přepsat celý web. Nakonec uveď, co jsi změnil a skutečně ověřil. Můj úkol: …
 
----
+## Publikování a licence
 
-## Deployment
+Web je určený pro GitHub Pages a publikuje přímo soubory bez buildu. Zdrojovou větev a složku ověř v nastavení repozitáře **Settings → Pages**; v tomto repozitáři není vlastní nasazovací workflow. Při nasazení pod `/Chynicky_LARP/` zkontroluj zejména cesty a odkazy z vnořených stránek.
 
-Projekt je nasazen přes GitHub Pages. Většina URL má formát:
-
-```text
-https://burthgulash.github.io/Chynicky_LARP/...
-```
-
-Proto jsou některé cesty v JS a HTML psané přímo do GitHub Pages URL, ne jen relativně. Tato volba zjednodušuje funkčnost z produkčního hostingu, ale zároveň zvyšuje závislost na konkrétní doméně a složkové struktuře.
-
----
-
-## Poznámky k aktuálnímu stavu projektu
-
-### Co je v projektu dobře
-
-- jednoduché statické hostování
-- přehledné rozdělení obsahu do JS datových souborů
-- centralizované menu
-- systém s jednotným tématem napříč stránkami
-- možnost snadno přidávat akce do kalendáře
-
-### Na co je potřeba dávat pozor
-
-- stránky jsou silně závislé na konkrétních URL cestách
-- některé skripty jsou psané “na rychlo” a obsahují console.log, debug kódy a neoptimalizované konstrukce
-- generování bočního menu musí následovat po vytvoření hlavičky
-- generování HTML přes template stringy je náročné na údržbu
-- některé skripty spoléhají na změnu `innerHTML` v runtime, což může být nestabilní při velkém rozvoji projektu
-
-### Prakticky
-
-Nejproblematičtější části jsou:
-
-- `scripts/generace-menu.js`
-- `components/site-header.js`
-- `scripts/light-modV2.js`
-- `scripts/kalendar/generace-kalendare.js`
-
-Tyto soubory jsou “dvojí” – funkční, ale zároveň místem, kde je nejvíce pravděpodobné, že po úpravách nastanou problémy s načítáním nebo rozložením.
-
----
-
-## Shrnutí
-
-Tento projekt je statický web s několika dynamickými vrstvami, které jsou pro běžného návštěvníka prakticky neviditelné, ale zásadně ovlivňují fungování stránky.
-
-Nejdůležitější logické systémy jsou:
-
-- generované menu pro všechny stránky
-- responzivní CSS rozložení sdílené hlavičky
-- přepínání tématu přes hidden iframe a localStorage
-- generování kalendáře z datového souboru
-- filtrování fotografií dle akce
-
-Pokud se bude web rozšiřovat, je vhodné tyto systémy postupně refaktorovat do stabilnější architektury, protože v současné podobě jsou funkční, ale citlivé na změny a ne vždy přehledné pro další údržbu.
-
----
-
-## Licence
-
-Projekt je distribuován pod licencí uvedenou v souboru LICENSE.
+Licence je [CC0 1.0 Universal](LICENSE).
