@@ -13,6 +13,7 @@ globalThis.document = {
 await import("../scripts/kalendar/generace-kalendare.js");
 assert.equal(writes, 1);
 assert.equal((html.match(/class="akce-container"/g) || []).length, 2);
+assert.equal((html.match(/<img class="akce-obrazek"/g) || []).length, 2);
 assert.match(html, /popovertarget="misto-0"/);
 assert.match(html, /popover id="misto-0"/);
 assert.match(html, /popovertarget="misto-1"/);
@@ -23,6 +24,15 @@ assert.match(html, /src="https:\/\/mapy\.com\/s\/pejegocono"/);
 assert.match(html, /src="https:\/\/mapy\.com\/s\/hufumuzega"/);
 assert.doesNotMatch(html, /openstreetmap/i);
 assert.doesNotMatch(html, /<a[^>]*>\s*<button/);
+
+for (const file of ["index.html", "index-mobil.html"]) {
+  const oldUrl = new URL(`https://example.com/Chynicky_LARP/larphlavni/${file}`);
+  const redirect = readFileSync(new URL(`../larphlavni/${file}`, import.meta.url), "utf8");
+  const target = redirect.match(/http-equiv="refresh" content="0; url=([^"]+)"/)?.[1];
+  assert.ok(target, file);
+  assert.equal(new URL(target, oldUrl).pathname, "/Chynicky_LARP/kalendar-akci/index.html");
+  assert.ok(redirect.includes(`href="${target}"`), file);
+}
 
 for (const [file, mapLink] of [
   ["Navrat-mocneho/Navrat-mocneho.html", "hufumuzega"],

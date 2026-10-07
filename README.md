@@ -6,6 +6,8 @@ Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, p
 
 Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html). Vstupní stránka v repozitáři je `kalendar-akci/index.html`; v kořeni žádný `index.html` není.
 
+Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automaticky přesměrují na současný kalendář. Obě zachovávají také ruční odkaz pro případ, že prohlížeč automatické přesměrování nepovolí.
+
 ## První spuštění
 
 1. Otevři složku repozitáře v editoru.
@@ -86,6 +88,8 @@ Hlavička musí existovat před generováním menu; přepínání motivu potřeb
 
 Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum.
 
+Obal obrázku používá třídu `akce-img`, samotný obrázek `akce-obrazek`, která ho přizpůsobuje šířce obalu.
+
 Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. `Již brzy` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít.
 
 Mapy míst používají vložené iframe Mapy.cz (nyní Mapy.com). V kalendáři se otevírají kliknutím na místo, v detailech akcí tlačítkem „Zobrazit mapu“. Školní farma i Pernink mají bod označující místo konání. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu.
@@ -152,7 +156,7 @@ V kořeni repozitáře spusť s Node.js 22 nebo novějším:
 node --test tests/renderers.test.mjs
 ```
 
-Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, mapové popovery kalendáře, adresy map v detailech, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků či map v iframe, přístupnost ani skutečné klikání v prohlížeči.
+Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, třídu obrázků kalendáře, cíle přesměrování ze starých vstupních adres, mapové popovery kalendáře, adresy map v detailech, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků či map v iframe, přístupnost ani skutečné klikání v prohlížeči.
 
 Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
 
