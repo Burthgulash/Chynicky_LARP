@@ -148,6 +148,10 @@ Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářo
 
 Ulož soubory do `kvido html-img/foto/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
 
+Větší obrázky převádíme na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Při optimalizaci porovnáváme velikost i vzhled: převod má ušetřit alespoň 20 % a 50 kB, rozlišení se nemění. Fotky a texturované ilustrace používají ztrátovou kompresi, průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` jsou z optimalizace vynechané.
+
+Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Fungují tedy z hlavní i vnořené stránky a také při místním náhledu. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Existující AVIF pozadí světlé hlavičky zatím zůstává.
+
 ## Kontrola změn
 
 V kořeni repozitáře spusť s Node.js 22 nebo novějším:
@@ -157,6 +161,8 @@ node --test tests/renderers.test.mjs
 ```
 
 Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, třídu obrázků kalendáře, cíle přesměrování ze starých vstupních adres, mapové popovery kalendáře, adresy map v detailech, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků či map v iframe, přístupnost ani skutečné klikání v prohlížeči.
+
+Po výměně obrázků spusť také `node --test tests/images.test.mjs`. Kontroluje místní soubory v datech a WebP odkazy v HTML/CSS; nenahrazuje kontrolu kvality obrazu ani skutečný prohlížeč.
 
 Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
 

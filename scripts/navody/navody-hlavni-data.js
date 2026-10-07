@@ -4,7 +4,7 @@ export const data = [
     datum: ["5.6.-", "7.6 2026"],
     organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
     obrazek:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.png",
+      "../kvido html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
     link: "https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
   },
   {

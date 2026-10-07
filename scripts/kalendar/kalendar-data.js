@@ -16,7 +16,7 @@ export const data = [
     datum: ["Někdy v červnu 2027"],
     organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
     obrazek:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.png",
+      "../kvido html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
     link: "#",
     misto: {
       misto: "Školní Farma (Chýnice 29)",

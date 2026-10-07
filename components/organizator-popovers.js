@@ -1,8 +1,10 @@
+const organizerImageRoot = new URL("../kvido html-img/foto/", import.meta.url);
+
 const organizerData = {
   "Hugo Redl": {
     id: "Hugo Redl",
     image:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/O%20nás-img/20250309_090631.jpg",
+      new URL("O nás-img/20250309_090631.webp", organizerImageRoot).href,
     title: "Hugo",
     description:
       "Štítonoš, berserk. Svou sekerou rozmlátí vše, co se mu postaví do cesty. Na něj rozhodně neútočte, pokud nemáte dostatečnou početní převahu, a i tak si to pořádně rozmyslete. Často, mimo jiné, řeší rozpočet.",
@@ -11,7 +13,7 @@ const organizerData = {
   "Kvido Redl": {
     id: "Kvido Redl",
     image:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/O%20nás-img/20250309_081702.jpg",
+      new URL("O nás-img/20250309_081702.webp", organizerImageRoot).href,
     title: "Kvido, Ereth",
     description:
       "Lukostřelec a obstojný šermíř. Střežte se jeho šípům, a hlavně si dávejte pozor na rychlá přepadení ze zálohy. Navíc je tvůrce většiny herních mechanik.",
@@ -20,7 +22,7 @@ const organizerData = {
   "Kristián Páca": {
     id: "Kristián Páca",
     image:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/O%20nás-img/20250309_093520.jpg",
+      new URL("O nás-img/20250309_093520.webp", organizerImageRoot).href,
     title: "Kristian, Haakon",
     description:
       "Bard a čaroděj. Pokud s ním budete smlouvat, nikdy nezískáte přívětivou cenu. V boji zvládne přemoct většinu nepřátel. K tomu vytváří spoustu pravidel.",
@@ -29,7 +31,7 @@ const organizerData = {
   "Julie Redlová": {
     id: "Julie Redlová",
     image:
-      "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/O%20nás-img/IMG-20250112-WA0007.jpg",
+      new URL("O nás-img/IMG-20250112-WA0007.webp", organizerImageRoot).href,
     title: "Julie",
     description:
       "Skupina CéPek by bez ní nebyla úplná. Střílí z luku a poradí si i s mečem, štítem někdy i s kopím.",
