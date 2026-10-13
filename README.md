@@ -6,7 +6,7 @@ Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, p
 
 Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html). Vstupní stránka v repozitáři je `kalendar-akci/index.html`; v kořeni žádný `index.html` není.
 
-Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automaticky přesměrují na současný kalendář. Obě zachovávají také ruční odkaz pro případ, že prohlížeč automatické přesměrování nepovolí.
+Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automaticky přesměrují na současný kalendář. Mobilní adresy stránky O nás, archivu a obou Ozvěn stínů přesměrují na odpovídající současnou stránku. Všechna tato přesměrování zachovávají také ruční odkaz pro případ, že prohlížeč automatické přesměrování nepovolí.
 
 ## První spuštění
 

@@ -42,7 +42,7 @@ Na konec `<body>` nové stránky vlož následující blok. Počet `../` uprav p
 
 Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`; potřebuje také iframe. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
 
-Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše. Přes hřebeny má také jediný iframe a import motivu. `LALOK/`, pomocná stránka motivu, prázdná stránka míst a přesměrování ze starých vstupních adres společné menu nepoužívají.
+Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše. Přes hřebeny má také jediný iframe a import motivu. `LALOK/`, pomocná stránka motivu, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
 
 ## Rozložení a změny velikosti
 
