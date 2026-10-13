@@ -65,12 +65,21 @@ header svg {
   transition: transform 0.3s;
 }
 
+.header-container .menu-toggle {
+  display: block;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 /*Side menu*/
 .side-menu {
   position: fixed;
   right: -250px;
   width: 250px;
-  height: 100%;
+  height: calc(100dvh - var(--site-header-height, 100px));
+  overflow-y: auto;
   background-color: slategray;
   transition: right 0.3s;
   flex-direction: column;
@@ -81,7 +90,7 @@ header svg {
   /* reset stylu pokud z nav selektoru */
   left: initial;
   background-image: none;
-  top: initial;
+  top: var(--site-header-height, 100px);
 }
 
 .side-menu-open {
@@ -94,7 +103,7 @@ header svg {
   align-items: center;
 }
 
-#menu-sipka {
+.side-menu .menu-sipka {
   --pad: 0.75em;
   display: flex;
   align-items: center;
@@ -103,6 +112,13 @@ header svg {
   padding: var(--pad);
   width: calc(1em + (var(--pad) * 2));
   height: calc(1em + (var(--pad) * 2));
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.menu-sipka svg {
   transform: rotate(90deg);
   transition: transform 300ms ease-in-out;
 }
@@ -111,7 +127,7 @@ header svg {
   flex: 1;
 }
 
-.menu-item-s-submenu.submenu-open #menu-sipka {
+.menu-item-s-submenu.submenu-open .menu-sipka svg {
   transform: rotate(0deg);
 }
 
@@ -134,13 +150,7 @@ header svg {
   transition: opacity 0.15s;
 }
 
-#menu-sipka:hover {
-  transform: rotate(0deg);
-  transition: transform 0.3s ease-in-out;
-}
-
-.menu-item-s-submenu.submenu-open .submenu,
-.submenu:hover {
+.menu-item-s-submenu.submenu-open .submenu {
   display: flex;
 }
 
@@ -180,6 +190,6 @@ header svg {
 
 .side-menu a:hover,
 .darkXlight:hover,
-#menu-sipka:hover {
+.menu-sipka:hover {
   background: darkgray;
 }

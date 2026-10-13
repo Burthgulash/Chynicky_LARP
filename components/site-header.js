@@ -30,11 +30,13 @@ class SiteHeader extends HTMLElement {
             <h4 class="podnadpis-container nadpis"></h4>
         </div>
         <div class="menu-container">
-            <img class="menu-btn menu"
-                alt="Klikni na hamburger menu pro zobrazení nabídky" onclick="toggleMenu()">
+            <button type="button" class="menu-toggle" aria-label="Hlavní nabídka"
+                aria-controls="sideMenu" aria-expanded="false" onclick="toggleMenu()" disabled>
+                <img class="menu-btn menu" alt="">
+            </button>
         </div>
     </div>
-    <div class="side-menu" id="sideMenu" inert></div>
+    <site-menu class="side-menu" id="sideMenu" inert></site-menu>
 </header>`;
     }
     this.updateContent();

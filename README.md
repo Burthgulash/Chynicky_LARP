@@ -23,7 +23,7 @@ Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automatick
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-**Lokální náhled zatím není úplně nezávislý na produkci.** Importy skriptů a stylů jsou relativní, ale menu odkazuje na veřejný web a řada obrázků i iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku přímo na `localhost`; kliknutí v menu tě může odvést na produkci. Google Fonts, mapy a externí dokumenty také potřebují síť.
+**Lokální náhled zatím není úplně nezávislý na produkci.** Importy skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků, odkazů v obsahu a iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, mapy a externí dokumenty také potřebují síť.
 
 ## Který soubor upravit
 
@@ -36,7 +36,7 @@ HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScripto
 | O nás nebo příběhy | `O nas/O nás.html`, `pribehy/pribehy.html` |
 | Odkazy a položky společného menu | `scripts/generace-menu.js` |
 | Nadpis jedné stránky | Atributy jejího `<site-header>` |
-| Společná hlavička a boční menu | `components/site-header.js`, `css/sdilene/menu/menu.css`, `scripts/obecny.js` |
+| Společná hlavička a boční menu | `components/site-header.js`, `scripts/generace-menu.js`, `css/sdilene/menu/menu.css` |
 | Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js`, `light-mod-cloud-web/light-mod-cloud-web.html` |
 | Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
 | Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
@@ -48,6 +48,7 @@ Další orientace:
 - `scripts/galerie/foto-galerie.js` filtruje samostatnou galerii; `foto-lightbox.js` ovládá zvětšení fotek v detailech akcí.
 - `scripts/utilities/imgformat.js` zjišťuje příponu obrázku pro přepínání ikon.
 - `tests/renderers.test.mjs` je malá kontrola generovaných karet a ručně psaného archivu.
+- `tests/menu.test.mjs` kontroluje zapojení stránek a chování komponenty menu s náhradním DOM v Node.js.
 - [Pravidla a přehled CSS](css/css.md), [podrobnosti hlavičky](docs/header-layout-notes.md) a [pokyny pro AI](AGENTS.md) doplňují tento úvod.
 - `LALOK/` jsou samostatné žertovné stránky, na které vedou odkazy z některých akcí. Nejsou vzorem společné hlavičky.
 - `mista-akci/mista-akci.html` je zatím prázdný soubor.
@@ -66,9 +67,11 @@ HTML obsahuje například:
 </site-header>
 ```
 
-`components/site-header.js` zaregistruje vlastní HTML element, vytvoří nadpis, obrázkové tlačítko a prázdné boční menu `#sideMenu`. `scripts/generace-menu.js` menu naplní a jednou připojí ovládání šipek. `scripts/obecny.js` poskytuje globální `toggleMenu()` pro otevření a zavření; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách aktivního prohlížení stránky.
+`components/site-header.js` zaregistruje vlastní HTML element, vytvoří nadpis, tlačítko `.menu-toggle` s obrázkem `.menu-btn` a `<site-menu id="sideMenu">`. ES modul `scripts/generace-menu.js` definuje tuto webovou komponentu. Odkazy, podnabídky a tlačítko motivu sestaví jednou přes `createElement` a `append`, bez `innerHTML`. Vlastní adresy odvozuje od `import.meta.url`, takže menu funguje z různě hlubokých stránek na místním serveru i pod `/Chynicky_LARP/`. Odkaz Z Popelu Kalicha míří do `Odehrane LARPy/Z.Popelu.kalicha/`.
 
-Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Když ubývá místo, nejprve se zmenší prázdný levý sloupec a poté se zalomí text. Tato hlavička nemá pevný mobilní breakpoint. `ResizeObserver` měří jen její výšku a nastavuje `--site-header-height` pro horní odsazení stránky. Při změně šířky ani nadpisu se menu nevytváří znovu.
+Komponenta spravuje otevření, zavření kliknutím mimo panel nebo klávesou Escape, atribut `inert` a `aria-expanded` spouštěcího tlačítka. Spouštěč je do načtení komponenty vypnutý. Pokud byl fokus uvnitř zavíraného panelu, vrátí ho na spouštěč. Podnabídky mají skutečná tlačítka: myš je může otevřít najetím na šipku, kliknutí funguje i dotykem a z klávesnice. `scripts/obecny.js` poskytuje globální `toggleMenu()`, který pouze zavolá metodu komponenty; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách aktivního prohlížení stránky.
+
+Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Když ubývá místo, nejprve se zmenší prázdný levý sloupec a poté se zalomí text. Tato hlavička nemá pevný mobilní breakpoint. `ResizeObserver` měří jen její výšku a nastavuje `--site-header-height` pro horní odsazení stránky. Při změně šířky, nadpisu ani opětovném připojení se DOM menu nevytváří znovu; při odpojení se panel zavře a odebere listenery dokumentu.
 
 Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto pořadí společných částí:
 
@@ -78,11 +81,11 @@ Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto po�
   style="display:none;"></iframe>
 <script src="../components/site-header.js"></script>
 <script src="../scripts/obecny.js"></script>
-<script src="../scripts/generace-menu.js"></script>
+<script type="module" src="../scripts/generace-menu.js"></script>
 <script type="module" src="../scripts/light-modV2.js"></script>
 ```
 
-Hlavička musí existovat před generováním menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Datové renderery a motiv jsou moduly. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
+Hlavička musí existovat před registrací menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný iframe i import motivu, včetně Přes hřebeny. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
 
 ### Kalendář a návody
 
@@ -98,7 +101,7 @@ Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS
 
 ### Světlý a tmavý motiv
 
-`light-modV2.js` nejprve nastaví tmavý motiv, po načtení iframe požádá zprávou `get-theme` o uloženou hodnotu a při kliknutí odešle `set-theme`. Iframe ukládá klíč `theme` do svého `localStorage` a vrací zprávu typu `theme`. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon.
+`light-modV2.js` nejprve nastaví tmavý motiv a připojí obsluhu odpovědi iframe. O uloženou hodnotu požádá zprávou `get-theme` ihned i při události `load`, takže zachytí také iframe načtený před spuštěním modulu. Při kliknutí odešle `set-theme`. Iframe ukládá klíč `theme` do svého `localStorage` a vrací zprávu typu `theme`. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon. Ikonu tlačítka motivu mění na stávajícím `<img>` a aktualizuje jeho přístupný popisek, takže DOM tlačítka a jeho listener zůstávají zachované.
 
 Iframe je statická pomocná stránka na GitHub Pages. Motiv se neukládá do databáze ani uživatelského účtu. Rodičovský skript má napevno origin `https://burthgulash.github.io`; pouhé přepsání iframe na lokální cestu proto současnou synchronizaci neopraví. Přímé `localStorage` by stačilo pro stránky na stejném originu, pokud nechceme zachovat společný motiv i s lokálním náhledem nebo jiným hostingem.
 
@@ -164,6 +167,14 @@ Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve st�
 
 Po výměně obrázků spusť také `node --test tests/images.test.mjs`. Kontroluje místní soubory v datech a WebP odkazy v HTML/CSS; nenahrazuje kontrolu kvality obrazu ani skutečný prohlížeč.
 
+Po změně menu spusť:
+
+```sh
+node --test tests/menu.test.mjs
+```
+
+Test kontroluje modulové importy menu před motivem a jeden iframe na všech 12 stránkách, existenci cest skriptů a devíti odkazů menu a tvorbu menu bez `innerHTML`. S náhradním DOM ověřuje vypnutí spouštěče před načtením a bezpečnou globální delegaci, otevření, kliknutí mimo panel, Escape, `inert`, `aria-expanded`, návrat fokusu, odebrání listenerů a zachování uzlů při opětovném připojení. Kontroluje také obsluhy podnabídek pro kliknutí, myš, dotyk a odchod fokusu. S náhradním iframe ověřuje okamžitý dotaz i dotaz při `load`, odpovědi a přepnutí motivu při zachování obrázku tlačítka. Neověřuje skutečný prohlížeč, rozložení ani živou synchronizaci motivu.
+
 Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
 
 V prohlížeči ověř změněnou stránku a při zásahu do společného kódu také hlavní stránku a jeden detail akce:
@@ -179,12 +190,10 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 
 | Pořadí | Konkrétní problém | Nejmenší rozumná změna |
 | --- | --- | --- |
-| 1 | Menu a data návodů odkazují na `Z.Popelu.kalicha/…` mimo skutečnou složku `Odehrane LARPy/`; některé URL ikon postrádají `/Chynicky_LARP/`. Absolutní odkazy navíc odvádějí lokální náhled na produkci. | Opravit odkazy proti skutečným souborům a vlastní obsah postupně odkazovat relativně. U společného JS zohlednit různé hloubky HTML stránek, například URL odvodit od umístění skriptu. |
-| 2 | `Pres.hrebeny.html` obsahuje dvakrát iframe `#theme-sync` a import motivu. | Ponechat jednu instanci každého. Není potřeba zavádět nový systém načítání skriptů. |
-| 3 | Hlavička otevírá menu klikacím obrázkem; zavření kliknutím mimo menu nevrací `inert`. Šipky rozlišují mobil podle `userAgent`. | Použít skutečné tlačítko, sjednotit nastavení zavřeného menu a umožnit ovládání klávesnicí i dotykem. Zachovat stávající CSS Grid. |
-| 4 | Motiv vyžaduje vzdálený iframe a `postMessage`, přesto jsou produkční stránky na jednom originu. | Pokud není potřeba sdílení mezi originy, ukládat motiv přímo do `localStorage`. Pokud iframe zůstane, ověřovat také odesílatele a povolené hodnoty v jeho obsluze zpráv. |
-| 5 | Návody mají názvy polí i hodnoty převzaté z kalendáře. | Nejprve určit skutečné údaje návodu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
-| 6 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
+| 1 | Data návodů odkazují na `Z.Popelu.kalicha/…` mimo skutečnou složku `Odehrane LARPy/`. Některé absolutní odkazy v obsahu a obrázky stále odvádějí místní náhled na produkci. | Opravit odkazy proti skutečným souborům a vlastní obsah postupně odkazovat relativně. |
+| 2 | Motiv vyžaduje vzdálený iframe a `postMessage`, přesto jsou produkční stránky na jednom originu. | Pokud není potřeba sdílení mezi originy, ukládat motiv přímo do `localStorage`. Pokud iframe zůstane, ověřovat také odesílatele a povolené hodnoty v jeho obsluze zpráv. |
+| 3 | Návody mají názvy polí i hodnoty převzaté z kalendáře. | Nejprve určit skutečné údaje návodu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
+| 4 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 

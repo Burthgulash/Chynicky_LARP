@@ -1,3 +1,4 @@
+import "./generace-menu.js";
 import { getImageFormat } from "./utilities/imgformat.js";
 
 const iframe = document.getElementById("theme-sync");
@@ -5,12 +6,13 @@ const btn = document.getElementById("button-theme-switch");
 
 applyTheme("dark"); // Default theme
 // 1. Ask iframe for theme on load
-iframe.onload = () => {
+function requestTheme() {
   iframe.contentWindow.postMessage(
     "get-theme",
     "https://burthgulash.github.io",
   );
-};
+}
+iframe.addEventListener("load", requestTheme);
 
 // 2. Receive the theme and apply it
 window.addEventListener("message", (event) => {
@@ -20,6 +22,8 @@ window.addEventListener("message", (event) => {
     applyTheme(event.data.value);
   }
 });
+// Iframe mohl dokončit načtení ještě před vyhodnocením modulů stránky.
+requestTheme();
 
 // 3. User changes theme
 btn.addEventListener("click", () => {
@@ -77,14 +81,12 @@ function updateIcons() {
 
 function updateThemeIcon() {
   const themebtn = document.getElementById("button-theme-switch");
-
-  if (document.body.classList.contains("dark")) {
-    themebtn.innerHTML = `
-            <img src="${new URL("../kvido html-img/foto/Ikony-img/slunce-icon.webp", import.meta.url).href}">
-        `;
-  } else {
-    themebtn.innerHTML = `
-            <img style="margin-left: 8px;" src="${new URL("../kvido html-img/foto/Ikony-img/Mesic-icon.webp", import.meta.url).href}">
-        `;
-  }
+  const isDark = document.body.classList.contains("dark");
+  const image = themebtn.querySelector("img");
+  image.src = new URL(
+    `../kvido html-img/foto/Ikony-img/${isDark ? "slunce-icon" : "Mesic-icon"}.webp`,
+    import.meta.url,
+  ).href;
+  image.style.marginLeft = isDark ? "0" : "8px";
+  themebtn.setAttribute("aria-label", `Přepnout na ${isDark ? "světlý" : "tmavý"} motiv`);
 }

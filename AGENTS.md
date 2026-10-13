@@ -20,14 +20,15 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 
 ### Hlavička, menu a motiv
 
-- `<site-header>` a `components/site-header.js` vytvářejí hlavičku i prázdné `#sideMenu`. Atributy jsou `title`, `subtitle`, `image`.
-- `site-header.js` se musí načíst před `scripts/generace-menu.js`. Ten naplní menu a jednou připojí šipky.
-- `scripts/obecny.js` musí zůstat klasický skript: inline `onclick` používá globální `toggleMenu()`. Jeho dalšími funkcemi jsou minimapa v detailech akcí a easter egg.
-- `scripts/light-modV2.js` je modul. Při spuštění potřebuje `#theme-sync` a tlačítko `#button-theme-switch` vytvořené menu skriptem. Na stránce má být jen jeden iframe a jeden import motivu.
-- Současný motiv používá vzdálený iframe, `postMessage` a origin `https://burthgulash.github.io`. Změna adresy iframe sama nestačí. Pro lokální náhled počítej s produkčními obrázky i odkazy.
+- `<site-header>` a `components/site-header.js` vytvářejí hlavičku i `<site-menu id="sideMenu" class="side-menu" inert>`. Atributy hlavičky jsou `title`, `subtitle`, `image`; `.menu-btn` zůstává obrázek uvnitř tlačítka `.menu-toggle`.
+- `site-header.js` se musí načíst před ES modulem `scripts/generace-menu.js`, který definuje `<site-menu>`. Menu vytváří DOM jednou přes `createElement` bez `innerHTML`; jeho odkazy odvozuje od `import.meta.url`.
+- Komponenta menu spravuje stav panelu, kliknutí mimo, Escape, `inert` a `aria-expanded`; spouštěč je do jejího načtení vypnutý. Podnabídky ovládají tlačítka kliknutím či klávesnicí a najetím myši přes pointer události; nepřidávej detekci podle `userAgent` ani opakovaná ID šipek.
+- `scripts/obecny.js` musí zůstat klasický skript: inline `onclick` používá globální `toggleMenu()`, který pouze deleguje na komponentu menu. Jeho dalšími funkcemi jsou minimapa v detailech akcí a easter egg.
+- `scripts/light-modV2.js` je modul a importuje menu jako závislost. Při spuštění potřebuje `#theme-sync` a tlačítko `#button-theme-switch` vytvořené komponentou; jeho obrázek i listener zachovej při změně motivu. Na stránce má být jen jeden iframe a jeden import motivu.
+- Současný motiv používá vzdálený iframe, `postMessage` a origin `https://burthgulash.github.io`. Změna adresy iframe sama nestačí. Pro lokální náhled počítej s produkčními obrázky a některými odkazy v obsahu; odkazy menu respektují místní adresu.
 - Současné přepínání ikon hledá `#icon-img` s `data-name="název"` a skládá adresy `název.přípona` a `název-light.přípona` ve složce `Ikony-img`. Při změně tematické ikony ověř obě varianty.
 - Hlavička používá CSS Grid v `css/sdilene/menu/menu.css`: menu 70 × 70 px, mezera alespoň 12 px, zalamování podle dostupného místa. `ResizeObserver` měří pouze výšku pro `--site-header-height`.
-- Zachovej stabilní DOM menu a jeho listenery při změně šířky či nadpisu. Nepřidávej druhé měření kolizí, resize loader ani znovuvytváření hlavičky. Podrobnosti jsou v [poznámkách k hlavičce](docs/header-layout-notes.md).
+- Zachovej stabilní DOM menu a jeho listenery při změně šířky či nadpisu i opětovném připojení komponenty. Při odpojení menu odeber jeho listenery dokumentu. Nepřidávej druhé měření kolizí, resize loader ani znovuvytváření hlavičky. Podrobnosti jsou v [poznámkách k hlavičce](docs/header-layout-notes.md).
 
 ### Data a obsah
 
@@ -46,7 +47,7 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 - Vlastní nové odkazy preferuj relativní a ověř je i z vnořené stránky. Nepřidávej produkční adresy pro import lokálního kódu. Existující absolutní URL neopravuj plošně bez kontroly jejich významu.
 - Sdílené styly patří do `css/sdilene/`, styly konkrétní stránky do `css/`. Hlavička i boční menu mají jeden soubor `css/sdilene/menu/menu.css`. Role stylů jsou v [css/css.md](css/css.md).
 - `subtitle` záměrně přijímá autorské HTML odkazy a datové renderery používají `innerHTML`. Tyto hodnoty nyní pocházejí z repozitáře. Nepřipojuj sem neošetřený uživatelský vstup ani cizí data; na nové hranici zajisti bezpečné vložení textu a ověření URL.
-- Zachovej základní přístupnost: ovládací prvky jako tlačítka, smysluplný `alt`, popisky a ovládání klávesnicí. Stávající nedostatky menu jsou popsané v README a nejsou vzorem pro nové prvky.
+- Zachovej základní přístupnost: ovládací prvky jako tlačítka, smysluplný `alt`, popisky a ovládání klávesnicí.
 
 ## Jak zjednodušovat
 
@@ -67,6 +68,8 @@ node --test tests/renderers.test.mjs
 ```
 
 Test má očekávání pro aktuální počet karet; při záměrné změně obsahu je uprav, ale zachovej kontrolu chování. Neověřuje skutečný prohlížeč, galerie, motiv ani rozložení.
+
+Pro změny menu spusť `node --test tests/menu.test.mjs`. Ověřuje zapojení 12 stránek, místní cesty, stav komponenty a obsluhu motivu s náhradním DOM a iframe; nenahrazuje kontrolu prohlížeče.
 
 - Změněný JS ověř přes `node --check cesta/k/souboru.js` a diff přes `git diff --check`.
 - Pro novou netriviální logiku nebo opravu chyby přidej nejmenší smysluplnou regresní kontrolu, ideálně rozšířením stávajícího testu a vestavěnými nástroji Node. Pro samotnou dokumentaci či drobnou změnu textu nový test nevytvářej.
