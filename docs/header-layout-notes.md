@@ -1,6 +1,6 @@
 # Jak funguje společná hlavička a menu
 
-Aktualizováno 13. 10. 2026 porovnáním s místním kódem a HTML. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu, návrhy na další úklid a historické záznamy kontrol jsou oddělené.
+Aktualizováno 14. 10. 2026 při nahrazení iframe motivu přímým `localStorage`. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu a historické záznamy kontrol jsou oddělené.
 
 ## Rozdělení práce
 
@@ -11,10 +11,9 @@ Aktualizováno 13. 10. 2026 porovnáním s místním kódem a HTML. Tento dokume
 | `css/sdilene/obecne-sdilene.css` | Odsazení obsahu pod pevnou hlavičkou a proměnné pro témata. |
 | `scripts/generace-menu.js` | ES modul definující `<site-menu>`; sestaví DOM bez `innerHTML` a spravuje panel i podnabídky. |
 | `scripts/obecny.js` | Globální `toggleMenu()` delegující na komponentu, volitelná minimapa a easter egg. |
-| `scripts/light-modV2.js` | Importuje menu a přepíná téma, obrázky ikon i komunikaci s iframe. |
-| `light-mod-cloud-web/light-mod-cloud-web.html` | Pomocná stránka v iframe; ukládá klíč `theme` do `localStorage` originu, ze kterého se načte. Současné stránky načítají její produkční verzi. |
+| `scripts/light-modV2.js` | Importuje menu, přepíná téma a obrázky ikon a čte i ukládá volbu přímo v `localStorage`. |
 
-Hlavičku nyní používá 12 HTML stránek: kalendář, O nás, Příběhy, Návody, samostatná galerie, archiv a šest detailů akcí (Hraniční tvrz, Návrat mocného, obě Ozvěny stínů, Přes hřebeny a Z Popelu Kalicha). Každá má právě jeden `<site-header>`, jeden iframe `#theme-sync` a jeden import modulu motivu. Komponenta používá běžný DOM bez Shadow DOM; společné CSS přímo styluje její obsah.
+Hlavičku nyní používá 12 HTML stránek: kalendář, O nás, Příběhy, Návody, samostatná galerie, archiv a šest detailů akcí (Hraniční tvrz, Návrat mocného, obě Ozvěny stínů, Přes hřebeny a Z Popelu Kalicha). Každá má právě jeden `<site-header>` a jeden import modulu motivu. Komponenta používá běžný DOM bez Shadow DOM; společné CSS přímo styluje její obsah.
 
 ## Vložení do stránky
 
@@ -31,18 +30,15 @@ Hlavičku nyní používá 12 HTML stránek: kalendář, O nás, Příběhy, Ná
 Na konec `<body>` nové stránky vlož následující blok. Počet `../` uprav podle umístění souboru:
 
 ```html
-<iframe id="theme-sync"
-  src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-  style="display:none;"></iframe>
 <script src="../components/site-header.js"></script>
 <script src="../scripts/obecny.js"></script>
 <script type="module" src="../scripts/generace-menu.js"></script>
 <script type="module" src="../scripts/light-modV2.js"></script>
 ```
 
-Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`; potřebuje také iframe. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
+Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
 
-Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše. Přes hřebeny má také jediný iframe a import motivu. `LALOK/`, pomocná stránka motivu, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
+Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje. `LALOK/`, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
 
 ## Rozložení a změny velikosti
 
@@ -69,9 +65,9 @@ Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `
 - Globální `toggleMenu()` jen zavolá `toggle()` komponenty. Její `setOpen()` sjednocuje třídu, `inert`, `aria-expanded` spouštěče a listenery pro kliknutí mimo panel i Escape. Při zavření s fokusem uvnitř panelu vrátí fokus na spouštěč. Kliknutí na odkaz panel také zavře.
 - Podnabídky mají tlačítka `.menu-sipka` s `aria-controls` a `aria-expanded`. Kliknutí je přepne a ponechá otevřené i po odjetí myši; funguje dotykem i klávesami Enter/mezerník. `pointerenter` s `pointerType="mouse"` nabídku otevře. Po opuštění skupiny nebo odchodu fokusu se zavře, pokud není připnutá kliknutím ani používaná myší či fokusem. Rozhodování podle `userAgent` se nepoužívá.
 - DOM odkazů, tlačítek a SVG vzniká přes `createElement`, `createElementNS` a `append`, bez `innerHTML`. Devět odkazů menu se odvozuje od kořene modulu přes `import.meta.url`, včetně správné složky `Odehrane LARPy/Z.Popelu.kalicha/`. Na místním serveru vedou na místní stránky a při nasazení pod `/Chynicky_LARP/` zachovají tento prefix. Menu nyní neobsahuje odkazy na Návody, samostatnou galerii ani Přes hřebeny.
-- Modul tématu nejprve použije `dark`. Po připojení obsluhy odpovědí zavolá `requestTheme()` ihned a také při události `load` iframe. Odešle `get-theme` na `https://burthgulash.github.io`, i když iframe dokončil načtení před spuštěním modulu; odpověď `{ type: "theme", value: "dark" | "light" }` aplikuje třídou na `<body>`.
-- Tlačítko odešle `{ type: "set-theme", value: ... }` iframe a ihned změní místní vzhled. Iframe ukládá klíč `theme` do `localStorage`. Nejde o backend ani o průběžnou synchronizaci otevřených karet.
-- `updateIcons()` přepíše zdroj obrázku `.menu-btn` uvnitř spouštěče a všechny prvky `#icon-img`. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`.
+- Modul tématu při spuštění přečte klíč `theme` přímo z `localStorage`. Hodnota `light` použije světlý motiv; chybějící či jiná hodnota a chyba čtení použijí `dark`. Motiv aplikuje třídou na `<body>`.
+- Tlačítko ihned změní vzhled a pokusí se uložit novou volbu do klíče `theme`. Při zablokovaném úložišti dál funguje na současné stránce. Preference se při načtení sdílí mezi stránkami stejného originu v daném prohlížeči; otevřené záložky se průběžně nepřepínají. Klíč zůstal stejný, takže dosavadní produkční volba zůstane zachovaná.
+- `updateIcons()` přepíše zdroj obrázku `.menu-btn` uvnitř spouštěče a všechny prvky `#icon-img`. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`. Po `DOMContentLoaded` aktualizaci zopakuje, aby zahrnul také karty vytvořené renderery po spuštění modulu motivu.
 - `updateThemeIcon()` mění zdroj stávajícího obrázku v `#button-theme-switch` a přístupný popisek tlačítka. Obrázky slunce a měsíce odvozuje od umístění modulu; tlačítko, obrázek i listener zůstávají stejné.
 - Pozadí hlavičky vybírá CSS přes `--nav-img`. Tmavé používá `Nav.panel/temný les 3.jpg`, světlé `Nav.panel/IMG_6357.webp`; obě adresy jsou produkční i v místním náhledu.
 
@@ -79,13 +75,7 @@ Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `
 
 - Více obsahových ikon na stránce má opakované `id="icon-img"`.
 - Obrázek spouštěče menu, pozadí hlavičky a obsahové ikony přepínané motivem stále směřují na produkci i při místním náhledu. Ikony samotného tlačítka motivu se načítají místně.
-- Iframe tématu se načítá z produkce. Bez odpovědi zůstane počáteční tmavý vzhled; tlačítko stále mění místní vzhled. Iframe nekontroluje původ zprávy ani hodnotu tématu; hlavní stránka kontroluje pouze původ, nikoli `event.source` ani povolenou hodnotu. Neočekávaná hodnota proto odstraní obě třídy motivu z `<body>`. Pouhé přepsání `src` iframe na místní cestu nestačí, protože cílový origin zpráv i kontrola původu zůstávají nastavené na `https://burthgulash.github.io`.
-
-## Malé návrhy na další úklid
-
-Tento návrh zatím není implementovaný:
-
-1. **Prověřit potřebu iframe tématu.** Pokud preference platí jen pro stránky na jednom původu, přímý `localStorage` v modulu odstraní iframe i protokol zpráv. Lokální server by měl vlastní preferenci. Pokud musí sdílet produkční nastavení, most zachovat a doplnit kontrolu odesílatele i povolených hodnot.
+- `localStorage` patří jednomu originu (protokol, doména a port) a prohlížeči. Lokální server má vlastní volbu oddělenou od produkce; při zablokovaném úložišti se motiv neuchová pro další načtení stránky.
 
 ## Jak změnu ověřit
 
@@ -96,12 +86,16 @@ Změněný JavaScript ověř pomocí `node --check cesta/k/souboru.js` a diff v 
 - úzké i široké okno, dlouhý nadpis a menu ponechané otevřené při změně šířky;
 - otevření a zavření panelu, Escape, kliknutí mimo, návrat fokusu a ovládání podnabídek myší i klávesnicí;
 - v nízkém okně posouvání panelu až k tlačítku motivu;
-- přepnutí obou motivů, přechod na další stránku a načtení obrázků;
+- přepnutí obou motivů, obnovení stránky, přechod na další stránku a načtení obrázků; při změně ukládání také chybějící či neplatnou hodnotu a zablokované úložiště;
 - místní adresy odkazů, chybějící soubory a chyby v konzoli.
 
-Při této aktualizaci bylo čtením souborů potvrzeno použití hlavičky na 12 stránkách, právě jeden iframe motivu a import jeho modulu na každé, pořadí společných skriptů a existence jejich místních cest. Popis rozložení a obsluh odpovídá společným skriptům a CSS.
+## Kontrola 14. 10. 2026
 
-Dne 13. 10. 2026 při této aktualizaci proběhla také kontrola na místním HTTP serveru v prohlížeči Codex. Všech 12 stránek bylo otevřeno při 320 × 800 a 1440 × 900 px; šířka obsahu nepřesáhla okno a ve širokém zobrazení odpovídalo horní odsazení výšce hlavičky. Na všech stránkách při 320 px fungovalo otevření menu a zavření klávesou Escape s obnovením `inert` a `aria-expanded`. V kalendáři byla vyzkoušena podnabídka klávesou Enter, otevřený panel zůstal otevřený při změně šířky a profil Kvida se otevřel. Přepnutí na světlý motiv přežilo přechod přes menu do Z Popelu Kalicha i následný průchod všemi 12 stránkami; produkční iframe tedy při této kontrole odpovídal. Nakonec byl obnoven původní tmavý motiv. Filtrovaná galerie vytvořila 29 fotek pro OS2 a 17 pro OS1; lightbox OS2 otevřel první originál, přešel na druhý a zavřel se klávesou Escape. Živé mapy, všechny vzdálené obrázky, Safari, Firefox, fyzický dotyk, najetí myší a produkční nasazení nebyly touto kontrolou ověřeny.
+Prošly `node --check scripts/light-modV2.js` a `git diff --check`. Jednorázová kontrola v Node VM bez nových testovacích souborů ověřila výchozí `dark` pro chybějící či neplatnou hodnotu, uložení a obnovení obou motivů při novém spuštění, funkční přepínač při výjimkách `getItem` i `setItem`, zachování ostatních tříd `<body>` i stejných uzlů tlačítka a obrázku a aktualizaci dodatečných ikon při `DOMContentLoaded`.
+
+V prohlížeči Codex na `http://127.0.0.1:8001` byly kalendář a Návrat mocného zkontrolovány při 320 × 800 a 1440 × 900 px bez vodorovného přetečení. Kalendář zobrazil dvě karty. Světlý motiv přežil obnovení kalendáře i přechod přes menu do detailu; tmavý přežil obnovení detailu i návrat do kalendáře. Otevřené menu zůstalo otevřené při změně šířky, podnabídka archivu reagovala na Enter a Escape zavřel panel, obnovil `inert` a vrátil fokus. Návody v širokém okně zobrazily dvě karty, `body.light` a po vykreslení správně sestavenou adresu `questionmark-light.png`. Na těchto třech stránkách nebyl `#theme-sync`; mapový iframe detailu zůstal zachován.
+
+Některé vzdálené ikony a pozadí se nenačetly; jejich stávající adresy se touto změnou neopravovaly. Produkční nasazení, další prohlížeče, fyzický dotyk, mapy a zbývajících devět stránek nebyly dnes v prohlížeči ověřeny.
 
 ## Historické záznamy kontrol
 
@@ -109,6 +103,10 @@ Následující údaje pocházejí z dřívějšího textu tohoto dokumentu. Při
 
 - **19. 9. 2026:** tehdejší dokument uváděl kontrolu všech 12 stránek v Chromium/Chrome při šířkách 320–1440 px, včetně rozložení, odsazení, zachování DOM při resize, změn atributů, menu, podnabídek a světlého motivu. Externí služby byly blokované a úložiště motivu nahrazovalo testovací iframe.
 - **1. 10. 2026:** předchozí text uváděl porovnání dokumentace se společnými skripty, CSS a 12 HTML stránkami bez nové kontroly chování v prohlížeči.
-- **13. 10. 2026 před touto aktualizací:** text uváděl kontrolu všech 12 stránek na místním HTTP serveru, menu a jeho zavírání, `inert`, počtů iframe a tlačítka motivu, devíti místních odkazů, klávesy Enter, šířek 320, 360 a 1440 px a zachování světlého motivu při přechodu mezi stránkami. U detailu Z Popelu Kalicha při 320 × 600 px uváděl posouvání obou otevřených podnabídek až k funkčnímu přepínači motivu, odpověď produkčního iframe a konzoli bez chyb či varování. Safari, Firefox a fyzický dotyk či najetí myší tehdy uvedené kontroly nepokrývaly.
+- **13. 10. 2026, dřívější záznam:** text uváděl kontrolu všech 12 stránek na místním HTTP serveru, menu a jeho zavírání, `inert`, počtů iframe a tlačítka motivu, devíti místních odkazů, klávesy Enter, šířek 320, 360 a 1440 px a zachování světlého motivu při přechodu mezi stránkami. U detailu Z Popelu Kalicha při 320 × 600 px uváděl posouvání obou otevřených podnabídek až k funkčnímu přepínači motivu, odpověď produkčního iframe a konzoli bez chyb či varování. Safari, Firefox a fyzický dotyk či najetí myší tehdy uvedené kontroly nepokrývaly.
+
+Při aktualizaci 13. 10. 2026 bylo čtením souborů potvrzeno použití hlavičky na 12 stránkách, právě jeden iframe motivu a import jeho modulu na každé, pořadí společných skriptů a existence jejich místních cest.
+
+Dne 13. 10. 2026 proběhla také kontrola na místním HTTP serveru v prohlížeči Codex. Všech 12 stránek bylo otevřeno při 320 × 800 a 1440 × 900 px; šířka obsahu nepřesáhla okno a ve širokém zobrazení odpovídalo horní odsazení výšce hlavičky. Na všech stránkách při 320 px fungovalo otevření menu a zavření klávesou Escape s obnovením `inert` a `aria-expanded`. V kalendáři byla vyzkoušena podnabídka klávesou Enter, otevřený panel zůstal otevřený při změně šířky a profil Kvida se otevřel. Přepnutí na světlý motiv přežilo přechod přes menu do Z Popelu Kalicha i následný průchod všemi 12 stránkami; produkční iframe tedy při této kontrole odpovídal. Nakonec byl obnoven původní tmavý motiv. Filtrovaná galerie vytvořila 29 fotek pro OS2 a 17 pro OS1; lightbox OS2 otevřel první originál, přešel na druhý a zavřel se klávesou Escape. Živé mapy, všechny vzdálené obrázky, Safari, Firefox, fyzický dotyk, najetí myší a produkční nasazení nebyly touto kontrolou ověřeny.
 
 Dřívější Node test používal náhradní DOM a iframe. Jeho tehdejší výsledky ani uvedené historické kontroly nedokládají dnešní chování v Safari/Firefox nebo dnešní dostupnost produkčních služeb.

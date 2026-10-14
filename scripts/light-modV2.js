@@ -1,57 +1,32 @@
 import "./generace-menu.js";
 import { getImageFormat } from "./utilities/imgformat.js";
 
-const iframe = document.getElementById("theme-sync");
 const btn = document.getElementById("button-theme-switch");
 
-applyTheme("dark"); // Default theme
-// 1. Ask iframe for theme on load
-function requestTheme() {
-  iframe.contentWindow.postMessage(
-    "get-theme",
-    "https://burthgulash.github.io",
-  );
+let theme = "dark";
+try {
+  theme = localStorage.getItem("theme") === "light" ? "light" : "dark";
+} catch {
+  // Při blokovaném úložišti použijeme výchozí tmavý motiv.
 }
-iframe.addEventListener("load", requestTheme);
+applyTheme(theme);
+// Renderery karet mohou vložit další ikony až po spuštění tohoto modulu.
+document.addEventListener("DOMContentLoaded", updateIcons, { once: true });
 
-// 2. Receive the theme and apply it
-window.addEventListener("message", (event) => {
-  // console.log("Mesage", event)
-  if (event.origin !== "https://burthgulash.github.io") return;
-  if (event.data?.type === "theme") {
-    applyTheme(event.data.value);
-  }
-});
-// Iframe mohl dokončit načtení ještě před vyhodnocením modulů stránky.
-requestTheme();
-
-// 3. User changes theme
 btn.addEventListener("click", () => {
   const newTheme = document.body.classList.contains("dark") ? "light" : "dark";
-  // Save to iframe
-  iframe.contentWindow.postMessage(
-    { type: "set-theme", value: newTheme },
-    "https://burthgulash.github.io",
-  );
   applyTheme(newTheme);
+  try {
+    localStorage.setItem("theme", newTheme);
+  } catch {
+    // Při blokovaném úložišti přepnutí platí jen pro aktuální stránku.
+  }
 });
 
 function applyTheme(theme) {
   document.body.classList.remove("dark", "light");
-
-  // info card clases
-  // const info = document.querySelectorAll(".info2")
-  // const info21 = document.querySelectorAll(".info2-1")
-  // const info22 = document.querySelectorAll(".info2-2")
-  if (theme === "dark") {
-    document.body.classList.toggle("dark");
-
-    updateIcons();
-  } else if (theme === "light") {
-    document.body.classList.toggle("light");
-
-    updateIcons();
-  }
+  document.body.classList.add(theme);
+  updateIcons();
   updateThemeIcon();
 }
 

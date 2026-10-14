@@ -23,7 +23,7 @@ Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automatick
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-**Lokální náhled zatím není úplně nezávislý na produkci.** Importy vlastních skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků, odkazů v obsahu a iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty také potřebují síť.
+**Lokální náhled zatím není úplně nezávislý na produkci.** Importy vlastních skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků a odkazů v obsahu míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty také potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
 
 ## Který soubor upravit
 
@@ -37,7 +37,7 @@ HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScripto
 | Odkazy a položky společného menu | `scripts/generace-menu.js` |
 | Nadpis jedné stránky | Atributy jejího `<site-header>` |
 | Společná hlavička a boční menu | `components/site-header.js`, `scripts/generace-menu.js`, `css/sdilene/menu/menu.css` |
-| Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js`, `light-mod-cloud-web/light-mod-cloud-web.html` |
+| Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js` |
 | Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
 | Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
 | Fotky pro samostatnou galerii a velké náhledy | `scripts/galerie/foto-galerie-data.js`; náhledy v detailech akcí jsou v jejich HTML |
@@ -75,16 +75,13 @@ Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň
 Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto pořadí společných částí:
 
 ```html
-<iframe id="theme-sync"
-  src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-  style="display:none;"></iframe>
 <script src="../components/site-header.js"></script>
 <script src="../scripts/obecny.js"></script>
 <script type="module" src="../scripts/generace-menu.js"></script>
 <script type="module" src="../scripts/light-modV2.js"></script>
 ```
 
-Hlavička musí existovat před registrací menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný iframe `#theme-sync` i import motivu, včetně Přes hřebeny; iframe map jsou samostatné. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
+Hlavička musí existovat před registrací menu; přepínání motivu potřebuje tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje; iframe map jsou samostatné. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
 
 ### Kalendář a návody
 
@@ -100,13 +97,13 @@ Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS
 
 ### Světlý a tmavý motiv
 
-`light-modV2.js` nejprve nastaví tmavý motiv a připojí obsluhu odpovědi iframe. O uloženou hodnotu požádá zprávou `get-theme` ihned i při události `load`, takže zachytí také iframe načtený před spuštěním modulu. Při kliknutí odešle `set-theme`. Iframe ukládá klíč `theme` do svého `localStorage` a vrací zprávu typu `theme`. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon. Ikonu tlačítka motivu mění na stávajícím `<img>` a aktualizuje jeho přístupný popisek, takže DOM tlačítka a jeho listener zůstávají zachované.
+`light-modV2.js` při spuštění přečte klíč `theme` přímo z `localStorage`. Hodnota `light` zapne světlý motiv; chybějící nebo jiná hodnota a chyba čtení použijí tmavý. Při kliknutí okamžitě změní motiv a uloží novou volbu. Pokud prohlížeč úložiště zablokuje, přepínání dál funguje na právě otevřené stránce, ale volba se neuloží. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon. Ikonu tlačítka motivu mění na stávajícím `<img>` a aktualizuje jeho přístupný popisek, takže DOM tlačítka a jeho listener zůstávají zachované.
 
-Iframe je statická pomocná stránka na GitHub Pages. Motiv se neukládá do databáze ani uživatelského účtu. Rodičovský skript má napevno origin `https://burthgulash.github.io`; pouhé přepsání iframe na lokální cestu proto současnou synchronizaci neopraví. Rodič kontroluje origin zprávy, ale ne její zdrojové okno ani povolenou hodnotu motivu; iframe původ ani hodnotu přijaté zprávy nekontroluje. Přímé `localStorage` by stačilo pro stránky na stejném originu, ale změnilo by způsob sdílení motivu s lokálním náhledem nebo jiným hostingem.
+Volba platí pro všechny stránky na stejném originu v daném prohlížeči; origin tvoří protokol, doména a port. Produkční stránky pod `https://burthgulash.github.io` tedy sdílejí stejnou volbu bez ohledu na složku. Klíč `theme` zůstal stejný, takže dosavadní produkční volba se zachová. Lokální server nebo jiný hosting má samostatnou volbu. Motiv se načítá při otevření či obnovení stránky; již otevřené záložky se průběžně nepřepínají. Pomocný iframe ani `postMessage` se nepoužívají a nic se neukládá do databáze nebo uživatelského účtu.
 
 Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá produkční adresy běžné a `-light` varianty. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` se naopak načítají místně podle adresy modulu.
 
-Renderery kalendáře a návodů označují obrázek pro přepínání motivu jen podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderery se na stránkách načítají až po modulu motivu; nově vložená tematická ikona návodů se aktualizuje při další odpovědi iframe nebo kliknutí na motiv. Bez dostupného iframe může zůstat v původní chybné adrese popsané níže.
+Renderery kalendáře a návodů označují obrázek pro přepínání motivu jen podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderery se na stránkách načítají až po modulu motivu; ten proto při `DOMContentLoaded` znovu aktualizuje ikony, aby zahrnul také vykreslené karty.
 
 ### Galerie a zvětšování fotek
 
@@ -146,7 +143,7 @@ misto: {
 
 ### Upravit nebo vytvořit stránku
 
-Texty a obrázky upravuj přímo v jejím HTML. Pro novou stránku vezmi strukturu jednoduché stránky jako `pribehy/pribehy.html`, nahraď obsah a nastav `<title>`, `lang="cs"` a atributy `<site-header>`. Načti `css/sdilene/obecne-sdilene.css`, `css/sdilene/menu/menu.css` a jen potřebné další styly. Společné skripty a iframe vlož jednou podle ukázky výše.
+Texty a obrázky upravuj přímo v jejím HTML. Pro novou stránku vezmi strukturu jednoduché stránky jako `pribehy/pribehy.html`, nahraď obsah a nastav `<title>`, `lang="cs"` a atributy `<site-header>`. Načti `css/sdilene/obecne-sdilene.css`, `css/sdilene/menu/menu.css` a jen potřebné další styly. Společné skripty vlož jednou podle ukázky výše.
 
 Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářových datech nebo ručním archivu podle účelu. Nový soubor se do menu automaticky nepřidává. Při přesouvání akce do archivu uprav kalendář a archiv zvlášť; žádný automatický přesun podle data tu není.
 
@@ -167,7 +164,7 @@ Pro změněný JavaScript lze s Node.js 22 nebo novějším použít `node --che
 V prohlížeči ověř změněnou stránku a při zásahu do společného kódu také hlavní stránku a jeden detail akce:
 
 - úzké i široké okno, dlouhý nadpis a otevřené menu při změně šířky;
-- otevření/zavření menu, podmenu, oba motivy a přechod na další stránku;
+- otevření/zavření menu, podmenu, oba motivy, obnovení stránky a přechod na další stránku; při změně ukládání motivu také chybějící či neplatnou hodnotu a zablokované úložiště;
 - podle změny mapu včetně bodu a ovládání, organizátory, filtr galerie nebo lightbox;
 - po změně obrázků jejich vzhled, místní soubory a obě varianty tematických ikon;
 - konzoli a chybějící soubory v panelu Network; ověřovaná stránka a vlastní skripty musí ukazovat na tvůj lokální náhled, známé vzdálené zdroje jsou popsané výše.
@@ -181,10 +178,9 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 | Pořadí | Konkrétní problém | Nejmenší rozumná změna |
 | --- | --- | --- |
 | 1 | Data návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. Obrázek `questionmark.png` v datech kalendáře i návodů má produkční URL bez `/Chynicky_LARP/`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
-| 2 | Motiv vyžaduje vzdálený iframe a `postMessage`, přesto jsou produkční stránky na jednom originu. | Pokud není potřeba sdílení mezi originy, ukládat motiv přímo do `localStorage`. Pokud iframe zůstane, ověřovat také odesílatele a povolené hodnoty v jeho obsluze zpráv. |
-| 3 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
-| 4 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
-| 5 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. V detailech Ozvěn stínů jsou navíc odkazy na některé náhledy, které v místním úložišti obrázků chybí. | Doplnit zamýšlené obrázky nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů i náhledů. |
+| 2 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
+| 3 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
+| 4 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. V detailech Ozvěn stínů jsou navíc odkazy na některé náhledy, které v místním úložišti obrázků chybí. | Doplnit zamýšlené obrázky nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů i náhledů. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 
