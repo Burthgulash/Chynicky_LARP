@@ -21,3 +21,7 @@ Prošly kontrola syntaxe a diffu a jednorázový Node VM check: přímé href, p
 ## 5. Společný styl obrázků archivu
 
 Pět inline stylů nahradila existující třída `akce-obrazek`; žádný CSS soubor se neměnil. Při 1440 i 320 px zůstaly stejné zdroje i rozměry všech pěti obrázkových elementů jako před úpravou. Všechny fotky se načetly, archiv zachoval pět karet a nepřetékal. Společná třída navíc používá `object-fit: contain`, takže obsah fotografie zachovává poměr stran i ve vyšším obalu. Ověřeno také přepnutí na tmavý motiv a zavření menu klávesou Escape. Prošel `git diff --check`.
+
+## 6. Jeden společný import Roboto
+
+Odstraněny čtyři duplicitní HTML odkazy na Roboto (kalendář, archiv, návody, košík LALOK). Společný CSS import, `preconnect` i jiný font Open Sans zůstaly zachované. Kalendář, archiv a návody při 1440 i 320 px zachovaly 2, 5 a 2 karty, jejich vypočtené písmo Roboto a nepřetékal obsah; u širokého zobrazení byla ověřena i načtená fontová sada. Košík při 1440 px zachoval výchozí Times New Roman a dostupný společný import. Žádná ze čtyř stránek už nemá duplicitní HTML odkaz na Roboto. Prošel `git diff --check`.
