@@ -23,7 +23,7 @@ Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automatick
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-**Obrázky, vlastní skripty a styly i odkazy menu respektují místní adresu.** Některé odkazy v obsahu stále míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
+**Obrázky, vlastní skripty a styly i odkazy menu respektují místní adresu.** Některé odkazy v obsahu stále míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, mapy a externí dokumenty potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
 
 ## Který soubor upravit
 
