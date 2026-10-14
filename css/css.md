@@ -9,10 +9,10 @@ Sdílené styly patří do `css/sdilene/`; styly pro jednu stránku nebo stejný
 | `sdilene/obecne-sdilene.css` | Barvy a témata, `body`, společné `box-sizing: border-box`, základní text, tlačítka, odkazy, popovery a odkazy na pravidla. Importuje také Roboto z Google Fonts. |
 | `sdilene/menu/menu.css` | Pevnou hlavičku `<site-header>`, vysouvací menu, submenu a přepínač tématu. |
 | `sdilene/info.css` | Informační karty akcí, malé mapy a také karty a portréty na stránce O nás. |
-| `sdilene/obrazky.css` | Náhledy fotek `.per-foto`, překryv `.zvetsene`, šipky a animace lightboxu. |
+| `sdilene/obrazky.css` | Galerie `.per-foto`, odkazy `.foto-link`, skeletony `.foto-placeholder`, překryv `.zvetsene`, šipky a animace lightboxu. |
 | `kalendar-akci.css` | Karty kalendáře, přehled odehraných LARPů a rozpracovanou stránku Návody. |
 | `o-nas.css` | Úvodní text a úvodní obrázek stránky O nás. |
-| `foto-galerie.css` | Výběr akce, tlačítko Filtrovat a rozestupy samostatné galerie. |
+| `foto-galerie.css` | Výběr akce, tlačítko Filtrovat, nadpis samostatné galerie a její rozestupy. |
 
 ## Hlavička a mobilní zobrazení
 
@@ -37,7 +37,9 @@ Téma nastavuje `scripts/light-modV2.js` třídou `body.dark` nebo `body.light`.
 
 HTML stránky načítají potřebné styly přímo pomocí `<link>`; není zde bundler ani kompilace CSS. Roboto zajišťuje společný import v `sdilene/obecne-sdilene.css`; v HTML ho znovu nepřidávej. `preconnect` na Google Fonts může zůstat. Samostatné načítání Open Sans na stránce `LALOK/` je jiný font. Cestu uprav podle hloubky stránky (`../css/…` nebo `../../css/…`). Relativní `url(...)` uvnitř CSS se vyhodnocuje vůči souboru CSS, nikoli vůči HTML. Pořadí `<link>` může ovlivnit výsledný styl, proto ho při drobné změně bez důvodu nepřehazuj.
 
-Pozor na široké selektory: `kalendar-akci.css` ruší okraje všech `p` na stránce a `foto-galerie.css` nastavuje všechny `h3`, včetně pevné bílé barvy i ve světlém motivu. `info.css` nastavuje `.mini-map` jako skrytou; její zobrazení na detailech akcí ovládá `scripts/obecny.js` přidáním `.show`. Mapy mají výšku 280 px a šířku 100 % kontejneru. Mapový popover kalendáře a jeho iframe styluje `kalendar-akci.css`, který omezuje šířku okna na `min(600px, 85vw)`. Kalendář `info.css` nenačítá, takže jeho mapy nemají výchozí `display: none`. Samotné načtení `obrazky.css` nezapíná lightbox, ten potřebuje také HTML prvky a `scripts/galerie/foto-lightbox.js`.
+Pozor na široké selektory: `kalendar-akci.css` ruší okraje všech `p` na stránce a `foto-galerie.css` nastavuje všechny `h3`, včetně pevné bílé barvy i ve světlém motivu. `info.css` nastavuje `.mini-map` jako skrytou; její zobrazení na detailech akcí ovládá `scripts/obecny.js` přidáním `.show`. Mapy mají výšku 280 px a šířku 100 % kontejneru. Mapový popover kalendáře a jeho iframe styluje `kalendar-akci.css`, který omezuje šířku okna na `min(600px, 85vw)`. Kalendář `info.css` nenačítá, takže jeho mapy nemají výchozí `display: none`. `obrazky.css` styluje galerie a lightbox, ale samotné chování zajišťuje společný modul `scripts/galerie/foto-galerie.js`, který importuje data i `foto-lightbox.js`.
+
+Galerie před načtením modulu zobrazují pět skeletonů s pozadím podle motivu. Renderer je nahradí kartami s poměrem stran z katalogu; obrázek zůstává průhledný do události `load` nebo `error`. Při chybě tak zůstane čitelný `alt` a odkaz na originál.
 
 Po úpravě vzhledu ověř dotčenou stránku na místním HTTP serveru v úzkém i širokém okně a v obou tématech. Při změně sdíleného stylu zkontroluj hlavní stránku i vnořený detail. Menu otevři také při změně šířky a v nízkém okně ověř posouvání panelu. Před předáním spusť v kořeni `git diff --check`.
 

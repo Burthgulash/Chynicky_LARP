@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../css/sdilene/info.css" />
 
     <title>Galerie obrázků</title>
+    <noscript><style>.foto-placeholder { display: none; }</style></noscript>
   </head>
 
   <body>
@@ -22,19 +23,33 @@
     <h3>Zde budou všechny fotky pořízené na novějších akcích</h3>
     <div class="filtrovani">
       <label hidden for="filtr-akci">Vyberte akci</label>
-      <select class="filtr-select" name="Filtr" id="filtr-akci">
+      <select class="filtr-select" name="Filtr" id="filtr-akci" aria-label="Vyberte akci">
         <option disabled selected hidden value="Placeholder">
           Vyberte akci
         </option>
-        <option value="OS1">Ozvěny Stinu 1</option>
-        <option value="OS2">Ozvěny Stinu 2</option>
+        <option value="OS1">Ozvěny stínů 1</option>
+        <option value="OS2">Ozvěny stínů 2</option>
+        <option value="PER">Přes hřebeny</option>
       </select>
       <button class="filter-button" id="filtrovat-fotky">
         Filtrovat
       </button>
     </div>
-    <div class="per-foto foto-galerie" id="foto-galerie"></div>
+    <div class="per-foto foto-galerie" id="foto-galerie" data-gallery aria-busy="true">
+      <span class="foto-placeholder" aria-hidden="true"></span>
+      <span class="foto-placeholder" aria-hidden="true"></span>
+      <span class="foto-placeholder" aria-hidden="true"></span>
+      <span class="foto-placeholder" aria-hidden="true"></span>
+      <span class="foto-placeholder" aria-hidden="true"></span>
+    </div>
+    <noscript>Pro zobrazení fotogalerie povolte JavaScript.</noscript>
 
+    <div id="zvetsene" class="zvetsene hidden" role="dialog" aria-modal="true" aria-label="Zvětšená fotografie" tabindex="-1">
+      <button type="button" id="closeBtn" class="close" aria-label="Zavřít zvětšenou fotografii">&times;</button>
+      <img id="zvetsene-img" src="" alt="Zvětšená fotografie" />
+      <button type="button" class="arrow left" id="prev" aria-label="Předchozí fotografie">&#10094;</button>
+      <button type="button" class="arrow right" id="next" aria-label="Následující fotografie">&#10095;</button>
+    </div>
     <script src="../components/site-header.js"></script>
     <script src="../scripts/obecny.js"></script>
     <script type="module" src="../scripts/generace-menu.js"></script>

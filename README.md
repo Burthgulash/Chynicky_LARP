@@ -40,14 +40,14 @@ HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScripto
 | Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js` |
 | Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
 | Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
-| Fotky pro samostatnou galerii a velké náhledy | `scripts/galerie/foto-galerie-data.js`; náhledy v detailech akcí jsou v jejich HTML |
+| Katalog fotek a vykreslení čtyř galerií | `scripts/galerie/foto-galerie-data.js`, `scripts/galerie/foto-galerie.js`; vzhled a lightbox: `css/sdilene/obrazky.css`, `scripts/galerie/foto-lightbox.js` |
 | Obrázky a ikony | `assets/` |
 
 `assets/` obsahuje přímo původní podsložky obrázků, například `Ikony-img`, `Nav.panel`, `O nás-img` a `Odehrane LARPy`. Názvy a obsah souborů zůstaly zachované; mezisložka `foto/` se nepoužívá.
 
 Další orientace:
 
-- `scripts/galerie/foto-galerie.js` filtruje samostatnou galerii; `foto-lightbox.js` ovládá zvětšení fotek v detailech akcí.
+- `scripts/galerie/foto-galerie.js` načte katalog a vykreslí samostatnou galerii i galerie v detailech; importuje také `foto-lightbox.js`.
 - `scripts/utilities/imgformat.js` zjišťuje příponu obrázku pro přepínání ikon.
 - Postup ručního ověření je v části [Kontrola změn](#kontrola-změn); složka `tests/` už v projektu není.
 - [Pravidla a přehled CSS](css/css.md), [podrobnosti hlavičky](docs/header-layout-notes.md) a [pokyny pro AI](AGENTS.md) doplňují tento úvod.
@@ -109,9 +109,13 @@ Renderery kalendáře a návodů označují obrázek pro přepínání motivu je
 
 ### Galerie a zvětšování fotek
 
-Samostatná stránka `foto-galerie/foto-galerie.html` ukáže obrázky z pole `fotoGalerieData` až po výběru akce a kliknutí na „Filtrovat“. Záznam má tvar `{ src: "adresa fotky", akce: "OS2" }`; kód akce musí odpovídat hodnotě v `<select>`. Současný výběr nabízí jen `OS1` a `OS2`. Placeholder se odstraní při prvním zaměření výběru kliknutím nebo klávesou Tab; komentář v kódu uvádí Safari/iOS jako důvod, nikoli výsledek ověření na těchto zařízeních.
+Katalog `scripts/galerie/foto-galerie-data.js` obsahuje 59 fotografií pro Ozvěny stínů (OS1, 17), Ozvěny stínů 2 (OS2, 29) a Přes hřebeny (PER, 13). Každá položka má `akce`, relativní cestu `src` k náhledu, `original` k cílovému originálu, popis `alt`, rozměry `width` a `height` a příznak `usedOnSite`. Cesty jsou relativní k `assets/` a katalog je převádí na URL pomocí `new URL(..., import.meta.url)`. Náhled a originál jsou dvě varianty téže fotografie; některé položky používají stejný soubor pro obě. Aktuálně je 51 záznamů `true`; osm fotografií PER1 až PER8 má `false`.
 
-Galerie zatím nemá odkaz ve společném menu ani zapojený lightbox. Zvětšování funguje samostatně v detailech Ozvěny stínů, Ozvěny stínů 2 a Přes hřebeny. Každý náhled `.per-foto-obrazek` je uvnitř odkazu `<a href="adresa originálu">`; tuto adresu používá `foto-lightbox.js` pro zvětšení i přednačítání, bez hledání v datech galerie. Běžné kliknutí nebo Enter otevře lightbox, modifikované kliknutí zachová běžné chování odkazu a bez JavaScriptu odkaz otevře samotný obrázek. Skript dále potřebuje prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Podporuje Escape a přejetí prstem; klávesové šipky reagují pouze při otevřeném lightboxu. Na stránku bez tohoto HTML ho nepřidávej.
+Stejný vstupní modul `scripts/galerie/foto-galerie.js` běží ve všech čtyřech HTML galeriích označených `data-gallery`. Detaily mají navíc `data-akce` s kódem z katalogu. Samostatná stránka nabízí OS1, OS2 a PER; výběr se zobrazí až po kliknutí na „Filtrovat“ a do výpisu jdou jen záznamy s `usedOnSite: true`. Příznak `false` ponechá fotku v repozitářovém katalogu, ale mimo veřejný výpis. Modul také načte lightbox, takže samostatné galerie i detaily odkazují na originály a používají stejné zvětšení.
+
+Každá galerie má před načtením modulu pět skeletonů; JavaScript je nahradí přesným počtem karet. Rozměry u obrázku a poměr stran odkazu rezervují místo před načtením. První tři náhledy se načítají eager, další lazy; všechny používají asynchronní dekódování. Při chybě načtení zůstane viditelný popis `alt` a odkaz na originál. Text `<noscript>` vysvětluje potřebu JavaScriptu a skeletony jsou bez JavaScriptu skryté. ES modul neblokuje parsování HTML; jeho vykreslení přesto běží na hlavním vlákně.
+
+Lightbox potřebuje na každé stránce prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev` a `#next`. Delegované kliknutí sestaví aktuální seznam z právě vykreslené galerie, takže funguje i po změně filtru. Běžné kliknutí otevře lightbox, Ctrl/Meta/Shift/Alt kliknutí zachová nativní odkaz na originál. Ovládání zahrnuje Escape, šipky, tlačítka a přejetí prstem delší než 50 px; při otevření se fokus přesune do dialogu, Tab zůstává mezi jeho tlačítky a při zavření se vrátí na odkaz fotografie. Lightbox přednačítá nejbližší tři fotografie na každou stranu. Skript načítej jen na stránkách s celou uvedenou strukturou; samostatný import `foto-lightbox.js` nepřidávej.
 
 ## Běžné úpravy
 
@@ -151,9 +155,19 @@ Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářo
 
 ### Přidat fotografie
 
-Ulož soubory do `assets/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Každý náhled pro lightbox vlož jako `<a href="cesta/k/originálu.jpg"><img class="per-foto-obrazek" src="cesta/k/náhledu.webp" alt="Popis fotografie"></a>`. Pokud nemá samostatný originál, obě adresy mohou být stejné. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
+Přidej fotografii do `assets/` a jeden záznam do pole v `scripts/galerie/foto-galerie-data.js`:
+
+```js
+{ akce: "PER", src: "O.S.2-img/Per14.webp", original: "O.S.2-img/Per14.jpg", alt: "Popis fotografie", width: 1600, height: 1200, usedOnSite: true },
+```
+
+`src` a `original` jsou cesty vůči `assets/`, nikoli vůči HTML nebo souboru JS. Ukázkové soubory Per14 nejprve vytvoř; v současném albu nejsou. Zadej skutečné rozměry náhledu `src` v pixelech a popiš obsah v `alt`. `usedOnSite: true` fotografii zpřístupní ve filtrech i detailu příslušné akce; `false` ji ponechá v katalogu, ale mimo webový výpis. Oba odkazy mohou mířit na stejný soubor, pokud nemáš zvláštní náhled. Kódy OS1, OS2 a PER už mají volbu na samostatné stránce; pro novou akci přidej také odpovídající `<option>` a nastav stejný kód v `data-akce` její galerie. Všechny čtyři galerie používají společný modul, proto jednotlivé náhledy nepřidávej ručně do HTML.
+
+Katalog obsahuje jen fotografie těchto alb. Nepřidávej sem portréty, ikony ani ilustrace a nepřesouvej kvůli galerii existující assety. Data i popisky jsou obsah spravovaný v tomto repozitáři; nevkládej sem neošetřený uživatelský vstup ani cizí data, protože renderer vytváří HTML z hodnot katalogu.
 
 **Doporučení pro další optimalizaci:** větší obrázky převáděj na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Porovnej velikost i vzhled: doporučená úspora je alespoň 20 % a 50 kB při zachování rozlišení. Pro fotky a texturované ilustrace použij ztrátovou kompresi, pro průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` ponech při této optimalizaci stranou. Tyto podmínky žádný skript automaticky nevynucuje.
+
+**Změřená komprese fotografií z 14. 10. 2026:** 63 existujících WebP fotografií bylo překódováno přes libwebp s `quality=75, method=6`, bez změny rozlišení; pět dalších nemělo smysluplnou úsporu a zůstalo původních. V `O.S.2-img/` mají Per1 až Per13 nové WebP náhledy. Katalog je používá v `src`, zatímco `original` dál míří na zachované JPEG pro lightbox. Ikony, ilustrace a ostatní obrázky v jiných formátech se neměnily. WebP není automaticky menší než JPEG: záleží na nastavení i obsahu. Příčinu, výsledky a postup porovnání popisuje [měření komprese](docs/webp-compression.md).
 
 Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Náhledy fotek v ručním HTML používají relativní cesty do `assets/`. Cesty tedy respektují hlavní i vnořenou stránku, místní náhled a nasazení pod `/Chynicky_LARP/`. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Světlá hlavička nyní používá `Nav.panel/IMG_6357.webp`; vedlejší soubor `IMG_6357.avif` zůstává v úložišti obrázků.
 

@@ -1,188 +1,69 @@
-const fotoRoot = new URL("../../assets/Odehrane LARPy/", import.meta.url);
-export const fotoGalerieData = [
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-1.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-2.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-3.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-4.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-5.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-6.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-7.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-8.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-9.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-10.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-11.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-12.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-13.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-14.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-15.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-16.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-17.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-18.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-19.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-20.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-21.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-22.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-23.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-24.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-25.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/OS2-26.jpg", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/webp/OS2-27.webp", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/webp/OS2-28.webp", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("OS2-Zpetne.foto/webp/OS2-29.webp", fotoRoot).href,
-        akce: "OS2",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.23 (1).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.23 (2).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46 (2).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46 (1).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.44.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.43.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.43.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.43 (1).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42 (2).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42 (1).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.41.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25 (2).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25 (1).jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-    {
+const fotoRoot = new URL("../../assets/", import.meta.url);
 
-        src: new URL("O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.24.jpeg", fotoRoot).href,
-        akce: "OS1",
-    },
-]
+const fotoGalerieZdroje = [
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-1.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-1.jpg", alt: "Fotografie 1 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-2.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-2.jpg", alt: "Fotografie 2 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-3.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-3.jpg", alt: "Fotografie 3 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-4.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-4.jpg", alt: "Fotografie 4 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-5.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-5.jpg", alt: "Fotografie 5 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-6.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-6.jpg", alt: "Fotografie 6 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-7.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-7.jpg", alt: "Fotografie 7 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-8.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-8.jpg", alt: "Fotografie 8 z akce Ozvěny stínů 2", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-9.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-9.jpg", alt: "Fotografie 9 z akce Ozvěny stínů 2", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-10.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-10.jpg", alt: "Fotografie 10 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-11.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-11.jpg", alt: "Fotografie 11 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-12.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-12.jpg", alt: "Fotografie 12 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-13.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-13.jpg", alt: "Fotografie 13 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-14.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-14.jpg", alt: "Fotografie 14 z akce Ozvěny stínů 2", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-15.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-15.jpg", alt: "Fotografie 15 z akce Ozvěny stínů 2", width: 1200, height: 1600, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-16.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-16.jpg", alt: "Fotografie 16 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-17.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-17.jpg", alt: "Fotografie 17 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-18.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-18.jpg", alt: "Fotografie 18 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-19.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-19.jpg", alt: "Fotografie 19 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-20.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-20.jpg", alt: "Fotografie 20 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-21.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-21.jpg", alt: "Fotografie 21 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-22.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-22.jpg", alt: "Fotografie 22 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-23.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-23.jpg", alt: "Fotografie 23 z akce Ozvěny stínů 2", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-24.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-24.jpg", alt: "Fotografie 24 z akce Ozvěny stínů 2", width: 1134, height: 2016, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-25.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-25.jpg", alt: "Fotografie 25 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-26.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/OS2-26.jpg", alt: "Fotografie 26 z akce Ozvěny stínů 2", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-27.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-27.webp", alt: "Fotografie 27 z akce Ozvěny stínů 2", width: 4000, height: 3000, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-28.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-28.webp", alt: "Fotografie 28 z akce Ozvěny stínů 2", width: 4000, height: 3000, usedOnSite: true },
+    { akce: "OS2", src: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-29.webp", original: "Odehrane LARPy/OS2-Zpetne.foto/webp/OS2-29.webp", alt: "Fotografie 29 z akce Ozvěny stínů 2", width: 4000, height: 3000, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.23 (1).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.23 (1).jpeg", alt: "Fotografie 1 z akce Ozvěny stínů", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.23 (2).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.23 (2).jpeg", alt: "Fotografie 2 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.23.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.23.jpeg", alt: "Fotografie 3 z akce Ozvěny stínů", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.24.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.24.jpeg", alt: "Fotografie 4 z akce Ozvěny stínů", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.25 (1).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25 (1).jpeg", alt: "Fotografie 5 z akce Ozvěny stínů", width: 2000, height: 1126, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.25 (2).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25 (2).jpeg", alt: "Fotografie 6 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.25.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.25.jpeg", alt: "Fotografie 7 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.41.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.41.jpeg", alt: "Fotografie 8 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.42 (1).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42 (1).jpeg", alt: "Fotografie 9 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.42 (2).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42 (2).jpeg", alt: "Fotografie 10 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.42.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.42.jpeg", alt: "Fotografie 11 z akce Ozvěny stínů", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.43 (1).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.43 (1).jpeg", alt: "Fotografie 12 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.43.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.43.jpeg", alt: "Fotografie 13 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.44.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.44.jpeg", alt: "Fotografie 14 z akce Ozvěny stínů", width: 1500, height: 2000, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.46 (1).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46 (1).jpeg", alt: "Fotografie 15 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.46 (2).webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46 (2).jpeg", alt: "Fotografie 16 z akce Ozvěny stínů", width: 2000, height: 1500, usedOnSite: true },
+    { akce: "OS1", src: "Odehrane LARPy/O.S.1-img/webp/WhatsApp Image 2025-03-08 at 11.21.46.webp", original: "Odehrane LARPy/O.S.1-img/WhatsApp Image 2025-03-08 at 11.21.46.jpeg", alt: "Fotografie 17 z akce Ozvěny stínů", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per9.webp", original: "O.S.2-img/Per9.jpg", alt: "Fotografie 1 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per10.webp", original: "O.S.2-img/Per10.jpg", alt: "Fotografie 2 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per11.webp", original: "O.S.2-img/Per11.jpg", alt: "Fotografie 3 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per12.webp", original: "O.S.2-img/Per12.jpg", alt: "Fotografie 4 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per13.webp", original: "O.S.2-img/Per13.jpg", alt: "Fotografie 5 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: true },
+    { akce: "PER", src: "O.S.2-img/Per1.webp", original: "O.S.2-img/Per1.jpg", alt: "Fotografie 1 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per2.webp", original: "O.S.2-img/Per2.jpg", alt: "Fotografie 2 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per3.webp", original: "O.S.2-img/Per3.jpg", alt: "Fotografie 3 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per4.webp", original: "O.S.2-img/Per4.jpg", alt: "Fotografie 4 z akce Přes hřebeny", width: 1200, height: 1600, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per5.webp", original: "O.S.2-img/Per5.jpg", alt: "Fotografie 5 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per6.webp", original: "O.S.2-img/Per6.jpg", alt: "Fotografie 6 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per7.webp", original: "O.S.2-img/Per7.jpg", alt: "Fotografie 7 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+    { akce: "PER", src: "O.S.2-img/Per8.webp", original: "O.S.2-img/Per8.jpg", alt: "Fotografie 8 z akce Přes hřebeny", width: 1600, height: 1200, usedOnSite: false },
+];
+
+export const fotoGalerieData = fotoGalerieZdroje.map(foto => ({
+    ...foto,
+    src: new URL(foto.src, fotoRoot).href,
+    original: new URL(foto.original, fotoRoot).href,
+}));

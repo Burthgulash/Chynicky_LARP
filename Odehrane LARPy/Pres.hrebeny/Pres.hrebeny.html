@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../css/sdilene/info.css">
     <link rel="stylesheet" href="../../css/sdilene/obrazky.css">
     <title>Přes hřebeny</title>
+    <noscript><style>.foto-placeholder { display: none; }</style></noscript>
 </head>
 
 <body>
@@ -145,23 +146,15 @@
         <!---->
         <!---->
         <br>
-        <div class="per-foto">
-            <a href="../../assets/O.S.2-img/Per9.jpg">
-                <img class="per-foto-obrazek" src="../../assets/O.S.2-img/Per9.jpg" alt="Fotografie 1 z akce Přes hřebeny">
-            </a>
-            <a href="../../assets/O.S.2-img/Per10.jpg">
-                <img class="per-foto-obrazek" src="../../assets/O.S.2-img/Per10.jpg" alt="Fotografie 2 z akce Přes hřebeny">
-            </a>
-            <a href="../../assets/O.S.2-img/Per11.jpg">
-                <img class="per-foto-obrazek" src="../../assets/O.S.2-img/Per11.jpg" alt="Fotografie 3 z akce Přes hřebeny">
-            </a>
-            <a href="../../assets/O.S.2-img/Per12.jpg">
-                <img class="per-foto-obrazek" src="../../assets/O.S.2-img/Per12.jpg" alt="Fotografie 4 z akce Přes hřebeny">
-            </a>
-            <a href="../../assets/O.S.2-img/Per13.jpg">
-                <img class="per-foto-obrazek" src="../../assets/O.S.2-img/Per13.jpg" alt="Fotografie 5 z akce Přes hřebeny">
-            </a>
+        <div class="per-foto" data-gallery data-akce="PER" aria-label="Fotografie z akce Přes hřebeny" aria-busy="true">
+            <!-- Fotky generovany pomoci JavaScriptu v souboru scripts/galerie/foto-galerie.js a z dat scripts/galerie/foto-galerie-data.js-->
+            <span class="foto-placeholder" aria-hidden="true"></span>
+            <span class="foto-placeholder" aria-hidden="true"></span>
+            <span class="foto-placeholder" aria-hidden="true"></span>
+            <span class="foto-placeholder" aria-hidden="true"></span>
+            <span class="foto-placeholder" aria-hidden="true"></span>
         </div>
+        <noscript>Pro zobrazení fotogalerie povolte JavaScript.</noscript>
         </div>
         <h6>Ikony použity na tomto webu jsou od těchto tvůrců: Prettycons, Bercahicon,
             Vectors tank, Mayor icons,
@@ -174,13 +167,13 @@
         <script type="module" src="../../scripts/light-modV2.js"></script>
 
         <!--ten div je na ty zvetseny fotky a nejsou tam protoze je tam JavaScript-->
-        <div id="zvetsene" class="zvetsene hidden">
-            <span id="closeBtn" class="close">&times;</span>
-            <img id="zvetsene-img" src="" alt="Large view">
-            <div class="arrow left" id="prev">&#10094;</div>
-            <div class="arrow right" id="next">&#10095;</div>
+        <div id="zvetsene" class="zvetsene hidden" role="dialog" aria-modal="true" aria-label="Zvětšená fotografie" tabindex="-1">
+            <button type="button" id="closeBtn" class="close" aria-label="Zavřít zvětšenou fotografii">&times;</button>
+            <img id="zvetsene-img" src="" alt="Zvětšená fotografie">
+            <button type="button" class="arrow left" id="prev" aria-label="Předchozí fotografie">&#10094;</button>
+            <button type="button" class="arrow right" id="next" aria-label="Následující fotografie">&#10095;</button>
         </div>
-        <script type="module" src="../../scripts/galerie/foto-lightbox.js"></script>
+        <script type="module" src="../../scripts/galerie/foto-galerie.js"></script>
 </body>
 
 </html>
