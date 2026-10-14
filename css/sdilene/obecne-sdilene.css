@@ -12,9 +12,10 @@
     --bg-clr: hsl(0, 0%, 4%);
     --bg-accent-clr: hsl(0, 0%, 14%);
     --text-clr: white;
-    --nav-img: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
-    --nav-img-light: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/IMG_6357.webp);
-    --nav-img-dark: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
+    /* URL v proměnné se vyhodnotí vůči menu/menu.css, kde se použije. */
+    --nav-img: url(../../../assets/Nav.panel/temný%20les%203.jpg);
+    --nav-img-light: url(../../../assets/Nav.panel/IMG_6357.webp);
+    --nav-img-dark: url(../../../assets/Nav.panel/temný%20les%203.jpg);
 }
 
 * {

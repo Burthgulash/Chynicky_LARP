@@ -1,4 +1,4 @@
-const organizerImageRoot = new URL("../kvido html-img/foto/", import.meta.url);
+const organizerImageRoot = new URL("../assets/", import.meta.url);
 
 const organizerData = {
   "Hugo Redl": {

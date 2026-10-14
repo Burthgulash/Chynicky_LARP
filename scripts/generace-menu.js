@@ -56,7 +56,7 @@ class SiteMenu extends HTMLElement {
     const themeImage = document.createElement("img");
     themeImage.alt = "";
     themeImage.src = new URL(
-      "kvido html-img/foto/Ikony-img/slunce-icon.webp",
+      "assets/Ikony-img/slunce-icon.webp",
       siteRoot,
     ).href;
     themeButton.append(themeImage);

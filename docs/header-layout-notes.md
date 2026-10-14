@@ -1,6 +1,6 @@
 # Jak funguje společná hlavička a menu
 
-Aktualizováno 14. 10. 2026 při nahrazení iframe motivu přímým `localStorage`. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu a historické záznamy kontrol jsou oddělené.
+Aktualizováno 14. 10. 2026 při nahrazení iframe motivu přímým `localStorage` a přesunu obrázků do `assets/`. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu a historické záznamy kontrol jsou oddělené.
 
 ## Rozdělení práce
 
@@ -21,7 +21,7 @@ Hlavičku nyní používá 12 HTML stránek: kalendář, O nás, Příběhy, Ná
 <site-header
   title="Název stránky"
   subtitle="Volitelný podnadpis"
-  image="../kvido html-img/foto/Nav.panel/tri mece final final.png"
+  image="../assets/Nav.panel/tri mece final final.png"
 ></site-header>
 ```
 
@@ -68,13 +68,13 @@ Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `
 - Modul tématu při spuštění přečte klíč `theme` přímo z `localStorage`. Hodnota `light` použije světlý motiv; chybějící či jiná hodnota a chyba čtení použijí `dark`. Motiv aplikuje třídou na `<body>`.
 - Tlačítko ihned změní vzhled a pokusí se uložit novou volbu do klíče `theme`. Při zablokovaném úložišti dál funguje na současné stránce. Preference se při načtení sdílí mezi stránkami stejného originu v daném prohlížeči; otevřené záložky se průběžně nepřepínají. Klíč zůstal stejný, takže dosavadní produkční volba zůstane zachovaná.
 - `updateIcons()` přepíše zdroj obrázku `.menu-btn` uvnitř spouštěče a všechny prvky `#icon-img`. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`. Po `DOMContentLoaded` aktualizaci zopakuje, aby zahrnul také karty vytvořené renderery po spuštění modulu motivu.
-- `updateThemeIcon()` mění zdroj stávajícího obrázku v `#button-theme-switch` a přístupný popisek tlačítka. Obrázky slunce a měsíce odvozuje od umístění modulu; tlačítko, obrázek i listener zůstávají stejné.
-- Pozadí hlavičky vybírá CSS přes `--nav-img`. Tmavé používá `Nav.panel/temný les 3.jpg`, světlé `Nav.panel/IMG_6357.webp`; obě adresy jsou produkční i v místním náhledu.
+- `updateThemeIcon()` mění zdroj stávajícího obrázku v `#button-theme-switch` a přístupný popisek tlačítka. Obrázky slunce a měsíce, meče menu i obsahové ikony odvozuje modul od kořene `assets/` přes `new URL(..., import.meta.url)`; tlačítko, obrázek i listener zůstávají stejné.
+- Pozadí hlavičky vybírá CSS přes `--nav-img`. Tmavé používá `assets/Nav.panel/temný les 3.jpg`, světlé `assets/Nav.panel/IMG_6357.webp`; obě adresy jsou relativní vůči CSS a fungují také v místním náhledu.
 
 ## Známá omezení
 
 - Více obsahových ikon na stránce má opakované `id="icon-img"`.
-- Obrázek spouštěče menu, pozadí hlavičky a obsahové ikony přepínané motivem stále směřují na produkci i při místním náhledu. Ikony samotného tlačítka motivu se načítají místně.
+- U ikony `assets/Ikony-img/jidlo-icon.webp` stále chybí světlá varianta `jidlo-icon-light.webp`.
 - `localStorage` patří jednomu originu (protokol, doména a port) a prohlížeči. Lokální server má vlastní volbu oddělenou od produkce; při zablokovaném úložišti se motiv neuchová pro další načtení stránky.
 
 ## Jak změnu ověřit
@@ -89,7 +89,15 @@ Změněný JavaScript ověř pomocí `node --check cesta/k/souboru.js` a diff v 
 - přepnutí obou motivů, obnovení stránky, přechod na další stránku a načtení obrázků; při změně ukládání také chybějící či neplatnou hodnotu a zablokované úložiště;
 - místní adresy odkazů, chybějící soubory a chyby v konzoli.
 
-## Kontrola 14. 10. 2026
+## Kontrola přesunu obrázků 14. 10. 2026
+
+Všech 156 souborů v `assets/` má stejný obsah jako před přesunem. Prošlo ověření všech 117 statických obrázkových cest v HTML a CSS včetně velikosti písmen, modulových cest galerie a profilů, obrázků kalendáře a návodů, `node --check` všech šesti změněných JS souborů a `git diff --check`. Původní cesty ve zdrojích nezůstaly.
+
+Na místním HTTP serveru `http://127.0.0.1:8002` bylo otevřeno všech 12 stránek v obou motivech. Všechny obrázky s neprázdným `src` se načetly kromě již dříve chybějící `jidlo-icon-light.webp` v Z Popelu kalicha. Kalendář zobrazil dvě karty, návody dvě a archiv pět. Kalendář a Návrat mocného byly ověřeny při 320 × 800 a 1440 × 900 px bez vodorovného přetečení; otevřené menu přežilo zúžení, světlý motiv přechod přes menu do detailu a tmavý obnovení detailu. Pozadí hlavičky i ikony používaly místní `assets/`.
+
+Filtr galerie načetl všech 29 fotek OS2 a 17 fotek OS1. Lightbox OS2 otevřel první JPG originál z `assets/`, přešel na druhý a zavřel se klávesou Escape. Kalendář byl také ověřen na místním serveru se simulovaným prefixem `/Chynicky_LARP/`: obrázky, pozadí a odkazy menu zachovaly prefix. Produkční nasazení, jiné prohlížeče, fyzický dotyk a živé mapy touto kontrolou ověřeny nebyly.
+
+## Dřívější kontrola motivu 14. 10. 2026
 
 Prošly `node --check scripts/light-modV2.js` a `git diff --check`. Jednorázová kontrola v Node VM bez nových testovacích souborů ověřila výchozí `dark` pro chybějící či neplatnou hodnotu, uložení a obnovení obou motivů při novém spuštění, funkční přepínač při výjimkách `getItem` i `setItem`, zachování ostatních tříd `<body>` i stejných uzlů tlačítka a obrázku a aktualizaci dodatečných ikon při `DOMContentLoaded`.
 

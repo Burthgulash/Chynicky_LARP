@@ -23,7 +23,7 @@ Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automatick
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-**Lokální náhled zatím není úplně nezávislý na produkci.** Importy vlastních skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků a odkazů v obsahu míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty také potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
+**Obrázky, vlastní skripty a styly i odkazy menu respektují místní adresu.** Některé odkazy v obsahu stále míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
 
 ## Který soubor upravit
 
@@ -41,7 +41,9 @@ HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScripto
 | Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
 | Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
 | Fotky pro samostatnou galerii a velké náhledy | `scripts/galerie/foto-galerie-data.js`; náhledy v detailech akcí jsou v jejich HTML |
-| Obrázky a ikony | `kvido html-img/foto/` |
+| Obrázky a ikony | `assets/` |
+
+`assets/` obsahuje přímo původní podsložky obrázků, například `Ikony-img`, `Nav.panel`, `O nás-img` a `Odehrane LARPy`. Názvy a obsah souborů zůstaly zachované; mezisložka `foto/` se nepoužívá.
 
 Další orientace:
 
@@ -62,7 +64,7 @@ HTML obsahuje například:
 <site-header
   title="Kalendář akcí"
   subtitle="Organizujeme malé LARPové akce"
-  image="../kvido html-img/foto/Nav.panel/tri mece final final.png">
+  image="../assets/Nav.panel/tri mece final final.png">
 </site-header>
 ```
 
@@ -101,7 +103,7 @@ Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS
 
 Volba platí pro všechny stránky na stejném originu v daném prohlížeči; origin tvoří protokol, doména a port. Produkční stránky pod `https://burthgulash.github.io` tedy sdílejí stejnou volbu bez ohledu na složku. Klíč `theme` zůstal stejný, takže dosavadní produkční volba se zachová. Lokální server nebo jiný hosting má samostatnou volbu. Motiv se načítá při otevření či obnovení stránky; již otevřené záložky se průběžně nepřepínají. Pomocný iframe ani `postMessage` se nepoužívají a nic se neukládá do databáze nebo uživatelského účtu.
 
-Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá produkční adresy běžné a `-light` varianty. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` se naopak načítají místně podle adresy modulu.
+Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá adresy běžné a `-light` varianty v `assets/Ikony-img/` podle svého umístění. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Také obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` a meče v menu se načítají podle adresy modulu; pozadí hlavičky podle adresy CSS.
 
 Renderery kalendáře a návodů označují obrázek pro přepínání motivu jen podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderery se na stránkách načítají až po modulu motivu; ten proto při `DOMContentLoaded` znovu aktualizuje ikony, aby zahrnul také vykreslené karty.
 
@@ -122,7 +124,7 @@ Do pole `data` v `scripts/kalendar/kalendar-data.js` přidej položku, napříkl
   nazev: "Název akce",
   datum: ["12.–14. června 2027"],
   organizatori: ["Kvido Redl", "Hugo Redl"],
-  obrazek: "../kvido html-img/foto/Ikony-img/questionmark.png",
+  obrazek: "../assets/Ikony-img/questionmark.png",
   link: "#",
   misto: "Místo konání"
 },
@@ -149,11 +151,11 @@ Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářo
 
 ### Přidat fotografie
 
-Ulož soubory do `kvido html-img/foto/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
+Ulož soubory do `assets/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
 
 **Doporučení pro další optimalizaci:** větší obrázky převáděj na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Porovnej velikost i vzhled: doporučená úspora je alespoň 20 % a 50 kB při zachování rozlišení. Pro fotky a texturované ilustrace použij ztrátovou kompresi, pro průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` ponech při této optimalizaci stranou. Tyto podmínky žádný skript automaticky nevynucuje.
 
-Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Cesty tedy respektují hlavní i vnořenou stránku a místní náhled; náhledy fotek v ručním HTML přitom mohou stále mířit na produkci. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Světlá hlavička nyní používá `Nav.panel/IMG_6357.webp`; vedlejší soubor `IMG_6357.avif` zůstává v úložišti obrázků.
+Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Náhledy fotek v ručním HTML používají relativní cesty do `assets/`. Cesty tedy respektují hlavní i vnořenou stránku, místní náhled a nasazení pod `/Chynicky_LARP/`. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Světlá hlavička nyní používá `Nav.panel/IMG_6357.webp`; vedlejší soubor `IMG_6357.avif` zůstává v úložišti obrázků.
 
 ## Kontrola změn
 
@@ -177,10 +179,10 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 
 | Pořadí | Konkrétní problém | Nejmenší rozumná změna |
 | --- | --- | --- |
-| 1 | Data návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. Obrázek `questionmark.png` v datech kalendáře i návodů má produkční URL bez `/Chynicky_LARP/`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
+| 1 | Odkaz v datech návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
 | 2 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
 | 3 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
-| 4 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. V detailech Ozvěn stínů jsou navíc odkazy na některé náhledy, které v místním úložišti obrázků chybí. | Doplnit zamýšlené obrázky nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů i náhledů. |
+| 4 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. | Doplnit zamýšlenou ikonu nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 

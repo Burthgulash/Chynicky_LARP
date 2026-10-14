@@ -2,6 +2,7 @@ import "./generace-menu.js";
 import { getImageFormat } from "./utilities/imgformat.js";
 
 const btn = document.getElementById("button-theme-switch");
+const imageRoot = new URL("../assets/", import.meta.url);
 
 let theme = "dark";
 try {
@@ -36,10 +37,10 @@ function updateIcons() {
   if (hamburgerSwords) {
     if (isLight) {
       hamburgerSwords.src =
-        "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final-light.png";
+        new URL("Nav.panel/tri mece final final-light.png", imageRoot).href;
     } else {
       hamburgerSwords.src =
-        "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final.png";
+        new URL("Nav.panel/tri mece final final.png", imageRoot).href;
     }
   }
   document.querySelectorAll("#icon-img").forEach((image) => {
@@ -47,9 +48,9 @@ function updateIcons() {
     const imgFormat = getImageFormat(image.src); // Get the image format is correct
     const name = image.dataset.name;
     if (isLight) {
-      image.src = `https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/${name}-light.${imgFormat}`;
+      image.src = new URL(`Ikony-img/${name}-light.${imgFormat}`, imageRoot).href;
     } else {
-      image.src = `https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/${name}.${imgFormat}`;
+      image.src = new URL(`Ikony-img/${name}.${imgFormat}`, imageRoot).href;
     }
   });
 }
@@ -59,8 +60,8 @@ function updateThemeIcon() {
   const isDark = document.body.classList.contains("dark");
   const image = themebtn.querySelector("img");
   image.src = new URL(
-    `../kvido html-img/foto/Ikony-img/${isDark ? "slunce-icon" : "Mesic-icon"}.webp`,
-    import.meta.url,
+    `Ikony-img/${isDark ? "slunce-icon" : "Mesic-icon"}.webp`,
+    imageRoot,
   ).href;
   image.style.marginLeft = isDark ? "0" : "8px";
   themebtn.setAttribute("aria-label", `Přepnout na ${isDark ? "světlý" : "tmavý"} motiv`);

@@ -4,7 +4,7 @@ export const data = [
     datum: ["Již brzy"],
     organizatori: ["Kvido Redl", "Hugo Redl", "a další"],
     obrazek:
-      "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark.png",
+      "../assets/Ikony-img/questionmark.png",
     link: "#",
     misto: {
       misto: "Pernink, kostelní 11 - apartmánová chalupa",
@@ -16,7 +16,7 @@ export const data = [
     datum: ["Někdy v červnu 2027"],
     organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
     obrazek:
-      "../kvido html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
+      "../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
     link: "#",
     misto: {
       misto: "Školní Farma (Chýnice 29)",

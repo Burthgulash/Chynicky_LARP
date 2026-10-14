@@ -4,7 +4,7 @@ export const data = [
     datum: ["5.6.-", "7.6 2026"],
     organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
     obrazek:
-      "../kvido html-img/foto/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
+      "../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
     link: "https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
   },
   {
@@ -12,7 +12,7 @@ export const data = [
     datum: ["Již brzy"],
     organizatori: ["Již brzy"],
     obrazek:
-      "https://burthgulash.github.io/kvido html-img/foto/Ikony-img/questionmark.png",
+      "../assets/Ikony-img/questionmark.png",
     link: "#",
   },
 ];

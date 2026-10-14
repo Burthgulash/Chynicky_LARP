@@ -1,4 +1,4 @@
-const fotoRoot = new URL("../../kvido html-img/foto/Odehrane LARPy/", import.meta.url);
+const fotoRoot = new URL("../../assets/Odehrane LARPy/", import.meta.url);
 export const fotoGalerieData = [
     {
         src: new URL("OS2-Zpetne.foto/OS2-1.jpg", fotoRoot).href,

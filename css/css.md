@@ -1,6 +1,6 @@
 # CSS
 
-Aktualizováno 13. 10. 2026 porovnáním se soubory CSS a jejich použitím v HTML a JavaScriptu. Tato kontrola sama neověřuje výsledný vzhled v prohlížeči.
+Aktualizováno 14. 10. 2026 po přesunu obrázků do `assets/`. Kontrola souborů sama neověřuje výsledný vzhled v prohlížeči.
 
 Sdílené styly patří do `css/sdilene/`; styly pro jednu stránku nebo stejný typ karet jsou přímo v `css/`. Cesty v tabulce jsou relativní vůči této složce `css/`.
 
@@ -33,7 +33,7 @@ Portréty `.foto` mají běžně šířku 150 px, při nejvýše 500 px 50 % a o
 
 ## Barvy a sdílené třídy
 
-Téma nastavuje `scripts/light-modV2.js` třídou `body.dark` nebo `body.light`. Pro nové styly používej existující proměnné `--bg-clr`, `--bg-accent-clr` a `--text-clr`. Pozadí hlavičky používá `--nav-img`: tmavé odkazuje na `Nav.panel/temný les 3.jpg`, světlé na `Nav.panel/IMG_6357.webp`. Obě adresy jsou v CSS absolutní a načítají se z produkčních GitHub Pages i při místním náhledu. Ikony mění JavaScript, jejich zdroj neurčuje CSS.
+Téma nastavuje `scripts/light-modV2.js` třídou `body.dark` nebo `body.light`. Pro nové styly používej existující proměnné `--bg-clr`, `--bg-accent-clr` a `--text-clr`. Pozadí hlavičky používá `--nav-img`: tmavé odkazuje na `assets/Nav.panel/temný les 3.jpg`, světlé na `assets/Nav.panel/IMG_6357.webp`. URL v těchto proměnných se vyhodnocují vůči `sdilene/menu/menu.css`, kde se použijí v `background-image`, proto začínají `../../../assets/`. Fungují tak i na místním serveru a pod `/Chynicky_LARP/`. Ikony mění JavaScript, jejich zdroj neurčuje CSS.
 
 HTML stránky načítají potřebné styly přímo pomocí `<link>`; není zde bundler ani kompilace CSS. Cestu uprav podle hloubky stránky (`../css/…` nebo `../../css/…`). Relativní `url(...)` uvnitř CSS se vyhodnocuje vůči souboru CSS, nikoli vůči HTML. Pořadí `<link>` může ovlivnit výsledný styl, proto ho při drobné změně bez důvodu nepřehazuj.
 
