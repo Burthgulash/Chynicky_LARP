@@ -25,3 +25,9 @@ Pět inline stylů nahradila existující třída `akce-obrazek`; žádný CSS s
 ## 6. Jeden společný import Roboto
 
 Odstraněny čtyři duplicitní HTML odkazy na Roboto (kalendář, archiv, návody, košík LALOK). Společný CSS import, `preconnect` i jiný font Open Sans zůstaly zachované. Kalendář, archiv a návody při 1440 i 320 px zachovaly 2, 5 a 2 karty, jejich vypočtené písmo Roboto a nepřetékal obsah; u širokého zobrazení byla ověřena i načtená fontová sada. Košík při 1440 px zachoval výchozí Times New Roman a dostupný společný import. Žádná ze čtyř stránek už nemá duplicitní HTML odkaz na Roboto. Prošel `git diff --check`.
+
+## 8. Odstranění pozůstatku starého motivu
+
+Po ověření nulového počtu odkazů ve zdrojích byl odstraněn jediný SVG soubor i prázdné adresáře `light-mod-cloud-web/`. Závěrečná kontrola na místním serveru ověřila přepnutí kalendáře na světlý motiv, otevřenou podnabídku zachovanou při změně 1440 → 320 px a přechod přes menu do Návratu mocného. Světlý motiv přežil obnovení detailu, všechny jeho obrázky se načetly a stránka nepřetékala. Potom byl ověřen návrat na tmavý motiv včetně obnovení stránky a načtení ikon menu i přepínače. Iframe motivu není přítomný a konzole tohoto detailu nehlásila chyby. Prošel `git diff --check`.
+
+Nezávislá kontrola diffu potvrdila platné obrazové cesty a volající mapy. Vynechaný bod 4 (úklid CSS a jeho importů) a bod 7 (data a logika návodů) zůstaly nedotčené; v HTML návodů se měnil jen duplicitní font podle bodu 6.
