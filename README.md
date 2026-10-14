@@ -89,7 +89,7 @@ Hlavička musí existovat před registrací menu; přepínání motivu potřebuj
 
 Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum. Současné dvě položky jsou „Již brzy“ a „Poslední ortel“; obě mají dočasný odkaz `#`.
 
-Obal obrázku používá třídu `akce-img`, samotný obrázek `akce-obrazek`, která ho přizpůsobuje šířce obalu.
+Obal obrázku používá třídu `akce-img`, samotný obrázek `akce-obrazek`, která ho přizpůsobuje šířce obalu a zachovává obsah bez deformace přes `object-fit: contain`. Stejnou třídu používají i obrázky ručních karet archivu; jejich vzhled se upravuje společně v `css/kalendar-akci.css`.
 
 Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. Hodnota `Již brzy` v poli `organizatori` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít. Současné `a další` u první karty žádný profil ani popover nemá.
 

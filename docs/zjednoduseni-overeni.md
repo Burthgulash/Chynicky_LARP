@@ -17,3 +17,7 @@ Prošly `node --check scripts/obecny.js`, `git diff --check` a jednorázové ov�
 Jednorázová kontrola ověřila přesné párování a existenci všech 51 náhledů i jejich cílů (17 + 29 + 5). V prohlížeči byl každý z těchto odkazů otevřen v lightboxu a zavřen klávesou Escape; zobrazená adresa vždy odpovídala odkazu. Při 320 px a pod prefixem `/Chynicky_LARP/` prošlo na všech třech detailech otevření Enterem, přechod šipkami mezi první a poslední fotkou a kontrola, že šipka neotevře zavřený lightbox. Náhledy i kontrolované originály se načetly bez vodorovného přetečení. Ctrl kliknutí otevřelo originál v nové kartě a lightbox ponechalo zavřený. Konzole kontrolované stránky nehlásila chyby ani varování.
 
 Prošly kontrola syntaxe a diffu a jednorázový Node VM check: přímé href, přednačítání, modifikované kliknutí, oba směry včetně zacyklení, klávesnice, simulované přejetí prstem a zavření. Fyzický dotyk ani prohlížeč s vypnutým JavaScriptem nebyly zkoušeny. CSS zůstalo beze změn.
+
+## 5. Společný styl obrázků archivu
+
+Pět inline stylů nahradila existující třída `akce-obrazek`; žádný CSS soubor se neměnil. Při 1440 i 320 px zůstaly stejné zdroje i rozměry všech pěti obrázkových elementů jako před úpravou. Všechny fotky se načetly, archiv zachoval pět karet a nepřetékal. Společná třída navíc používá `object-fit: contain`, takže obsah fotografie zachovává poměr stran i ve vyšším obalu. Ověřeno také přepnutí na tmavý motiv a zavření menu klávesou Escape. Prošel `git diff --check`.
