@@ -11,3 +11,9 @@ Odstraněn import knihovny a dekorativní ikona; tlačítko má dál popisek „
 Při šířce 320 px bylo na všech třech detailech ověřeno otevření kliknutím a zavření klávesou Enter, odpovídající text a `aria-expanded`, zachovaný obsah SVG a žádné vodorovné přetečení. Při 1440 px se mapa Perninku vykreslila s bodem a ovládáním při výšce 280 px. Samotné přiblížení a posouvání mapy nebylo zkoušeno. Hlavní kalendář dál vykreslil dvě karty a otevřel společné menu.
 
 Prošly `node --check scripts/obecny.js`, `git diff --check` a jednorázové ověření obou stavů funkce v Node VM: přepnutí textu a ARIA, zachování SVG bez zápisu do `innerHTML` i dosavadní obnovení iframe.
+
+## 3. Přímé odkazy na velké fotografie
+
+Jednorázová kontrola ověřila přesné párování a existenci všech 51 náhledů i jejich cílů (17 + 29 + 5). V prohlížeči byl každý z těchto odkazů otevřen v lightboxu a zavřen klávesou Escape; zobrazená adresa vždy odpovídala odkazu. Při 320 px a pod prefixem `/Chynicky_LARP/` prošlo na všech třech detailech otevření Enterem, přechod šipkami mezi první a poslední fotkou a kontrola, že šipka neotevře zavřený lightbox. Náhledy i kontrolované originály se načetly bez vodorovného přetečení. Ctrl kliknutí otevřelo originál v nové kartě a lightbox ponechalo zavřený. Konzole kontrolované stránky nehlásila chyby ani varování.
+
+Prošly kontrola syntaxe a diffu a jednorázový Node VM check: přímé href, přednačítání, modifikované kliknutí, oba směry včetně zacyklení, klávesnice, simulované přejetí prstem a zavření. Fyzický dotyk ani prohlížeč s vypnutým JavaScriptem nebyly zkoušeny. CSS zůstalo beze změn.

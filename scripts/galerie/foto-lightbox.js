@@ -1,4 +1,3 @@
-import { fotoGalerieData } from "./foto-galerie-data.js"
 // 1. Get all the small gallery images
 const images = document.querySelectorAll(".per-foto-obrazek");
 
@@ -15,11 +14,11 @@ let currentIndex = 1;
 // 4. This function shows the image in the lightbox
 function showImage(index, direction = null) {
     if (!images || images.length === 0) return; // Prevent errors if images are not loaded
-    const lightboxImgSrc = findJpgImage(index)
+    // Větší verze je přímo na odkazu kolem náhledu.
+    const lightboxImgSrc = images[index].parentElement.href;
     // Remove any old animation class
     lightboxImg.classList.remove("slide-left", "slide-right");
 
-    // replace the webp img with a jpg or jpeg version based on the funtion + make sure its not null
 
 
 
@@ -47,7 +46,9 @@ function showImage(index, direction = null) {
 
 // 5. When someone clicks a thumbnail, show that image in the lightbox
 images.forEach((img, index) => {
-    img.addEventListener("click", () => {
+    img.parentElement.addEventListener("click", (event) => {
+        if (event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
         showImage(index); // open the lightbox with the correct image
     });
 });
@@ -118,6 +119,7 @@ function escapeLightbox(event) {
 }
 // Add a listener for the Arrows key to switch the lightbox
 window.addEventListener("keydown", (event) => {
+    if (lightbox.classList.contains("hidden")) return;
     if (event.key === "ArrowLeft") {
         currentIndex = (currentIndex - 1 + images.length) % images.length;
         showImage(currentIndex, "right");
@@ -128,45 +130,19 @@ window.addEventListener("keydown", (event) => {
 });
 
 function preloadImages(index) {
-    // Preload images based on the fotoGalerieData
+    // Přednačti odkazy předchozích a následujících fotek.
 
     // Preload the next 3 images
     for (let i = index; i <= index + 3 && i < images.length; i++) {
         const img = new Image();
-        const JpgImageSrc = findJpgImage(i);
-        if (JpgImageSrc) img.src = JpgImageSrc;
+        img.src = images[i].parentElement.href;
     }
 
     // Preload the previous 3 images
     for (let i = index - 1; i >= index - 3 && i >= 0; i--) {
         const img = new Image();
-        const JpgImageSrc = findJpgImage(i);
-        if (JpgImageSrc) img.src = JpgImageSrc;
+        img.src = images[i].parentElement.href;
     }
-}
-
-function findJpgImage(index) {
-    if (!images[index]) return null; // Prevent out-of-bounds access
-
-    let foundJpgImage = "";
-
-    // Get filename without extension
-    const imgWebpSrc = images[index].src;
-    const imgWebpFilename = imgWebpSrc.split('/').pop().replace('.webp', '');
-
-    // Try to find best match from fotoGalerieData
-    const match = fotoGalerieData.find(obj => {
-        const fullName = obj.src.split('/').pop();
-        return fullName.includes(imgWebpFilename); // simple filename match
-    });
-
-    if (match) {
-        foundJpgImage = match.src;
-    } else {
-        console.warn("No match found for:", imgWebpFilename, "or something else went wrong. showing the webp version");
-        foundJpgImage = imgWebpSrc; // fallback to .webp
-    }
-    return foundJpgImage;
 }
 
 function hideLightbox() {

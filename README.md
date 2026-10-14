@@ -111,7 +111,7 @@ Renderery kalendáře a návodů označují obrázek pro přepínání motivu je
 
 Samostatná stránka `foto-galerie/foto-galerie.html` ukáže obrázky z pole `fotoGalerieData` až po výběru akce a kliknutí na „Filtrovat“. Záznam má tvar `{ src: "adresa fotky", akce: "OS2" }`; kód akce musí odpovídat hodnotě v `<select>`. Současný výběr nabízí jen `OS1` a `OS2`. Placeholder se odstraní při prvním zaměření výběru kliknutím nebo klávesou Tab; komentář v kódu uvádí Safari/iOS jako důvod, nikoli výsledek ověření na těchto zařízeních.
 
-Galerie zatím nemá odkaz ve společném menu ani zapojený lightbox. Zvětšování funguje samostatně v detailech Ozvěny stínů, Ozvěny stínů 2 a Přes hřebeny. `foto-lightbox.js` tam pracuje s `.per-foto-obrazek` a prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Podporuje šipky, Escape a přejetí prstem; pro velký obrázek hledá odpovídající originál v datech galerie, jinak použije náhled. Na stránku bez tohoto HTML ho nepřidávej.
+Galerie zatím nemá odkaz ve společném menu ani zapojený lightbox. Zvětšování funguje samostatně v detailech Ozvěny stínů, Ozvěny stínů 2 a Přes hřebeny. Každý náhled `.per-foto-obrazek` je uvnitř odkazu `<a href="adresa originálu">`; tuto adresu používá `foto-lightbox.js` pro zvětšení i přednačítání, bez hledání v datech galerie. Běžné kliknutí nebo Enter otevře lightbox, modifikované kliknutí zachová běžné chování odkazu a bez JavaScriptu odkaz otevře samotný obrázek. Skript dále potřebuje prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Podporuje Escape a přejetí prstem; klávesové šipky reagují pouze při otevřeném lightboxu. Na stránku bez tohoto HTML ho nepřidávej.
 
 ## Běžné úpravy
 
@@ -151,7 +151,7 @@ Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářo
 
 ### Přidat fotografie
 
-Ulož soubory do `assets/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
+Ulož soubory do `assets/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Každý náhled pro lightbox vlož jako `<a href="cesta/k/originálu.jpg"><img class="per-foto-obrazek" src="cesta/k/náhledu.webp" alt="Popis fotografie"></a>`. Pokud nemá samostatný originál, obě adresy mohou být stejné. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
 
 **Doporučení pro další optimalizaci:** větší obrázky převáděj na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Porovnej velikost i vzhled: doporučená úspora je alespoň 20 % a 50 kB při zachování rozlišení. Pro fotky a texturované ilustrace použij ztrátovou kompresi, pro průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` ponech při této optimalizaci stranou. Tyto podmínky žádný skript automaticky nevynucuje.
 
@@ -181,8 +181,7 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 | --- | --- | --- |
 | 1 | Odkaz v datech návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
 | 2 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
-| 3 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
-| 4 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. | Doplnit zamýšlenou ikonu nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů. |
+| 3 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. | Doplnit zamýšlenou ikonu nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 

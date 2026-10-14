@@ -37,7 +37,7 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 - Archiv `Odehrane LARPy/Odehrane LARPy.html` a texty detailů jsou ruční HTML. Úprava kalendáře je automaticky nemění.
 - Organizátoři a mapy používají nativní `popover`/`popovertarget`. Jméno organizátora musí přesně odpovídat profilu v `components/organizator-popovers.js` a elementu na stránce. Hodnota `Již brzy` v poli `organizatori` je text bez popoveru; současné `a další` tuto výjimku nemá a jeho tlačítku chybí cíl.
 - `foto-galerie-data.js` obsahuje `{ src, akce }`; nová akce potřebuje i odpovídající `<option>` v samostatné galerii. Fotky detailů jsou ručně v jejich HTML.
-- `foto-lightbox.js` patří jen na stránky s náhledy `.per-foto-obrazek` a celou strukturou `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Samostatná filtrovaná galerie ho zatím nepoužívá. Její dynamické fotky samotný import lightboxu nepropojí.
+- `foto-lightbox.js` patří jen na stránky s náhledy `.per-foto-obrazek` uvnitř odkazů na přesné originály a celou strukturou `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Adresu velké fotky bere z rodičovského odkazu, nikoli z dat samostatné galerie. Samostatná filtrovaná galerie ho zatím nepoužívá. Její dynamické fotky samotný import lightboxu nepropojí.
 - Renderery i komponenty spouštějí práci hned při načtení; přidávej je jen na stránky s požadovanými prvky. Nevytvářej obecný loader funkcí.
 
 ### Cesty, styly a vstupy
