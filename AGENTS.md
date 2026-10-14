@@ -14,7 +14,7 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 - Jde o statický web z HTML, CSS a běžného JavaScriptu. Není tu framework, backend, databáze, `package.json`, správce balíčků ani build.
 - Vstup je `kalendar-akci/index.html`, nikoli `index.html` v kořeni. Web je určený pro GitHub Pages pod `/Chynicky_LARP/`.
 - Pro náhled použij HTTP server; `file://` nefunguje spolehlivě s moduly. Příkaz a omezení lokálního náhledu jsou v README.
-- Node.js 22+ slouží pro existující testy. Pro běh webu ho návštěvník nepotřebuje.
+- Node.js 22+ je volitelný pro kontrolu syntaxe. Pro běh webu ho návštěvník nepotřebuje. Složka `tests/` byla na přání autora odstraněna; bez nového zadání testy neobnovuj.
 
 ## Smlouvy, které při úpravách zachovej
 
@@ -24,9 +24,9 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 - `site-header.js` se musí načíst před ES modulem `scripts/generace-menu.js`, který definuje `<site-menu>`. Menu vytváří DOM jednou přes `createElement` bez `innerHTML`; jeho odkazy odvozuje od `import.meta.url`.
 - Komponenta menu spravuje stav panelu, kliknutí mimo, Escape, `inert` a `aria-expanded`; spouštěč je do jejího načtení vypnutý. Podnabídky ovládají tlačítka kliknutím či klávesnicí a najetím myši přes pointer události; nepřidávej detekci podle `userAgent` ani opakovaná ID šipek.
 - `scripts/obecny.js` musí zůstat klasický skript: inline `onclick` používá globální `toggleMenu()`, který pouze deleguje na komponentu menu. Jeho dalšími funkcemi jsou minimapa v detailech akcí a easter egg.
-- `scripts/light-modV2.js` je modul a importuje menu jako závislost. Při spuštění potřebuje `#theme-sync` a tlačítko `#button-theme-switch` vytvořené komponentou; jeho obrázek i listener zachovej při změně motivu. Na stránce má být jen jeden iframe a jeden import motivu.
+- `scripts/light-modV2.js` je modul a importuje menu jako závislost. Při spuštění potřebuje `#theme-sync` a tlačítko `#button-theme-switch` vytvořené komponentou; jeho obrázek i listener zachovej při změně motivu. Na stránce má být jen jeden iframe `#theme-sync` a jeden import motivu; iframe map jsou samostatné.
 - Současný motiv používá vzdálený iframe, `postMessage` a origin `https://burthgulash.github.io`. Změna adresy iframe sama nestačí. Pro lokální náhled počítej s produkčními obrázky a některými odkazy v obsahu; odkazy menu respektují místní adresu.
-- Současné přepínání ikon hledá `#icon-img` s `data-name="název"` a skládá adresy `název.přípona` a `název-light.přípona` ve složce `Ikony-img`. Při změně tematické ikony ověř obě varianty.
+- Současné přepínání ikon hledá `#icon-img` s `data-name="název"` a skládá produkční adresy `název.přípona` a `název-light.přípona` ve složce `Ikony-img`. Při změně tematické ikony ověř obě varianty; u nynějšího `jidlo-icon.webp` světlá varianta chybí. Ikony tlačítka motivu používají místní adresy odvozené od modulu.
 - Hlavička používá CSS Grid v `css/sdilene/menu/menu.css`: menu 70 × 70 px, mezera alespoň 12 px, zalamování podle dostupného místa. `ResizeObserver` měří pouze výšku pro `--site-header-height`.
 - Zachovej stabilní DOM menu a jeho listenery při změně šířky či nadpisu i opětovném připojení komponenty. Při odpojení menu odeber jeho listenery dokumentu. Nepřidávej druhé měření kolizí, resize loader ani znovuvytváření hlavičky. Podrobnosti jsou v [poznámkách k hlavičce](docs/header-layout-notes.md).
 
@@ -35,14 +35,14 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 - Kalendář importuje `data` z `scripts/kalendar/kalendar-data.js` a zapisuje karty jednou do `.kalendar-akci2`. Pořadí určuje pole, `datum` je pole textů. `misto` je text nebo `{ misto, mapyLink? }`; `mapyLink` je `src` vložené mapy z Mapy.com.
 - Návody mají svůj datový soubor a krátký renderer ve `scripts/navody/`. Jejich současná pole `datum` a `organizatori` neodpovídají popiskům nákladů a doby výroby; tato část ještě není hotová.
 - Archiv `Odehrane LARPy/Odehrane LARPy.html` a texty detailů jsou ruční HTML. Úprava kalendáře je automaticky nemění.
-- Organizátoři a mapy používají nativní `popover`/`popovertarget`. Jméno organizátora musí přesně odpovídat profilu v `components/organizator-popovers.js` a elementu na stránce. `Již brzy` je text bez popoveru.
+- Organizátoři a mapy používají nativní `popover`/`popovertarget`. Jméno organizátora musí přesně odpovídat profilu v `components/organizator-popovers.js` a elementu na stránce. Hodnota `Již brzy` v poli `organizatori` je text bez popoveru; současné `a další` tuto výjimku nemá a jeho tlačítku chybí cíl.
 - `foto-galerie-data.js` obsahuje `{ src, akce }`; nová akce potřebuje i odpovídající `<option>` v samostatné galerii. Fotky detailů jsou ručně v jejich HTML.
 - `foto-lightbox.js` patří jen na stránky s náhledy `.per-foto-obrazek` a celou strukturou `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Samostatná filtrovaná galerie ho zatím nepoužívá. Její dynamické fotky samotný import lightboxu nepropojí.
 - Renderery i komponenty spouštějí práci hned při načtení; přidávej je jen na stránky s požadovanými prvky. Nevytvářej obecný loader funkcí.
 
 ### Cesty, styly a vstupy
 
-- HTML URL a URL vložené rendererem se vyhodnocují vůči HTML stránce; modulové `import` vůči JS souboru a CSS `url(...)` vůči CSS souboru.
+- Nezpracované relativní HTML URL a URL vložené rendererem se vyhodnocují vůči HTML stránce; modulové `import` vůči JS souboru a CSS `url(...)` vůči CSS souboru. Menu, galerie a obrázky profilů používají `new URL(..., import.meta.url)` a cesty odvozují od modulu.
 - Počítej s mezerami, diakritikou, velikostí písmen a různě hlubokými složkami. Na GitHub Pages záleží na přesné cestě. Před přesunem nebo mazáním souboru vyhledej odkazy v HTML, JS i CSS.
 - Vlastní nové odkazy preferuj relativní a ověř je i z vnořené stránky. Nepřidávej produkční adresy pro import lokálního kódu. Existující absolutní URL neopravuj plošně bez kontroly jejich významu.
 - Sdílené styly patří do `css/sdilene/`, styly konkrétní stránky do `css/`. Hlavička i boční menu mají jeden soubor `css/sdilene/menu/menu.css`. Role stylů jsou v [css/css.md](css/css.md).
@@ -61,18 +61,11 @@ Platí pro celý repozitář. Piš vysvětlení a dokumentaci česky, srozumitel
 
 ## Ověření a předání
 
-Pro změny rendererů, dat nebo archivu spusť v kořeni:
+V aktuálním repozitáři nejsou automatizované testy. Historické soubory pro renderery, menu a obrázky byly odstraněny v commitu `ecd710e` („odstranit testy TESTY NECHCI“). Neodkazuj na ně jako na existující kontroly a bez nového zadání je neobnovuj.
 
-```sh
-node --test tests/renderers.test.mjs
-```
-
-Test má očekávání pro aktuální počet karet; při záměrné změně obsahu je uprav, ale zachovej kontrolu chování. Neověřuje skutečný prohlížeč, galerie, motiv ani rozložení.
-
-Pro změny menu spusť `node --test tests/menu.test.mjs`. Ověřuje zapojení 12 stránek, místní cesty, stav komponenty a obsluhu motivu s náhradním DOM a iframe; nenahrazuje kontrolu prohlížeče.
-
-- Změněný JS ověř přes `node --check cesta/k/souboru.js` a diff přes `git diff --check`.
-- Pro novou netriviální logiku nebo opravu chyby přidej nejmenší smysluplnou regresní kontrolu, ideálně rozšířením stávajícího testu a vestavěnými nástroji Node. Pro samotnou dokumentaci či drobnou změnu textu nový test nevytvářej.
+- Změněný JS ověř přes `node --check cesta/k/souboru.js` a diff přes `git diff --check`. Kontrola syntaxe neověřuje běh v prohlížeči.
+- U změn rendererů, dat nebo archivu ručně ověř počet a obsah karet, cíle odkazů a popoverů. Po změně obrázků ověř všechny odkazy na soubory a obě varianty tematických ikon.
+- Pro novou netriviální logiku nebo opravu chyby ověř konkrétní případ, který změnu vyžadoval, a zapiš postup a skutečný výsledek; nezakládej kvůli tomu sadu testů bez výslovného požadavku.
 - Změněnou funkci ověř na místním HTTP serveru. Sdílenou změnu zkontroluj na hlavní stránce a vnořeném detailu, v úzkém i širokém okně. Menu vyzkoušej také po změně šířky, téma při přechodu mezi stránkami; ostatní funkce podle zásahu.
 - Při změně chování aktualizuj příslušnou část README a dotčené specializované poznámky. Aktuální popis odděluj od plánů i historických výsledků testování.
-- Při předání stručně uveď změnu, provedené kontroly a konkrétní neověřené části. Netvrď, že kontrola syntaxe nebo Node test ověřily prohlížeč či produkční nasazení.
+- Při předání stručně uveď změnu, provedené kontroly a konkrétní neověřené části. Netvrď, že kontrola syntaxe nebo čtení zdrojů ověřily prohlížeč či produkční nasazení.

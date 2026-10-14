@@ -2,7 +2,7 @@
 
 Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, příběhy a fotky. LARP je hra, ve které účastníci naživo hrají své postavy.
 
-**Web tvoří obyčejné HTML, CSS a JavaScript.** Nemá framework, databázi, backend, `package.json` ani build. Obsah upravíš v souborech a prohlížeč je rovnou načte. Node.js je potřeba jen pro testy.
+**Web tvoří obyčejné HTML, CSS a JavaScript.** Nemá framework, databázi, backend, `package.json` ani build. Obsah upravíš v souborech a prohlížeč je rovnou načte. Node.js je volitelný pro kontrolu syntaxe; web ho pro běh nepotřebuje a automatizované testy v repozitáři nejsou.
 
 Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html). Vstupní stránka v repozitáři je `kalendar-akci/index.html`; v kořeni žádný `index.html` není.
 
@@ -23,7 +23,7 @@ Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automatick
 
 HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
 
-**Lokální náhled zatím není úplně nezávislý na produkci.** Importy skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků, odkazů v obsahu a iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, mapy a externí dokumenty také potřebují síť.
+**Lokální náhled zatím není úplně nezávislý na produkci.** Importy vlastních skriptů a stylů i odkazy menu respektují místní adresu, ale řada obrázků, odkazů v obsahu a iframe pro motiv se načítá z GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, Font Awesome, mapy a externí dokumenty také potřebují síť.
 
 ## Který soubor upravit
 
@@ -47,8 +47,7 @@ Další orientace:
 
 - `scripts/galerie/foto-galerie.js` filtruje samostatnou galerii; `foto-lightbox.js` ovládá zvětšení fotek v detailech akcí.
 - `scripts/utilities/imgformat.js` zjišťuje příponu obrázku pro přepínání ikon.
-- `tests/renderers.test.mjs` je malá kontrola generovaných karet a ručně psaného archivu.
-- `tests/menu.test.mjs` kontroluje zapojení stránek a chování komponenty menu s náhradním DOM v Node.js.
+- Postup ručního ověření je v části [Kontrola změn](#kontrola-změn); složka `tests/` už v projektu není.
 - [Pravidla a přehled CSS](css/css.md), [podrobnosti hlavičky](docs/header-layout-notes.md) a [pokyny pro AI](AGENTS.md) doplňují tento úvod.
 - `LALOK/` jsou samostatné žertovné stránky, na které vedou odkazy z některých akcí. Nejsou vzorem společné hlavičky.
 - `mista-akci/mista-akci.html` je zatím prázdný soubor.
@@ -69,7 +68,7 @@ HTML obsahuje například:
 
 `components/site-header.js` zaregistruje vlastní HTML element, vytvoří nadpis, tlačítko `.menu-toggle` s obrázkem `.menu-btn` a `<site-menu id="sideMenu">`. ES modul `scripts/generace-menu.js` definuje tuto webovou komponentu. Odkazy, podnabídky a tlačítko motivu sestaví jednou přes `createElement` a `append`, bez `innerHTML`. Vlastní adresy odvozuje od `import.meta.url`, takže menu funguje z různě hlubokých stránek na místním serveru i pod `/Chynicky_LARP/`. Odkaz Z Popelu Kalicha míří do `Odehrane LARPy/Z.Popelu.kalicha/`.
 
-Komponenta spravuje otevření, zavření kliknutím mimo panel nebo klávesou Escape, atribut `inert` a `aria-expanded` spouštěcího tlačítka. Spouštěč je do načtení komponenty vypnutý. Pokud byl fokus uvnitř zavíraného panelu, vrátí ho na spouštěč. Podnabídky mají skutečná tlačítka: myš je může otevřít najetím na šipku, kliknutí funguje i dotykem a z klávesnice. `scripts/obecny.js` poskytuje globální `toggleMenu()`, který pouze zavolá metodu komponenty; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách aktivního prohlížení stránky.
+Komponenta spravuje otevření, zavření kliknutím mimo panel nebo klávesou Escape, atribut `inert` a `aria-expanded` spouštěcího tlačítka. Spouštěč je do načtení komponenty vypnutý. Pokud byl fokus uvnitř zavíraného panelu, vrátí ho na spouštěč. Podnabídky mají skutečná tlačítka: myš je může otevřít najetím na šipku, kliknutí funguje i dotykem a z klávesnice. `scripts/obecny.js` poskytuje globální `toggleMenu()`, který pouze zavolá metodu komponenty; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách viditelného zobrazení stránky. Časovač sleduje `document.hidden`, nikoli klikání nebo jinou aktivitu uživatele, a po obnovení stránky začíná znovu.
 
 Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Když ubývá místo, nejprve se zmenší prázdný levý sloupec a poté se zalomí text. Tato hlavička nemá pevný mobilní breakpoint. `ResizeObserver` měří jen její výšku a nastavuje `--site-header-height` pro horní odsazení stránky. Při změně šířky, nadpisu ani opětovném připojení se DOM menu nevytváří znovu; při odpojení se panel zavře a odebere listenery dokumentu.
 
@@ -85,29 +84,33 @@ Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto po�
 <script type="module" src="../scripts/light-modV2.js"></script>
 ```
 
-Hlavička musí existovat před registrací menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný iframe i import motivu, včetně Přes hřebeny. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
+Hlavička musí existovat před registrací menu; přepínání motivu potřebuje iframe i tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný iframe `#theme-sync` i import motivu, včetně Přes hřebeny; iframe map jsou samostatné. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
 
 ### Kalendář a návody
 
-Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum.
+Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum. Současné dvě položky jsou „Již brzy“ a „Poslední ortel“; obě mají dočasný odkaz `#`.
 
 Obal obrázku používá třídu `akce-img`, samotný obrázek `akce-obrazek`, která ho přizpůsobuje šířce obalu.
 
-Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. `Již brzy` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít.
+Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. Hodnota `Již brzy` v poli `organizatori` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít. Současné `a další` u první karty žádný profil ani popover nemá.
 
-Mapy míst používají vložené iframe Mapy.cz (nyní Mapy.com). V kalendáři se otevírají kliknutím na místo, v detailech akcí tlačítkem „Zobrazit mapu“. Školní farma i Pernink mají bod označující místo konání. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu.
+Mapy míst používají vložené iframe Mapy.com. V kalendáři se otevírají kliknutím na místo, v detailech Z Popelu kalicha, Návrat mocného a Přes hřebeny tlačítkem „Zobrazit mapu“. Kalendář a Návrat mocného používají pro školní farmu adresu `https://mapy.com/s/hufumuzega`, Z Popelu kalicha `https://mapy.com/s/fotehegoro`; Pernink používá `https://mapy.com/s/pejegocono`. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu. Správný bod a ovládání mapy ověř přímo v iframe v prohlížeči, samotná adresa ve zdroji je nezaručuje.
 
-Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS karet. **Zatím jde o nedokončenou část:** pole `datum` se zobrazuje pod „Přibližné náklady“ a `organizatori` pod „Doba výroby“, přesto v datech stále obsahují termíny a jména organizátorů. Neber tuto strukturu jako hotový vzor návodu. Stránka návodů zatím není ve společném menu.
+Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS karet. **Zatím jde o nedokončenou část:** pole `datum` se zobrazuje pod „Přibližné náklady“ a `organizatori` pod „Doba výroby“, přesto v datech stále obsahují termíny a jména organizátorů. První karta navíc odkazuje na detail Z Popelu kalicha v nesprávné složce, ne na hotový návod. Neber tuto strukturu jako hotový vzor návodu. Stránka návodů zatím není ve společném menu.
 
 ### Světlý a tmavý motiv
 
 `light-modV2.js` nejprve nastaví tmavý motiv a připojí obsluhu odpovědi iframe. O uloženou hodnotu požádá zprávou `get-theme` ihned i při události `load`, takže zachytí také iframe načtený před spuštěním modulu. Při kliknutí odešle `set-theme`. Iframe ukládá klíč `theme` do svého `localStorage` a vrací zprávu typu `theme`. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon. Ikonu tlačítka motivu mění na stávajícím `<img>` a aktualizuje jeho přístupný popisek, takže DOM tlačítka a jeho listener zůstávají zachované.
 
-Iframe je statická pomocná stránka na GitHub Pages. Motiv se neukládá do databáze ani uživatelského účtu. Rodičovský skript má napevno origin `https://burthgulash.github.io`; pouhé přepsání iframe na lokální cestu proto současnou synchronizaci neopraví. Přímé `localStorage` by stačilo pro stránky na stejném originu, pokud nechceme zachovat společný motiv i s lokálním náhledem nebo jiným hostingem.
+Iframe je statická pomocná stránka na GitHub Pages. Motiv se neukládá do databáze ani uživatelského účtu. Rodičovský skript má napevno origin `https://burthgulash.github.io`; pouhé přepsání iframe na lokální cestu proto současnou synchronizaci neopraví. Rodič kontroluje origin zprávy, ale ne její zdrojové okno ani povolenou hodnotu motivu; iframe původ ani hodnotu přijaté zprávy nekontroluje. Přímé `localStorage` by stačilo pro stránky na stejném originu, ale změnilo by způsob sdílení motivu s lokálním náhledem nebo jiným hostingem.
+
+Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá produkční adresy běžné a `-light` varianty. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` se naopak načítají místně podle adresy modulu.
+
+Renderery kalendáře a návodů označují obrázek pro přepínání motivu jen podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderery se na stránkách načítají až po modulu motivu; nově vložená tematická ikona návodů se aktualizuje při další odpovědi iframe nebo kliknutí na motiv. Bez dostupného iframe může zůstat v původní chybné adrese popsané níže.
 
 ### Galerie a zvětšování fotek
 
-Samostatná stránka `foto-galerie/foto-galerie.html` ukáže obrázky z pole `fotoGalerieData` až po výběru akce a kliknutí na „Filtrovat“. Záznam má tvar `{ src: "adresa fotky", akce: "OS2" }`; kód akce musí odpovídat hodnotě v `<select>`. První otevření výběru odstraní placeholder kvůli chování Safari/iOS.
+Samostatná stránka `foto-galerie/foto-galerie.html` ukáže obrázky z pole `fotoGalerieData` až po výběru akce a kliknutí na „Filtrovat“. Záznam má tvar `{ src: "adresa fotky", akce: "OS2" }`; kód akce musí odpovídat hodnotě v `<select>`. Současný výběr nabízí jen `OS1` a `OS2`. Placeholder se odstraní při prvním zaměření výběru kliknutím nebo klávesou Tab; komentář v kódu uvádí Safari/iOS jako důvod, nikoli výsledek ověření na těchto zařízeních.
 
 Galerie zatím nemá odkaz ve společném menu ani zapojený lightbox. Zvětšování funguje samostatně v detailech Ozvěny stínů, Ozvěny stínů 2 a Přes hřebeny. `foto-lightbox.js` tam pracuje s `.per-foto-obrazek` a prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev`, `#next`. Podporuje šipky, Escape a přejetí prstem; pro velký obrázek hledá odpovídající originál v datech galerie, jinak použije náhled. Na stránku bez tohoto HTML ho nepřidávej.
 
@@ -151,38 +154,25 @@ Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářo
 
 Ulož soubory do `kvido html-img/foto/` a doplň `{ src, akce }` do `foto-galerie-data.js`. Pro novou akci přidej také `<option>` do výběru samostatné galerie. Náhledy v detailu akce se přidávají ručně do jejího HTML; pouhé doplnění dat je tam nezobrazí. Zachovej existující lightbox prvky a obrázkům dej smysluplný `alt`.
 
-Větší obrázky převádíme na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Při optimalizaci porovnáváme velikost i vzhled: převod má ušetřit alespoň 20 % a 50 kB, rozlišení se nemění. Fotky a texturované ilustrace používají ztrátovou kompresi, průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` jsou z optimalizace vynechané.
+**Doporučení pro další optimalizaci:** větší obrázky převáděj na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Porovnej velikost i vzhled: doporučená úspora je alespoň 20 % a 50 kB při zachování rozlišení. Pro fotky a texturované ilustrace použij ztrátovou kompresi, pro průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` ponech při této optimalizaci stranou. Tyto podmínky žádný skript automaticky nevynucuje.
 
-Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Fungují tedy z hlavní i vnořené stránky a také při místním náhledu. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Existující AVIF pozadí světlé hlavičky zatím zůstává.
+Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Cesty tedy respektují hlavní i vnořenou stránku a místní náhled; náhledy fotek v ručním HTML přitom mohou stále mířit na produkci. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Světlá hlavička nyní používá `Nav.panel/IMG_6357.webp`; vedlejší soubor `IMG_6357.avif` zůstává v úložišti obrázků.
 
 ## Kontrola změn
 
-V kořeni repozitáře spusť s Node.js 22 nebo novějším:
+**Automatizované testy v aktuálním repozitáři nejsou.** Historicky existovaly kontroly rendererů, menu a obrázků, ale všechny tři soubory byly na přání autora odstraněny v commitu `ecd710e` („odstranit testy TESTY NECHCI“). Staré příkazy `node --test tests/…` proto nefungují a dřívější výsledky nevypovídají o současném stavu. Bez nového zadání testy neobnovuj.
 
-```sh
-node --test tests/renderers.test.mjs
-```
-
-Test kontroluje jeden zápis HTML do kalendáře a návodů, počet karet ve stávajících datech, třídu obrázků kalendáře, cíle přesměrování ze starých vstupních adres, mapové popovery kalendáře, adresy map v detailech, odkaz v archivu a nepřítomnost tlačítka vloženého do odkazu. Po záměrné změně počtu akcí uprav odpovídající očekávání. Test neověřuje rozložení, načítání obrázků či map v iframe, přístupnost ani skutečné klikání v prohlížeči.
-
-Po výměně obrázků spusť také `node --test tests/images.test.mjs`. Kontroluje místní soubory v datech a WebP odkazy v HTML/CSS; nenahrazuje kontrolu kvality obrazu ani skutečný prohlížeč.
-
-Po změně menu spusť:
-
-```sh
-node --test tests/menu.test.mjs
-```
-
-Test kontroluje modulové importy menu před motivem a jeden iframe na všech 12 stránkách, existenci cest skriptů a devíti odkazů menu a tvorbu menu bez `innerHTML`. S náhradním DOM ověřuje vypnutí spouštěče před načtením a bezpečnou globální delegaci, otevření, kliknutí mimo panel, Escape, `inert`, `aria-expanded`, návrat fokusu, odebrání listenerů a zachování uzlů při opětovném připojení. Kontroluje také obsluhy podnabídek pro kliknutí, myš, dotyk a odchod fokusu. S náhradním iframe ověřuje okamžitý dotaz i dotaz při `load`, odpovědi a přepnutí motivu při zachování obrázku tlačítka. Neověřuje skutečný prohlížeč, rozložení ani živou synchronizaci motivu.
-
-Pro změněný JavaScript lze navíc použít `node --check cesta/k/souboru.js`. Před předáním zkontroluj `git diff --check`.
+Pro změněný JavaScript lze s Node.js 22 nebo novějším použít `node --check cesta/k/souboru.js`. Jde pouze o kontrolu syntaxe, nikoli chování stránky. Před předáním zkontroluj `git diff --check` a vyhledej všechna použití změněných cest v HTML, JS i CSS.
 
 V prohlížeči ověř změněnou stránku a při zásahu do společného kódu také hlavní stránku a jeden detail akce:
 
 - úzké i široké okno, dlouhý nadpis a otevřené menu při změně šířky;
 - otevření/zavření menu, podmenu, oba motivy a přechod na další stránku;
-- podle změny mapu, organizátory, filtr galerie nebo lightbox;
-- konzoli a chybějící soubory v panelu Network; URL musí stále ukazovat na tvůj lokální náhled.
+- podle změny mapu včetně bodu a ovládání, organizátory, filtr galerie nebo lightbox;
+- po změně obrázků jejich vzhled, místní soubory a obě varianty tematických ikon;
+- konzoli a chybějící soubory v panelu Network; ověřovaná stránka a vlastní skripty musí ukazovat na tvůj lokální náhled, známé vzdálené zdroje jsou popsané výše.
+
+Tyto body jsou postup kontroly, ne záznam už provedeného ověření. V předání vždy napiš, co bylo skutečně vyzkoušeno a co zůstalo neověřené.
 
 ## Co zlepšit a zjednodušit dál
 
@@ -190,10 +180,11 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 
 | Pořadí | Konkrétní problém | Nejmenší rozumná změna |
 | --- | --- | --- |
-| 1 | Data návodů odkazují na `Z.Popelu.kalicha/…` mimo skutečnou složku `Odehrane LARPy/`. Některé absolutní odkazy v obsahu a obrázky stále odvádějí místní náhled na produkci. | Opravit odkazy proti skutečným souborům a vlastní obsah postupně odkazovat relativně. |
+| 1 | Data návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. Obrázek `questionmark.png` v datech kalendáře i návodů má produkční URL bez `/Chynicky_LARP/`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
 | 2 | Motiv vyžaduje vzdálený iframe a `postMessage`, přesto jsou produkční stránky na jednom originu. | Pokud není potřeba sdílení mezi originy, ukládat motiv přímo do `localStorage`. Pokud iframe zůstane, ověřovat také odesílatele a povolené hodnoty v jeho obsluze zpráv. |
-| 3 | Návody mají názvy polí i hodnoty převzaté z kalendáře. | Nejprve určit skutečné údaje návodu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
+| 3 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
 | 4 | Lightbox hledá originál podle toho, zda název souboru obsahuje název náhledu; například `OS2-1` může odpovídat i `OS2-10`. | Použít přesnou shodu názvu nebo dát k náhledu přímo odkaz na originál. Současně omezit klávesové šipky na otevřený lightbox. |
+| 5 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. V detailech Ozvěn stínů jsou navíc odkazy na některé náhledy, které v místním úložišti obrázků chybí. | Doplnit zamýšlené obrázky nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů i náhledů. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
 
@@ -209,4 +200,4 @@ Kamarádovi pošli celý repozitář nebo odkaz na něj; samotné README nemůž
 
 Web je určený pro GitHub Pages a publikuje přímo soubory bez buildu. Zdrojovou větev a složku ověř v nastavení repozitáře **Settings → Pages**; v tomto repozitáři není vlastní nasazovací workflow. Při nasazení pod `/Chynicky_LARP/` zkontroluj zejména cesty a odkazy z vnořených stránek.
 
-Licence je [CC0 1.0 Universal](LICENSE).
+Soubor [LICENSE](LICENSE) obsahuje CC0 1.0 Universal. Převzaté ikony mají uvedené autory v HTML detailech; SVG šipka menu má v `scripts/generace-menu.js` samostatnou poznámku Font Awesome Free 7, CC BY 4.0.
