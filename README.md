@@ -12,7 +12,7 @@ Web tvoří obyčejné HTML, CSS a JavaScript, bez frameworku, backendu nebo bui
 2. Spusť nad ní libovolný statický HTTP server, například rozšíření **Live Server ve VS Code**. Nic není potřeba instalovat přes npm ani sestavovat.
 3. Na adrese svého serveru otevři `kalendar-akci/index.html`. Po úpravách stránku obnov, pokud to server nedělá automaticky.
 
-HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptové moduly. Některé odkazy v obsahu vedou na produkční web; při ověřování změn zůstaň na místní adrese. Mapy, Google Fonts a externí dokumenty potřebují internet. Místní server má vlastní uloženou volbu světlého či tmavého motivu, oddělenou od produkce.
+HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptové moduly. Interní odkazy zůstávají na adrese místního serveru; mapy, Google Fonts a externí dokumenty potřebují internet. Místní server má vlastní uloženou volbu světlého či tmavého motivu, oddělenou od produkce.
 
 ## Který soubor upravit
 

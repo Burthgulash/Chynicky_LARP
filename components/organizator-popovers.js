@@ -1,4 +1,5 @@
 const organizerImageRoot = new URL("../assets/", import.meta.url);
+const organizerInfoUrl = new URL("../O nas/O nás.html", import.meta.url).href;
 
 const organizerData = {
   "Hugo Redl": {
@@ -8,7 +9,6 @@ const organizerData = {
     title: "Hugo",
     description:
       "Štítonoš, berserk. Svou sekerou rozmlátí vše, co se mu postaví do cesty. Na něj rozhodně neútočte, pokud nemáte dostatečnou početní převahu, a i tak si to pořádně rozmyslete. Často, mimo jiné, řeší rozpočet.",
-    href: "https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html",
   },
   "Kvido Redl": {
     id: "Kvido Redl",
@@ -17,7 +17,6 @@ const organizerData = {
     title: "Kvido, Ereth",
     description:
       "Lukostřelec a obstojný šermíř. Střežte se jeho šípům, a hlavně si dávejte pozor na rychlá přepadení ze zálohy. Navíc je tvůrce většiny herních mechanik.",
-    href: "https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html",
   },
   "Kristián Páca": {
     id: "Kristián Páca",
@@ -26,7 +25,6 @@ const organizerData = {
     title: "Kristian, Haakon",
     description:
       "Bard a čaroděj. Pokud s ním budete smlouvat, nikdy nezískáte přívětivou cenu. V boji zvládne přemoct většinu nepřátel. K tomu vytváří spoustu pravidel.",
-    href: "https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html",
   },
   "Julie Redlová": {
     id: "Julie Redlová",
@@ -35,7 +33,6 @@ const organizerData = {
     title: "Julie",
     description:
       "Skupina CéPek by bez ní nebyla úplná. Střílí z luku a poradí si i s mečem, štítem někdy i s kopím.",
-    href: "https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html",
   },
 };
 
@@ -55,7 +52,7 @@ class OrganizatorPopover extends HTMLElement {
         <img class="foto" src="${organizer.image}" alt="icon" width="150px">
         <h2>${organizer.title}</h2>
         <h3>${organizer.description}</h3>
-        <a href="${organizer.href}">Více info na O nás</a>
+        <a href="${organizerInfoUrl}">Více info na O nás</a>
       </div>
     `;
   }
