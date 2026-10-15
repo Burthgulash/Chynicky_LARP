@@ -4,10 +4,6 @@
     margin-top: 50px;
 }
 
-.prvni-obrazek {
-    width: 100%;
-}
-
 .organizatori2 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
