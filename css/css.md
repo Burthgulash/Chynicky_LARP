@@ -17,10 +17,10 @@ Cesty v tabulce jsou relativní vůči `css/`.
 | Soubor | Odpovědnost a důvod umístění |
 | --- | --- |
 | `kalendar-akci.css` | Karty kalendáře, archivu a návodů. Tyto přehledy používají stejný typ karet, proto mají jeden společný soubor přímo v `css/`. |
-| `o-nas.css` | Úvodní část stránky O nás. Ostatní stránky ji nepoužívají, proto má vlastní soubor. |
+| `o-nas.css` | Úvod a karty organizátorů a CP na stránce O nás, včetně jejich mobilního rozložení. |
 | `foto-galerie.css` | Výběr alba a uspořádání samostatné stránky galerie. Je oddělený od společných stylů fotografií, které používají i detaily akcí. |
 | `sdilene/obecne-sdilene.css` | Základní vzhled webu, motivy a společné prvky. Patří sem to, co má být stejné napříč stránkami. |
-| `sdilene/info.css` | Opakované informační bloky, mapy a karty s portréty, používané zejména v detailech akcí a na stránce O nás. Sdílení drží jejich vzhled pohromadě. |
+| `sdilene/info.css` | Opakované informační bloky, mapy a společné rozměry portrétů. Načítají ho detaily akcí a stránka O nás; galerie a příběhy ho nepotřebují. |
 | `sdilene/obrazky.css` | Fotogalerie a zobrazení zvětšené fotografie (lightbox). Používají je samostatná galerie i galerie v detailech akcí. |
 | `sdilene/menu/menu.css` | Celá společná hlavička, boční menu a jeho ovládací prvky. Jejich styly zůstávají na jednom místě. |
 

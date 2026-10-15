@@ -7,3 +7,52 @@
 .prvni-obrazek {
     width: 100%;
 }
+
+.organizatori2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.organizatori-card {
+    background-color: var(--bg-accent-clr);
+    padding: 1em;
+    border-radius: 15px;
+}
+
+.cepka {
+    display: flex;
+    flex-direction: column;
+}
+
+.cepka2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 5px 10px 5px 10px;
+    gap: 1em;
+}
+
+.cepka-card {
+    background-color: var(--bg-accent-clr);
+    border-radius: 15px;
+    padding: 1em;
+}
+
+@media only screen and (max-width: 650px) {
+    .organizatori2 {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .cepka2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+
+    .organizatori2 {
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+}
