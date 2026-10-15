@@ -41,7 +41,7 @@ Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](
 - **Nová stránka:** vyjdi například z `pribehy/pribehy.html`, uprav obsah, nadpis a cesty. Zachovej pořadí společných skriptů a načti jen styly a funkce, které stránka potřebuje. Odkaz do menu nebo kalendáře se přidává ručně; zapojení hlavičky popisují [samostatné poznámky](docs/header-layout-notes.md).
 - **Fotografie:** soubor ulož do `assets/` a záznam přidej do `foto-galerie-data.js`. Cesty `src` a `original` jsou vůči `assets/`; doplň skutečné rozměry náhledu a popis `alt`. `usedOnSite: true` fotku zařadí do galerie, `false` ji ponechá jen v katalogu. Pro nové album doplň také volbu v samostatné galerii a odpovídající `data-akce` v detailu. Náhledy do HTML ručně nepřidávej.
 - **Cesty:** relativní odkazy v HTML a kartách kalendáře či návodů vycházejí z HTML stránky, importy z JS souboru a `url(...)` z CSS souboru. Nové vlastní odkazy piš relativně a počítej s vnořenými složkami, diakritikou i velikostí písmen. Před přesunem nebo smazáním souboru vyhledej všechna použití.
-- **Ikony motivu:** při výměně ověř běžnou i světlou variantu `-light` v `assets/Ikony-img/`.
+- **Ikony motivu:** označ je atributem `data-name="název"`, bez společného ID. Při výměně ověř běžnou i světlou variantu `-light` v `assets/Ikony-img/`. Kalendář a návody označují otazník podle obrázku `questionmark.png`, nezávisle na textu karty.
 
 `LALOK/` obsahuje samostatné žertovné stránky, na které vedou odkazy z akcí. Nejde o vzor společné hlavičky. Katalog galerie je určený pro fotografie alb; portréty, ikony a ilustrace do něj nepatří. Data a HTML podnadpisů jsou autorský obsah repozitáře; cizí nebo uživatelský vstup vyžaduje bezpečné vložení, protože renderery používají `innerHTML`.
 

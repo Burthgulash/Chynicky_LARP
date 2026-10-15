@@ -17,6 +17,6 @@ document.querySelector(".kalendar-akci2").innerHTML = data.map((item) => `
     </div>
     <div class="akce-img">
       <img class="akce-obrazek" src="${item.obrazek}" alt="${item.nazev}"
-        ${item.obrazek.endsWith("/questionmark.png") ? 'id="icon-img" data-name="questionmark"' : ""}>
+        ${item.obrazek.endsWith("/questionmark.png") ? 'data-name="questionmark"' : ""}>
     </div>
   </div>`).join("");

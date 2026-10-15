@@ -38,7 +38,7 @@ document.querySelector(".kalendar-akci2").innerHTML = data.map((event, index) =>
       </div>
       <div class="akce-img">
         <img class="akce-obrazek" src="${event.obrazek}" alt="${event.nazev}"
-          ${event.organizatori.includes("Již brzy") ? 'id="icon-img" data-name="questionmark"' : ""}>
+          ${event.obrazek.endsWith("/questionmark.png") ? 'data-name="questionmark"' : ""}>
       </div>
     </div>`;
 }).join("");

@@ -43,8 +43,7 @@ function updateIcons() {
         new URL("Nav.panel/tri mece final final.png", imageRoot).href;
     }
   }
-  document.querySelectorAll("#icon-img").forEach((image) => {
-    if (!image) return;
+  document.querySelectorAll("img[data-name]").forEach((image) => {
     const imgFormat = getImageFormat(image.src); // Get the image format is correct
     const name = image.dataset.name;
     if (isLight) {

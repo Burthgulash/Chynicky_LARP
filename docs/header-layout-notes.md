@@ -67,13 +67,12 @@ Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `
 - DOM odkazů, tlačítek a SVG vzniká přes `createElement`, `createElementNS` a `append`, bez `innerHTML`. Devět odkazů menu se odvozuje od kořene modulu přes `import.meta.url`, včetně správné složky `Odehrane LARPy/Z.Popelu.kalicha/`. Na místním serveru vedou na místní stránky a při nasazení pod `/Chynicky_LARP/` zachovají tento prefix. Menu nyní neobsahuje odkazy na Návody, samostatnou galerii ani Přes hřebeny.
 - Modul tématu při spuštění přečte klíč `theme` přímo z `localStorage`. Hodnota `light` použije světlý motiv; chybějící či jiná hodnota a chyba čtení použijí `dark`. Motiv aplikuje třídou na `<body>`.
 - Tlačítko ihned změní vzhled a pokusí se uložit novou volbu do klíče `theme`. Při zablokovaném úložišti dál funguje na současné stránce. Preference se při načtení sdílí mezi stránkami stejného originu v daném prohlížeči; otevřené záložky se průběžně nepřepínají. Klíč zůstal stejný, takže dosavadní produkční volba zůstane zachovaná.
-- `updateIcons()` přepíše zdroj obrázku `.menu-btn` uvnitř spouštěče a všechny prvky `#icon-img`. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`. Po `DOMContentLoaded` aktualizaci zopakuje, aby zahrnul také karty vytvořené renderery po spuštění modulu motivu.
+- `updateIcons()` přepíše zdroj obrázku `.menu-btn` uvnitř spouštěče a všechny obrázky `img[data-name]`. Ikony nepotřebují společné ID. Název bere z `data-name`, příponu z `getImageFormat()` v `scripts/utilities/imgformat.js`. Světlá varianta musí mít název `<data-name>-light.<přípona>`. Po `DOMContentLoaded` aktualizaci zopakuje, aby zahrnul také karty vytvořené renderery po spuštění modulu motivu. Kalendář a návody označují otazník podle obrázku `questionmark.png`, nezávisle na názvu karty nebo organizátorech.
 - `updateThemeIcon()` mění zdroj stávajícího obrázku v `#button-theme-switch` a přístupný popisek tlačítka. Obrázky slunce a měsíce, meče menu i obsahové ikony odvozuje modul od kořene `assets/` přes `new URL(..., import.meta.url)`; tlačítko, obrázek i listener zůstávají stejné.
 - Pozadí hlavičky vybírá CSS přes `--nav-img`. Tmavé používá `assets/Nav.panel/temný les 3.jpg`, světlé `assets/Nav.panel/IMG_6357.webp`; obě adresy jsou relativní vůči CSS a fungují také v místním náhledu.
 
 ## Známá omezení
 
-- Více obsahových ikon na stránce má opakované `id="icon-img"`.
 - U ikony `assets/Ikony-img/jidlo-icon.webp` stále chybí světlá varianta `jidlo-icon-light.webp`.
 - `localStorage` patří jednomu originu (protokol, doména a port) a prohlížeči. Lokální server má vlastní volbu oddělenou od produkce; při zablokovaném úložišti se motiv neuchová pro další načtení stránky.
 
