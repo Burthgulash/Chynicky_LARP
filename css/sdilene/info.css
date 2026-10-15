@@ -44,12 +44,6 @@
     font-size: 1.1em;
 }
 
-.nadpis-container {
-    flex: 1;
-    padding: 10xp;
-    text-align: center;
-}
-
 /* mini map */
 .mini-map {
     width: 100%;
