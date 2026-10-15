@@ -32,11 +32,10 @@ Na konec `<body>` nové stránky vlož následující blok. Počet `../` uprav p
 ```html
 <script src="../components/site-header.js"></script>
 <script src="../scripts/obecny.js"></script>
-<script type="module" src="../scripts/generace-menu.js"></script>
 <script type="module" src="../scripts/light-modV2.js"></script>
 ```
 
-Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
+Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`; samostatný import menu do HTML nepřidávej. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
 
 Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje. `LALOK/`, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
 
