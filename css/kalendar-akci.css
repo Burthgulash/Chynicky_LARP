@@ -1,0 +1,133 @@
+p {
+    margin: 0;
+}
+
+.kalendar-akci {
+    margin-top: 30px;
+}
+
+.kalendar-nazev {
+    text-align: center;
+    font-size: 30px;
+    font-family: "Roboto";
+}
+
+.kalendar-akci2 {
+    margin: 5px;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: min(2rem, 3%);
+    font-family: "Roboto";
+}
+
+/*pro tlacitko na jinou akci*/
+.kalendar-akci2 .akce-tlacitko {
+    display: inline-block;
+    text-decoration: none;
+    background-color: transparent;
+    border: 2px solid rgb(86, 86, 86);
+    border-radius: 2px;
+    padding: 5px 30px 5px 30px;
+    transition: var(--background-color-dark) 0.15s, var(--background-color-light) 0.15s;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--text-clr);
+}
+
+.akce-tlacitko:hover {
+    background: rgb(86, 86, 86);
+    color: white;
+    border-color: rgb(86, 86, 86);
+}
+
+/**/
+.akce-container {
+    display: flex;
+    /* width: 100%; */
+    flex-direction: row;
+    background-color: var(--bg-accent-clr);
+    border-radius: 15px;
+    padding: 1rem;
+    gap: 1em
+}
+
+.organizatori-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.organizatori-text {
+    display: inline-block;
+    flex: 1;
+    margin-bottom: 4px;
+}
+
+.datum-left {
+    display: block;
+}
+
+.moznost {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.akce-obrazek {
+    width: 100%;
+    justify-content: center;
+    margin: 5px 0 5px 0;
+    object-fit: contain;
+}
+
+
+.datumy {
+    /* margin-top: 10px;
+    margin-bottom: 10px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.misto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.misto .popover {
+    width: min(600px, 85vw);
+    max-height: 85vh;
+    background-color: var(--bg-accent-clr);
+}
+
+.misto .mini-map {
+    width: 100%;
+    height: 280px;
+    border: 0;
+}
+
+.akce-popis {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.akce-img {
+    width: 100%;
+    flex: 1;
+    display: flex;
+}
+
+@media only screen and (max-width: 800px) {
+    .kalendar-akci2 {
+        grid-template-columns: 1fr;
+    }
+}

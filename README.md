@@ -16,21 +16,21 @@ HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptov�
 
 ## Který soubor upravit
 
-| Co chceš změnit | Kde začít |
-| --- | --- |
-| Termín, název, místo nebo obrázek akce v kalendáři | `scripts/kalendar/kalendar-data.js` |
-| Vzhled karet kalendáře, archivu a návodů | `css/karty.css`; HTML kalendáře tvoří `scripts/kalendar/generace-kalendare.js` |
-| Text konkrétní akce, pravidla, přihlášení | Příslušné HTML v `Odehrane LARPy/` |
-| Seznam odehraných akcí | `Odehrane LARPy/Odehrane LARPy.html` — karty jsou ručně v HTML |
-| O nás nebo příběhy | `O nas/O nás.html`, `pribehy/pribehy.html` |
-| Odkazy a položky společného menu | `scripts/generace-menu.js` |
-| Nadpis jedné stránky | Atributy jejího `<site-header>` |
-| Společná hlavička a boční menu | `components/site-header.js`, `scripts/generace-menu.js`, `css/sdilene/menu/menu.css` |
-| Barvy a přepínání motivu | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js` |
-| Profily organizátorů v rozbalovacích oknech | `components/organizator-popovers.js` |
-| Seznam návodů | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované |
-| Katalog fotek a vykreslení čtyř galerií | `scripts/galerie/foto-galerie-data.js`, `scripts/galerie/foto-galerie.js`; vzhled a lightbox: `css/sdilene/obrazky.css`, `scripts/galerie/foto-lightbox.js` |
-| Obrázky a ikony | `assets/` |
+| Co chceš změnit                                    | Kde začít                                                                                                                                                   |
+| -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Termín, název, místo nebo obrázek akce v kalendáři | `scripts/kalendar/kalendar-data.js`                                                                                                                         |
+| Vzhled karet kalendáře, archivu a návodů           | `css/kalendar-akci.css`; HTML kalendáře tvoří `scripts/kalendar/generace-kalendare.js`                                                                      |
+| Text konkrétní akce, pravidla, přihlášení          | Příslušné HTML v `Odehrane LARPy/`                                                                                                                          |
+| Seznam odehraných akcí                             | `Odehrane LARPy/Odehrane LARPy.html` — karty jsou ručně v HTML                                                                                              |
+| O nás nebo příběhy                                 | `O nas/O nás.html`, `pribehy/pribehy.html`                                                                                                                  |
+| Odkazy a položky společného menu                   | `scripts/generace-menu.js`                                                                                                                                  |
+| Nadpis jedné stránky                               | Atributy jejího `<site-header>`                                                                                                                             |
+| Společná hlavička a boční menu                     | `components/site-header.js`, `scripts/generace-menu.js`, `css/sdilene/menu/menu.css`                                                                        |
+| Barvy a přepínání motivu                           | `css/sdilene/obecne-sdilene.css`, `scripts/light-modV2.js`                                                                                                  |
+| Profily organizátorů v rozbalovacích oknech        | `components/organizator-popovers.js`                                                                                                                        |
+| Seznam návodů                                      | `scripts/navody/navody-hlavni-data.js` — zatím rozpracované                                                                                                 |
+| Katalog fotek a vykreslení čtyř galerií            | `scripts/galerie/foto-galerie-data.js`, `scripts/galerie/foto-galerie.js`; vzhled a lightbox: `css/sdilene/obrazky.css`, `scripts/galerie/foto-lightbox.js` |
+| Obrázky a ikony                                    | `assets/`                                                                                                                                                   |
 
 Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](css/css.md).
 
