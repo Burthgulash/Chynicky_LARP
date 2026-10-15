@@ -13,9 +13,7 @@
     gap: 1rem;
 }
 
-.info2,
-.info2-1,
-.info2-2 {
+.info-karta {
     border-radius: 15px;
     background-color: var(--bg-accent-clr);
     padding: 1em;

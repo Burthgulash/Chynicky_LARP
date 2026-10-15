@@ -19,7 +19,7 @@ HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptov�
 | Co chceš změnit | Kde začít |
 | --- | --- |
 | Termín, název, místo nebo obrázek akce v kalendáři | `scripts/kalendar/kalendar-data.js` |
-| Vzhled karet kalendáře a jejich HTML | `css/kalendar-akci.css`, `scripts/kalendar/generace-kalendare.js` |
+| Vzhled karet kalendáře, archivu a návodů | `css/karty.css`; HTML kalendáře tvoří `scripts/kalendar/generace-kalendare.js` |
 | Text konkrétní akce, pravidla, přihlášení | Příslušné HTML v `Odehrane LARPy/` |
 | Seznam odehraných akcí | `Odehrane LARPy/Odehrane LARPy.html` — karty jsou ručně v HTML |
 | O nás nebo příběhy | `O nas/O nás.html`, `pribehy/pribehy.html` |
