@@ -95,7 +95,7 @@ Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka 
 
 Mapy míst používají vložené iframe Mapy.com. V kalendáři se otevírají kliknutím na místo, v detailech Z Popelu kalicha, Návrat mocného a Přes hřebeny tlačítkem „Zobrazit mapu“. Přepnutí mění jen text ve `<span>` a `aria-expanded`; SVG ikona zůstává stejná. Kalendář a Návrat mocného používají pro školní farmu adresu `https://mapy.com/s/hufumuzega`, Z Popelu kalicha `https://mapy.com/s/fotehegoro`; Pernink používá `https://mapy.com/s/pejegocono`. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu. Správný bod a ovládání mapy ověř přímo v iframe v prohlížeči, samotná adresa ve zdroji je nezaručuje.
 
-Návody používají vlastní data a vlastní krátký renderer, ale stejné CSS karet. **Zatím jde o nedokončenou část:** pole `datum` se zobrazuje pod „Přibližné náklady“ a `organizatori` pod „Doba výroby“, přesto v datech stále obsahují termíny a jména organizátorů. První karta navíc odkazuje na detail Z Popelu kalicha v nesprávné složce, ne na hotový návod. Neber tuto strukturu jako hotový vzor návodu. Stránka návodů zatím není ve společném menu.
+Návody používají vlastní data a vlastní krátký renderer ve `scripts/navody/`, ale stejné CSS karet. Textová pole `naklady` a `dobaVyroby` se zobrazují přímo pod „Přibližné náklady“ a „Doba výroby“; profily organizátorů se zde nepoužívají. **Obsah je stále rozpracovaný:** obě karty mají údaje „Zatím neuvedeno“ a dočasné odkazy `#`, protože skutečné hodnoty ani detaily návodů zatím nejsou hotové. Až budou k dispozici, doplň je v `navody-hlavni-data.js`. Stránka návodů zatím není ve společném menu.
 
 ### Světlý a tmavý motiv
 
@@ -105,7 +105,7 @@ Volba platí pro všechny stránky na stejném originu v daném prohlížeči; o
 
 Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá adresy běžné a `-light` varianty v `assets/Ikony-img/` podle svého umístění. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Také obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` a meče v menu se načítají podle adresy modulu; pozadí hlavičky podle adresy CSS.
 
-Renderery kalendáře a návodů označují obrázek pro přepínání motivu jen podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderery se na stránkách načítají až po modulu motivu; ten proto při `DOMContentLoaded` znovu aktualizuje ikony, aby zahrnul také vykreslené karty.
+Kalendářový renderer označuje obrázek pro přepínání motivu podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderer návodů označuje přímo zástupný obrázek `questionmark.png`, nezávisle na nákladech a době výroby. Renderery se na stránkách načítají až po modulu motivu; ten proto při `DOMContentLoaded` znovu aktualizuje ikony, aby zahrnul také vykreslené karty.
 
 ### Galerie a zvětšování fotek
 
@@ -193,8 +193,8 @@ Následující body jsou **návrhy podle současného kódu, nikoli již provede
 
 | Pořadí | Konkrétní problém | Nejmenší rozumná změna |
 | --- | --- | --- |
-| 1 | Odkaz v datech návodů a odkaz na rozpočet Z Popelu kalicha používají cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
-| 2 | Návody mají názvy polí i hodnoty převzaté z kalendáře; kalendář vytváří také tlačítko `a další` bez cílového profilu. | Nejprve určit skutečné údaje návodu a dořešit text bez profilu, potom v jeho dvou souborech pojmenovat náklady a dobu výroby. Dva krátké renderery zatím nepotřebují obecný systém karet. |
+| 1 | Odkaz na rozpočet Z Popelu kalicha používá cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
+| 2 | Kalendář vytváří tlačítko `a další` bez cílového profilu. | Dořešit zobrazení textu bez profilu; náklady a dobu výroby návodů doplnit, až budou známé. Dva krátké renderery zatím nepotřebují obecný systém karet. |
 | 3 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. | Doplnit zamýšlenou ikonu nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů. |
 
 Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.

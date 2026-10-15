@@ -1,4 +1,4 @@
-# Ověření zjednodušení 14. 10. 2026
+# Ověření zjednodušení 14.–15. 10. 2026
 
 Kontroly probíhaly v prohlížeči Codex proti místnímu HTTP serveru na `127.0.0.1:8004`. Nejde o ověření produkčního nasazení ani dalších prohlížečů. Nevznikla nová sada automatizovaných testů.
 
@@ -30,4 +30,12 @@ Odstraněny čtyři duplicitní HTML odkazy na Roboto (kalendář, archiv, návo
 
 Po ověření nulového počtu odkazů ve zdrojích byl odstraněn jediný SVG soubor i prázdné adresáře `light-mod-cloud-web/`. Závěrečná kontrola na místním serveru ověřila přepnutí kalendáře na světlý motiv, otevřenou podnabídku zachovanou při změně 1440 → 320 px a přechod přes menu do Návratu mocného. Světlý motiv přežil obnovení detailu, všechny jeho obrázky se načetly a stránka nepřetékala. Potom byl ověřen návrat na tmavý motiv včetně obnovení stránky a načtení ikon menu i přepínače. Iframe motivu není přítomný a konzole tohoto detailu nehlásila chyby. Prošel `git diff --check`.
 
-Nezávislá kontrola diffu potvrdila platné obrazové cesty a volající mapy. Vynechaný bod 4 (úklid CSS a jeho importů) a bod 7 (data a logika návodů) zůstaly nedotčené; v HTML návodů se měnil jen duplicitní font podle bodu 6.
+Nezávislá kontrola diffu 14. 10. potvrdila platné obrazové cesty a volající mapy. Tehdy vynechaný bod 4 (úklid CSS a jeho importů) a bod 7 (data a logika návodů) zůstaly nedotčené; v HTML návodů se měnil jen duplicitní font podle bodu 6.
+
+## 7. Vlastní údaje návodů (15. 10. 2026)
+
+Pole `datum` a `organizatori` nahradily textové hodnoty `naklady` a `dobaVyroby`. Na žádost autora se zatím zobrazuje „Zatím neuvedeno“. Odstraněny profily organizátorů i jejich import na stránce návodů; odkaz první karty na nesouvisející akci nahradil dočasný `#`. Otazník se označuje podle obrázku, nezávisle na názvu karty a údajích návodu. Sdílený renderer kalendáře, styly a modul motivu se touto úpravou neměnily.
+
+V místním prohlížeči při 1440 × 900 i 320 × 800 px a v obou motivech zůstaly dvě karty se čtyřmi správnými výplňovými hodnotami. Všechny obrázky včetně obou variant otazníku se načetly a obsah nepřetékal. Byly ověřeny také cesty pod `/Chynicky_LARP/`, zachování motivu při obnovení, nulový počet profilů a jejich tlačítek v návodech a konzole bez chyb či varování. Přechod přes menu do kalendáře zachoval jeho dvě karty, čtyři profily a funkční otevření profilu Kvida.
+
+Prošly `node --check` obou JS souborů návodů a `git diff --check` změněných souborů. Jednorázový Node VM check ověřil jeden zápis do kontejneru, počet karet a hodnot, nepřítomnost starých polí a popoverů, vykreslení odlišných ukázkových nákladů a doby výroby i označení otazníku po změně názvu karty. Oba obrázky návodů a obě varianty otazníku existují. Bez nové sady testů; produkce a další prohlížeče nebyly zkoušeny.

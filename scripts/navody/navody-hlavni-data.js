@@ -1,16 +1,16 @@
 export const data = [
   {
     nazev: "Návod na sekerovité zbraně",
-    datum: ["5.6.-", "7.6 2026"],
-    organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
+    naklady: "Zatím neuvedeno",
+    dobaVyroby: "Zatím neuvedeno",
     obrazek:
       "../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
-    link: "https://burthgulash.github.io/Chynicky_LARP/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
+    link: "#",
   },
   {
     nazev: "Již brzy",
-    datum: ["Již brzy"],
-    organizatori: ["Již brzy"],
+    naklady: "Zatím neuvedeno",
+    dobaVyroby: "Zatím neuvedeno",
     obrazek:
       "../assets/Ikony-img/questionmark.png",
     link: "#",
