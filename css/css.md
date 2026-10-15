@@ -1,46 +1,29 @@
-# CSS
+# Rozdělení CSS složek a souborů
 
-Aktualizováno 14. 10. 2026 po přesunu obrázků do `assets/`. Kontrola souborů sama neověřuje výsledný vzhled v prohlížeči.
+Styly jsou rozdělené podle toho, které části webu je používají. Rozhoduje účel a společné použití, aby se stejný vzhled nemusel upravovat na více místech.
 
-Sdílené styly patří do `css/sdilene/`; styly pro jednu stránku nebo stejný typ karet jsou přímo v `css/`. Cesty v tabulce jsou relativní vůči této složce `css/`.
+## Složky
 
-| Soubor | Co nyní styluje |
+| Umístění | Co sem patří a proč |
 | --- | --- |
-| `sdilene/obecne-sdilene.css` | Barvy a témata, `body`, společné `box-sizing: border-box`, základní text, tlačítka, odkazy, popovery a odkazy na pravidla. Importuje také Roboto z Google Fonts. |
-| `sdilene/menu/menu.css` | Pevnou hlavičku `<site-header>`, vysouvací menu, submenu a přepínač tématu. |
-| `sdilene/info.css` | Informační karty akcí, malé mapy a také karty a portréty na stránce O nás. |
-| `sdilene/obrazky.css` | Galerie `.per-foto`, odkazy `.foto-link`, skeletony `.foto-placeholder`, překryv `.zvetsene`, šipky a animace lightboxu. |
-| `kalendar-akci.css` | Karty kalendáře, přehled odehraných LARPů a rozpracovanou stránku Návody. |
-| `o-nas.css` | Úvodní text a úvodní obrázek stránky O nás. |
-| `foto-galerie.css` | Výběr akce, tlačítko Filtrovat, nadpis samostatné galerie a její rozestupy. |
+| Přímo `css/` | Styly konkrétní stránky nebo jednoho typu obsahu. Zůstávají oddělené od společného základu, protože je ostatní stránky nepotřebují. |
+| `css/sdilene/` | Společný základ a obsahové části používané napříč různými stránkami. Jejich změna se má projevit všude, kde se daná část používá. |
+| `css/sdilene/menu/` | Společná hlavička a boční menu. Tvoří jeden celek, proto mají jeden soubor a vlastní podsložku oddělenou od stylů obsahu. |
 
-## Hlavička a mobilní zobrazení
+## Kam patří jednotlivé styly
 
-Hlavičku i boční menu styluje `sdilene/menu/menu.css`. CSS Grid drží nadpis uprostřed, dokud menu nepotřebuje místo; delší text se zalomí. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Hlavička nemá mobilní breakpoint ani samostatný mobilní CSS soubor. Podrobnosti jsou v [poznámkách k hlavičce](../docs/header-layout-notes.md).
+Cesty v tabulce jsou relativní vůči `css/`.
 
-`components/site-header.js` měří výšku hlavičky pomocí `ResizeObserver` a zapisuje `--site-header-height` do `body`. `obecne-sdilene.css` tuto hodnotu používá pro horní odsazení stránky; výchozí hodnota je `100px`. Při úpravě hlavičky nepřidávej další pevné horní odsazení jako náhradu za tento mechanismus.
-
-Pro mobilní úpravy použij `@media` ve stejném souboru. Současná pravidla jsou:
-
-| Obsah | Počet sloupců podle šířky okna |
+| Soubor | Odpovědnost a důvod umístění |
 | --- | --- |
-| `.kalendar-akci2` v `kalendar-akci.css` | Dva; při šířce nejvýše 800 px jeden. Platí i pro archiv a návody. |
-| `.info` v `sdilene/info.css` | Tři; od 1300 px čtyři, při nejvýše 650 px dva a při nejvýše 500 px jeden. |
-| `.organizatori2` v `sdilene/info.css` | Tři; při nejvýše 650 px dva a při nejvýše 500 px jeden. |
-| `.cepka2` v `sdilene/info.css` | Dva; při nejvýše 500 px jeden. |
+| `kalendar-akci.css` | Karty kalendáře, archivu a návodů. Tyto přehledy používají stejný typ karet, proto mají jeden společný soubor přímo v `css/`. |
+| `o-nas.css` | Úvodní část stránky O nás. Ostatní stránky ji nepoužívají, proto má vlastní soubor. |
+| `foto-galerie.css` | Výběr alba a uspořádání samostatné stránky galerie. Je oddělený od společných stylů fotografií, které používají i detaily akcí. |
+| `sdilene/obecne-sdilene.css` | Základní vzhled webu, motivy a společné prvky. Patří sem to, co má být stejné napříč stránkami. |
+| `sdilene/info.css` | Opakované informační bloky, mapy a karty s portréty, používané zejména v detailech akcí a na stránce O nás. Sdílení drží jejich vzhled pohromadě. |
+| `sdilene/obrazky.css` | Fotogalerie a zobrazení zvětšené fotografie (lightbox). Používají je samostatná galerie i galerie v detailech akcí. |
+| `sdilene/menu/menu.css` | Celá společná hlavička, boční menu a jeho ovládací prvky. Jejich styly zůstávají na jednom místě. |
 
-Portréty `.foto` mají běžně šířku 150 px, při nejvýše 500 px 50 % a od 1400 px 40 % šířky svého kontejneru.
+Při úpravě použij soubor odpovídající dané části webu. Mobilní úpravy patří do stejného souboru jako běžný vzhled. Nový soubor nebo podsložku přidávej, až když vznikne samostatná část, která se do současného rozdělení nehodí.
 
-## Barvy a sdílené třídy
-
-Téma nastavuje `scripts/light-modV2.js` třídou `body.dark` nebo `body.light`. Pro nové styly používej existující proměnné `--bg-clr`, `--bg-accent-clr` a `--text-clr`. Pozadí hlavičky používá `--nav-img`: tmavé odkazuje na `assets/Nav.panel/temný les 3.jpg`, světlé na `assets/Nav.panel/IMG_6357.webp`. URL v těchto proměnných se vyhodnocují vůči `sdilene/menu/menu.css`, kde se použijí v `background-image`, proto začínají `../../../assets/`. Fungují tak i na místním serveru a pod `/Chynicky_LARP/`. Ikony mění JavaScript, jejich zdroj neurčuje CSS.
-
-HTML stránky načítají potřebné styly přímo pomocí `<link>`; není zde bundler ani kompilace CSS. Roboto zajišťuje společný import v `sdilene/obecne-sdilene.css`; v HTML ho znovu nepřidávej. `preconnect` na Google Fonts může zůstat. Samostatné načítání Open Sans na stránce `LALOK/` je jiný font. Cestu uprav podle hloubky stránky (`../css/…` nebo `../../css/…`). Relativní `url(...)` uvnitř CSS se vyhodnocuje vůči souboru CSS, nikoli vůči HTML. Pořadí `<link>` může ovlivnit výsledný styl, proto ho při drobné změně bez důvodu nepřehazuj.
-
-Pozor na široké selektory: `kalendar-akci.css` ruší okraje všech `p` na stránce a `foto-galerie.css` nastavuje všechny `h3`, včetně pevné bílé barvy i ve světlém motivu. `info.css` nastavuje `.mini-map` jako skrytou; její zobrazení na detailech akcí ovládá `scripts/obecny.js` přidáním `.show`. Mapy mají výšku 280 px a šířku 100 % kontejneru. Mapový popover kalendáře a jeho iframe styluje `kalendar-akci.css`, který omezuje šířku okna na `min(600px, 85vw)`. Kalendář `info.css` nenačítá, takže jeho mapy nemají výchozí `display: none`. `obrazky.css` styluje galerie a lightbox, ale samotné chování zajišťuje společný modul `scripts/galerie/foto-galerie.js`, který importuje data i `foto-lightbox.js`.
-
-Galerie před načtením modulu zobrazují pět skeletonů s pozadím podle motivu. Renderer je nahradí kartami s poměrem stran z katalogu; obrázek zůstává průhledný do události `load` nebo `error`. Při chybě tak zůstane čitelný `alt` a odkaz na originál.
-
-Po úpravě vzhledu ověř dotčenou stránku na místním HTTP serveru v úzkém i širokém okně a v obou tématech. Při změně sdíleného stylu zkontroluj hlavní stránku i vnořený detail. Menu otevři také při změně šířky a v nízkém okně ověř posouvání panelu. Před předáním spusť v kořeni `git diff --check`.
-
-Složka `tests/` byla záměrně odstraněna v commitu `ecd710e`; dřívější příkazy `node --test tests/…` nyní nemají soubory, které by spustily. Kontrola dokumentace ani kontrola diffu nenahrazují ověření rozložení a barev v prohlížeči.
+Mimo tuto strukturu je `LALOK/styly/stryle.css` ve složce žertovných stránek. Současné HTML ho nenačítají; není součástí společných stylů webu.

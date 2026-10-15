@@ -1,29 +1,18 @@
 # Chýnické LARP akce
 
-Malý informační web pro naše LARPy: termíny akcí, informace pro hráče, příběhy a fotky. LARP je hra, ve které účastníci naživo hrají své postavy.
+Informační web pro naše LARPy: termíny akcí, informace pro hráče, příběhy a fotky. LARP je hra, ve které účastníci naživo hrají své postavy.
 
-**Web tvoří obyčejné HTML, CSS a JavaScript.** Nemá framework, databázi, backend, `package.json` ani build. Obsah upravíš v souborech a prohlížeč je rovnou načte. Node.js je volitelný pro kontrolu syntaxe; web ho pro běh nepotřebuje a automatizované testy v repozitáři nejsou.
+Web tvoří obyčejné HTML, CSS a JavaScript, bez frameworku, backendu nebo buildu. Obsah upravíš přímo v souborech. Hlavní stránka je `kalendar-akci/index.html`; v kořeni `index.html` není.
 
-Produkční adresa používaná v kódu je [GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html). Vstupní stránka v repozitáři je `kalendar-akci/index.html`; v kořeni žádný `index.html` není.
-
-Staré adresy `larphlavni/index.html` a `larphlavni/index-mobil.html` automaticky přesměrují na současný kalendář. Mobilní adresy stránky O nás, archivu a obou Ozvěn stínů přesměrují na odpovídající současnou stránku. Všechna tato přesměrování zachovávají také ruční odkaz pro případ, že prohlížeč automatické přesměrování nepovolí.
+[Otevřít web na GitHub Pages](https://burthgulash.github.io/Chynicky_LARP/kalendar-akci/index.html)
 
 ## První spuštění
 
 1. Otevři složku repozitáře v editoru.
-2. Spusť z jejího kořene statický HTTP server. Pokud máš Python 3:
+2. Spusť nad ní libovolný statický HTTP server, například rozšíření **Live Server ve VS Code**. Nic není potřeba instalovat přes npm ani sestavovat.
+3. Na adrese svého serveru otevři `kalendar-akci/index.html`. Po úpravách stránku obnov, pokud to server nedělá automaticky.
 
-   ```sh
-   python -m http.server 8000 --bind 127.0.0.1
-   ```
-
-   Na Windows lze použít `py -3 -m http.server 8000 --bind 127.0.0.1`. Stejně poslouží Live Server v editoru. Projekt nic neinstaluje přes npm.
-3. Otevři [lokální hlavní stránku](http://localhost:8000/kalendar-akci/index.html).
-4. Po úpravě souboru obnov stránku. Server ukončíš pomocí `Ctrl+C`.
-
-HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScriptové moduly a potřebují HTTP server.
-
-**Obrázky, vlastní skripty a styly i odkazy menu respektují místní adresu.** Některé odkazy v obsahu stále míří na GitHub Pages. Pro kontrolu vlastní změny otevři podstránku na `localhost`. Google Fonts, mapy a externí dokumenty potřebují síť. Motiv se ukládá místně; `localhost` má vlastní volbu nezávislou na produkci.
+HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptové moduly. Některé odkazy v obsahu vedou na produkční web; při ověřování změn zůstaň na místní adrese. Mapy, Google Fonts a externí dokumenty potřebují internet. Místní server má vlastní uloženou volbu světlého či tmavého motivu, oddělenou od produkce.
 
 ## Který soubor upravit
 
@@ -43,172 +32,40 @@ HTML neotvírej dvojklikem jako `file://`: části webu používají JavaScripto
 | Katalog fotek a vykreslení čtyř galerií | `scripts/galerie/foto-galerie-data.js`, `scripts/galerie/foto-galerie.js`; vzhled a lightbox: `css/sdilene/obrazky.css`, `scripts/galerie/foto-lightbox.js` |
 | Obrázky a ikony | `assets/` |
 
-`assets/` obsahuje přímo původní podsložky obrázků, například `Ikony-img`, `Nav.panel`, `O nás-img` a `Odehrane LARPy`. Názvy a obsah souborů zůstaly zachované; mezisložka `foto/` se nepoužívá.
-
-Další orientace:
-
-- `scripts/galerie/foto-galerie.js` načte katalog a vykreslí samostatnou galerii i galerie v detailech; importuje také `foto-lightbox.js`.
-- `scripts/utilities/imgformat.js` zjišťuje příponu obrázku pro přepínání ikon.
-- Postup ručního ověření je v části [Kontrola změn](#kontrola-změn); složka `tests/` už v projektu není.
-- [Pravidla a přehled CSS](css/css.md), [podrobnosti hlavičky](docs/header-layout-notes.md) a [pokyny pro AI](AGENTS.md) doplňují tento úvod.
-- `LALOK/` jsou samostatné žertovné stránky, na které vedou odkazy z některých akcí. Nejsou vzorem společné hlavičky.
-- `mista-akci/mista-akci.html` je zatím prázdný soubor.
-
-## Jak se stránka skládá
-
-### Hlavička a menu
-
-HTML obsahuje například:
-
-```html
-<site-header
-  title="Kalendář akcí"
-  subtitle="Organizujeme malé LARPové akce"
-  image="../assets/Nav.panel/tri mece final final.png">
-</site-header>
-```
-
-`components/site-header.js` zaregistruje vlastní HTML element, vytvoří nadpis, tlačítko `.menu-toggle` s obrázkem `.menu-btn` a `<site-menu id="sideMenu">`. ES modul `scripts/generace-menu.js` definuje tuto webovou komponentu. Odkazy, podnabídky a tlačítko motivu sestaví jednou přes `createElement` a `append`, bez `innerHTML`. Vlastní adresy odvozuje od `import.meta.url`, takže menu funguje z různě hlubokých stránek na místním serveru i pod `/Chynicky_LARP/`. Odkaz Z Popelu Kalicha míří do `Odehrane LARPy/Z.Popelu.kalicha/`.
-
-Komponenta spravuje otevření, zavření kliknutím mimo panel nebo klávesou Escape, atribut `inert` a `aria-expanded` spouštěcího tlačítka. Spouštěč je do načtení komponenty vypnutý. Pokud byl fokus uvnitř zavíraného panelu, vrátí ho na spouštěč. Podnabídky mají skutečná tlačítka: myš je může otevřít najetím na šipku, kliknutí funguje i dotykem a z klávesnice. `scripts/obecny.js` poskytuje globální `toggleMenu()`, který pouze zavolá metodu komponenty; obsahuje také přepínání mapy v detailech akcí a easter egg po 20 minutách viditelného zobrazení stránky. Časovač sleduje `document.hidden`, nikoli klikání nebo jinou aktivitu uživatele, a po obnovení stránky začíná znovu.
-
-Hlavičku rozkládá CSS Grid. Obrázek menu má 70 × 70 px a od textu alespoň 12 px odstup. Když ubývá místo, nejprve se zmenší prázdný levý sloupec a poté se zalomí text. Tato hlavička nemá pevný mobilní breakpoint. `ResizeObserver` měří jen její výšku a nastavuje `--site-header-height` pro horní odsazení stránky. Při změně šířky, nadpisu ani opětovném připojení se DOM menu nevytváří znovu; při odpojení se panel zavře a odebere listenery dokumentu.
-
-Pro novou stránku jednu složku pod kořenem použij na konci `<body>` toto pořadí společných částí:
-
-```html
-<script src="../components/site-header.js"></script>
-<script src="../scripts/obecny.js"></script>
-<script type="module" src="../scripts/generace-menu.js"></script>
-<script type="module" src="../scripts/light-modV2.js"></script>
-```
-
-Hlavička musí existovat před registrací menu; přepínání motivu potřebuje tlačítko `#button-theme-switch`, které vznikne v menu. Modul motivu navíc importuje menu jako závislost, aby tlačítko existovalo před jeho použitím. `obecny.js` ponech jako klasický skript, protože `onclick` volá jeho globální funkci. Menu, datové renderery a motiv jsou moduly. Všech 12 stránek se společnou hlavičkou používá toto pořadí a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje; iframe map jsou samostatné. V hlubších složkách uprav `../` na odpovídající cestu. Skripty funkcí přidávej jen tam, kde stránka obsahuje jejich cílové HTML prvky.
-
-### Kalendář a návody
-
-Kalendářový modul importuje pole `data` ze sousedního `kalendar-data.js`. Z každé položky vytvoří kartu; výsledné HTML vloží jednou do `.kalendar-akci2` pomocí `map(...).join("")`. Pořadí karet určuje pořadí v poli. `datum` je pole zobrazovaných textů, nikoli automaticky zpracovávané datum. Současné dvě položky jsou „Již brzy“ a „Poslední ortel“; obě mají dočasný odkaz `#`.
-
-Obal obrázku používá třídu `akce-img`, samotný obrázek `akce-obrazek`, která ho přizpůsobuje šířce obalu a zachovává obsah bez deformace přes `object-fit: contain`. Stejnou třídu používají i obrázky ručních karet archivu; jejich vzhled se upravuje společně v `css/kalendar-akci.css`.
-
-Mapy a profily organizátorů používají nativní HTML `popover` a tlačítka s `popovertarget`. Organizátor potřebuje přesně stejné jméno v datech, profilu i elementu `<organizator-popover name="…">` na stránce. Hodnota `Již brzy` v poli `organizatori` se vykreslí jako text bez tlačítka; ostatní jména potřebují odpovídající popover, jinak tlačítko nemá co otevřít. Současné `a další` u první karty žádný profil ani popover nemá.
-
-Mapy míst používají vložené iframe Mapy.com. V kalendáři se otevírají kliknutím na místo, v detailech Z Popelu kalicha, Návrat mocného a Přes hřebeny tlačítkem „Zobrazit mapu“. Přepnutí mění jen text ve `<span>` a `aria-expanded`; SVG ikona zůstává stejná. Kalendář a Návrat mocného používají pro školní farmu adresu `https://mapy.com/s/hufumuzega`, Z Popelu kalicha `https://mapy.com/s/fotehegoro`; Pernink používá `https://mapy.com/s/pejegocono`. Mapy mají výšku 280 px a šířku podle dostupného prostoru; jejich načtení vyžaduje připojení k internetu. Správný bod a ovládání mapy ověř přímo v iframe v prohlížeči, samotná adresa ve zdroji je nezaručuje.
-
-Návody používají vlastní data a vlastní krátký renderer ve `scripts/navody/`, ale stejné CSS karet. Textová pole `naklady` a `dobaVyroby` se zobrazují přímo pod „Přibližné náklady“ a „Doba výroby“; profily organizátorů se zde nepoužívají. **Obsah je stále rozpracovaný:** obě karty mají údaje „Zatím neuvedeno“ a dočasné odkazy `#`, protože skutečné hodnoty ani detaily návodů zatím nejsou hotové. Až budou k dispozici, doplň je v `navody-hlavni-data.js`. Stránka návodů zatím není ve společném menu.
-
-### Světlý a tmavý motiv
-
-`light-modV2.js` při spuštění přečte klíč `theme` přímo z `localStorage`. Hodnota `light` zapne světlý motiv; chybějící nebo jiná hodnota a chyba čtení použijí tmavý. Při kliknutí okamžitě změní motiv a uloží novou volbu. Pokud prohlížeč úložiště zablokuje, přepínání dál funguje na právě otevřené stránce, ale volba se neuloží. Třída `dark` nebo `light` na `<body>` ovládá CSS proměnné; skript navíc mění obrázky ikon. Ikonu tlačítka motivu mění na stávajícím `<img>` a aktualizuje jeho přístupný popisek, takže DOM tlačítka a jeho listener zůstávají zachované.
-
-Volba platí pro všechny stránky na stejném originu v daném prohlížeči; origin tvoří protokol, doména a port. Produkční stránky pod `https://burthgulash.github.io` tedy sdílejí stejnou volbu bez ohledu na složku. Klíč `theme` zůstal stejný, takže dosavadní produkční volba se zachová. Lokální server nebo jiný hosting má samostatnou volbu. Motiv se načítá při otevření či obnovení stránky; již otevřené záložky se průběžně nepřepínají. Pomocný iframe ani `postMessage` se nepoužívají a nic se neukládá do databáze nebo uživatelského účtu.
-
-Tematické ikony mají `id="icon-img"` a `data-name`; modul z názvu a přípony skládá adresy běžné a `-light` varianty v `assets/Ikony-img/` podle svého umístění. V místních souborech jsou obě varianty ikon `bagpack`, `cena`, `hodiny`, `pin`, `popis-akce`, `questionmark`, `warrior-transparent` a `worker` i obrázku mečů v menu. U `jidlo-icon.webp` použitého v Z Popelu kalicha světlá varianta chybí. Také obrázky tlačítka motivu `slunce-icon.webp` a `Mesic-icon.webp` a meče v menu se načítají podle adresy modulu; pozadí hlavičky podle adresy CSS.
-
-Kalendářový renderer označuje obrázek pro přepínání motivu podle hodnoty `Již brzy` v poli `organizatori`, nikoli podle názvu karty. První karta kalendáře tedy svůj otazník nepřepíná. Renderer návodů označuje přímo zástupný obrázek `questionmark.png`, nezávisle na nákladech a době výroby. Renderery se na stránkách načítají až po modulu motivu; ten proto při `DOMContentLoaded` znovu aktualizuje ikony, aby zahrnul také vykreslené karty.
-
-### Galerie a zvětšování fotek
-
-Katalog `scripts/galerie/foto-galerie-data.js` obsahuje 59 fotografií pro Ozvěny stínů (OS1, 17), Ozvěny stínů 2 (OS2, 29) a Přes hřebeny (PER, 13). Každá položka má `akce`, relativní cestu `src` k náhledu, `original` k cílovému originálu, popis `alt`, rozměry `width` a `height` a příznak `usedOnSite`. Cesty jsou relativní k `assets/` a katalog je převádí na URL pomocí `new URL(..., import.meta.url)`. Náhled a originál jsou dvě varianty téže fotografie; některé položky používají stejný soubor pro obě. Aktuálně je 51 záznamů `true`; osm fotografií PER1 až PER8 má `false`.
-
-Stejný vstupní modul `scripts/galerie/foto-galerie.js` běží ve všech čtyřech HTML galeriích označených `data-gallery`. Detaily mají navíc `data-akce` s kódem z katalogu. Samostatná stránka nabízí OS1, OS2 a PER; výběr se zobrazí až po kliknutí na „Filtrovat“ a do výpisu jdou jen záznamy s `usedOnSite: true`. Příznak `false` ponechá fotku v repozitářovém katalogu, ale mimo veřejný výpis. Modul také načte lightbox, takže samostatné galerie i detaily odkazují na originály a používají stejné zvětšení.
-
-Každá galerie má před načtením modulu pět skeletonů; JavaScript je nahradí přesným počtem karet. Rozměry u obrázku a poměr stran odkazu rezervují místo před načtením. První tři náhledy se načítají eager, další lazy; všechny používají asynchronní dekódování. Při chybě načtení zůstane viditelný popis `alt` a odkaz na originál. Text `<noscript>` vysvětluje potřebu JavaScriptu a skeletony jsou bez JavaScriptu skryté. ES modul neblokuje parsování HTML; jeho vykreslení přesto běží na hlavním vlákně.
-
-Lightbox potřebuje na každé stránce prvky `#zvetsene`, `#zvetsene-img`, `#closeBtn`, `#prev` a `#next`. Delegované kliknutí sestaví aktuální seznam z právě vykreslené galerie, takže funguje i po změně filtru. Běžné kliknutí otevře lightbox, Ctrl/Meta/Shift/Alt kliknutí zachová nativní odkaz na originál. Ovládání zahrnuje Escape, šipky, tlačítka a přejetí prstem delší než 50 px; při otevření se fokus přesune do dialogu, Tab zůstává mezi jeho tlačítky a při zavření se vrátí na odkaz fotografie. Lightbox přednačítá nejbližší tři fotografie na každou stranu. Skript načítej jen na stránkách s celou uvedenou strukturou; samostatný import `foto-lightbox.js` nepřidávej.
+Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](css/css.md).
 
 ## Běžné úpravy
 
-### Přidat akci do kalendáře
+- **Akce:** pořadí karet určuje pořadí v `kalendar-data.js`. Archiv a detaily upravuj zvlášť v HTML; změna kalendáře je automaticky neupraví. U místa s mapou patří do `mapyLink` adresa `src` z kódu pro vložení mapy na Mapy.com.
+- **Organizátoři:** jméno v datech musí přesně odpovídat profilu v `organizator-popovers.js` a prvku `<organizator-popover name="…">` na stránce.
+- **Nová stránka:** vyjdi například z `pribehy/pribehy.html`, uprav obsah, nadpis a cesty. Zachovej pořadí společných skriptů a načti jen styly a funkce, které stránka potřebuje. Odkaz do menu nebo kalendáře se přidává ručně; zapojení hlavičky popisují [samostatné poznámky](docs/header-layout-notes.md).
+- **Fotografie:** soubor ulož do `assets/` a záznam přidej do `foto-galerie-data.js`. Cesty `src` a `original` jsou vůči `assets/`; doplň skutečné rozměry náhledu a popis `alt`. `usedOnSite: true` fotku zařadí do galerie, `false` ji ponechá jen v katalogu. Pro nové album doplň také volbu v samostatné galerii a odpovídající `data-akce` v detailu. Náhledy do HTML ručně nepřidávej.
+- **Cesty:** relativní odkazy v HTML a kartách kalendáře či návodů vycházejí z HTML stránky, importy z JS souboru a `url(...)` z CSS souboru. Nové vlastní odkazy piš relativně a počítej s vnořenými složkami, diakritikou i velikostí písmen. Před přesunem nebo smazáním souboru vyhledej všechna použití.
+- **Ikony motivu:** při výměně ověř běžnou i světlou variantu `-light` v `assets/Ikony-img/`.
 
-Do pole `data` v `scripts/kalendar/kalendar-data.js` přidej položku, například:
-
-```js
-{
-  nazev: "Název akce",
-  datum: ["12.–14. června 2027"],
-  organizatori: ["Kvido Redl", "Hugo Redl"],
-  obrazek: "../assets/Ikony-img/questionmark.png",
-  link: "#",
-  misto: "Místo konání"
-},
-```
-
-Nahraď ukázkový obsah; `link: "#"` je jen dočasný odkaz. Cesty v těchto datech se vkládají do HTML a relativní URL se tedy vyhodnocují vůči **HTML stránce**, ne vůči datovému JS souboru.
-
-Pro místo s mapou použij místo řetězce objekt:
-
-```js
-misto: {
-  misto: "Školní Farma (Chýnice 29)",
-  mapyLink: "https://mapy.com/s/hufumuzega"
-}
-```
-
-`mapyLink` zkopíruj z atributu `src` v kódu **Sdílet → Vložit mapu do vlastních stránek** na Mapy.com, podle [oficiálního návodu](https://help.mapy.com/cs/nastroje/vlozeni-mapy/). Použij odkaz pro vloženou mapu, který zobrazuje mapu s bodem a ovládáním, nikoli běžný odkaz ke sdílení. Bez `mapyLink` se zobrazí pouze text. Nového organizátora přidej do `organizerData` v `components/organizator-popovers.js` a vlož jeho `<organizator-popover name="…">` do příslušné stránky.
-
-### Upravit nebo vytvořit stránku
-
-Texty a obrázky upravuj přímo v jejím HTML. Pro novou stránku vezmi strukturu jednoduché stránky jako `pribehy/pribehy.html`, nahraď obsah a nastav `<title>`, `lang="cs"` a atributy `<site-header>`. Načti `css/sdilene/obecne-sdilene.css`, `css/sdilene/menu/menu.css` a jen potřebné další styly. Společné skripty vlož jednou podle ukázky výše.
-
-Chceš-li stránku zpřístupnit, doplň odkaz v `generace-menu.js`, kalendářových datech nebo ručním archivu podle účelu. Nový soubor se do menu automaticky nepřidává. Při přesouvání akce do archivu uprav kalendář a archiv zvlášť; žádný automatický přesun podle data tu není.
-
-### Přidat fotografie
-
-Přidej fotografii do `assets/` a jeden záznam do pole v `scripts/galerie/foto-galerie-data.js`:
-
-```js
-{ akce: "PER", src: "O.S.2-img/Per14.webp", original: "O.S.2-img/Per14.jpg", alt: "Popis fotografie", width: 1600, height: 1200, usedOnSite: true },
-```
-
-`src` a `original` jsou cesty vůči `assets/`, nikoli vůči HTML nebo souboru JS. Ukázkové soubory Per14 nejprve vytvoř; v současném albu nejsou. Zadej skutečné rozměry náhledu `src` v pixelech a popiš obsah v `alt`. `usedOnSite: true` fotografii zpřístupní ve filtrech i detailu příslušné akce; `false` ji ponechá v katalogu, ale mimo webový výpis. Oba odkazy mohou mířit na stejný soubor, pokud nemáš zvláštní náhled. Kódy OS1, OS2 a PER už mají volbu na samostatné stránce; pro novou akci přidej také odpovídající `<option>` a nastav stejný kód v `data-akce` její galerie. Všechny čtyři galerie používají společný modul, proto jednotlivé náhledy nepřidávej ručně do HTML.
-
-Katalog obsahuje jen fotografie těchto alb. Nepřidávej sem portréty, ikony ani ilustrace a nepřesouvej kvůli galerii existující assety. Data i popisky jsou obsah spravovaný v tomto repozitáři; nevkládej sem neošetřený uživatelský vstup ani cizí data, protože renderer vytváří HTML z hodnot katalogu.
-
-**Doporučení pro další optimalizaci:** větší obrázky převáděj na **WebP**, které má širší podporu na starších zařízeních než AVIF ([přehled podpory](https://developer.mozilla.org/en-US/docs/Web/Media/Guides/Formats/Image_types)). Menší nebo už dobře komprimované JPEG/PNG mohou zůstat. Porovnej velikost i vzhled: doporučená úspora je alespoň 20 % a 50 kB při zachování rozlišení. Pro fotky a texturované ilustrace použij ztrátovou kompresi, pro průhledné ikony bezeztrátovou. Existující vhodný WebP lze použít znovu. Obrázky v `LALOK/` ponech při této optimalizaci stranou. Tyto podmínky žádný skript automaticky nevynucuje.
-
-**Změřená komprese fotografií z 14. 10. 2026:** 63 existujících WebP fotografií bylo překódováno přes libwebp s `quality=75, method=6`, bez změny rozlišení; pět dalších nemělo smysluplnou úsporu a zůstalo původních. V `O.S.2-img/` mají Per1 až Per13 nové WebP náhledy. Katalog je používá v `src`, zatímco `original` dál míří na zachované JPEG pro lightbox. Ikony, ilustrace a ostatní obrázky v jiných formátech se neměnily. WebP není automaticky menší než JPEG: záleží na nastavení i obsahu. Příčinu, výsledky a postup porovnání popisuje [měření komprese](docs/webp-compression.md).
-
-Galerie a profily organizátorů odvozují adresy obrázků od umístění svého modulu přes `new URL(..., import.meta.url)`. Náhledy fotek v ručním HTML používají relativní cesty do `assets/`. Cesty tedy respektují hlavní i vnořenou stránku, místní náhled a nasazení pod `/Chynicky_LARP/`. Při výměně formátu uprav všechna použití a původní soubor odstraň až poté; originál pro lightbox může být i WebP se zachovaným rozlišením. Světlá hlavička nyní používá `Nav.panel/IMG_6357.webp`; vedlejší soubor `IMG_6357.avif` zůstává v úložišti obrázků.
-
-## Kontrola změn
-
-**Automatizované testy v aktuálním repozitáři nejsou.** Historicky existovaly kontroly rendererů, menu a obrázků, ale všechny tři soubory byly na přání autora odstraněny v commitu `ecd710e` („odstranit testy TESTY NECHCI“). Staré příkazy `node --test tests/…` proto nefungují a dřívější výsledky nevypovídají o současném stavu. Bez nového zadání testy neobnovuj.
-
-Pro změněný JavaScript lze s Node.js 22 nebo novějším použít `node --check cesta/k/souboru.js`. Jde pouze o kontrolu syntaxe, nikoli chování stránky. Před předáním zkontroluj `git diff --check` a vyhledej všechna použití změněných cest v HTML, JS i CSS.
-
-V prohlížeči ověř změněnou stránku a při zásahu do společného kódu také hlavní stránku a jeden detail akce:
-
-- úzké i široké okno, dlouhý nadpis a otevřené menu při změně šířky;
-- otevření/zavření menu, podmenu, oba motivy, obnovení stránky a přechod na další stránku; při změně ukládání motivu také chybějící či neplatnou hodnotu a zablokované úložiště;
-- podle změny mapu včetně bodu a ovládání, organizátory, filtr galerie nebo lightbox;
-- po změně obrázků jejich vzhled, místní soubory a obě varianty tematických ikon;
-- konzoli a chybějící soubory v panelu Network; ověřovaná stránka a vlastní skripty musí ukazovat na tvůj lokální náhled, známé vzdálené zdroje jsou popsané výše.
-
-Tyto body jsou postup kontroly, ne záznam už provedeného ověření. V předání vždy napiš, co bylo skutečně vyzkoušeno a co zůstalo neověřené.
+`LALOK/` obsahuje samostatné žertovné stránky, na které vedou odkazy z akcí. Nejde o vzor společné hlavičky. Katalog galerie je určený pro fotografie alb; portréty, ikony a ilustrace do něj nepatří. Data a HTML podnadpisů jsou autorský obsah repozitáře; cizí nebo uživatelský vstup vyžaduje bezpečné vložení, protože renderery používají `innerHTML`.
 
 ## Co zlepšit a zjednodušit dál
 
-Následující body jsou **návrhy podle současného kódu, nikoli již provedené opravy**. Postupuj po malých změnách a u každé ověř skutečné chování.
+Následující body jsou rozpracovaný obsah a známé nedostatky, nikoli hotové opravy:
 
-| Pořadí | Konkrétní problém | Nejmenší rozumná změna |
-| --- | --- | --- |
-| 1 | Odkaz na rozpočet Z Popelu kalicha používá cestu mimo skutečnou složku `Odehrane LARPy/`. Odkaz na O nás z Návratu mocného a Z Popelu kalicha má nedostatečné `../`. | Opravit tyto cesty proti skutečným souborům; další absolutní odkazy v obsahu postupně měnit na relativní podle významu. |
-| 2 | Kalendář vytváří tlačítko `a další` bez cílového profilu. | Dořešit zobrazení textu bez profilu; náklady a dobu výroby návodů doplnit, až budou známé. Dva krátké renderery zatím nepotřebují obecný systém karet. |
-| 3 | Motiv pro `jidlo-icon.webp` sestaví neexistující světlou variantu. | Doplnit zamýšlenou ikonu nebo změnit konkrétní použití na existující soubor a ověřit načtení obou motivů. |
+- Doplnit skutečné údaje a detaily návodů; zatím používají „Zatím neuvedeno“ a odkaz `#`. `mista-akci/mista-akci.html` je prázdný soubor.
+- Dořešit `a další` v kalendáři, jehož tlačítko nemá cílový profil organizátora.
+- Doplnit chybějící světlou variantu `jidlo-icon-light.webp` použitou v Z Popelu kalicha.
 
-Při běžných úpravách lze také odstranit zbytečné debug výpisy a zakomentované pokusy. Před mazáním CSS, obrázků nebo `LALOK/` nejdřív vyhledej všechny odkazy; část zdánlivě vedlejšího obsahu je skutečně používaná.
+## Kontrola změn
 
-Pro současný rozsah stačí statické soubory, CSS Grid, nativní popovery a krátké JS moduly. Framework, databázi, nový loader nebo velký společný renderer přidávej až pro konkrétní potřebu, kterou tento postup nepokryje.
+Automatizované testy v repozitáři nejsou. Pro změněný JavaScript můžeš s volitelným Node.js 22+ použít `node --check cesta/k/souboru.js`; ověří jen syntaxi. Diff zkontroluj pomocí `git diff --check`.
 
-## Předání kamarádovi nebo AI
+Na místním serveru vyzkoušej změněnou stránku v úzkém i širokém okně a v obou motivech. U společných úprav zkontroluj také kalendář a vnořený detail akce. Podle zásahu ověř menu a klávesnici, přechod mezi stránkami, karty, mapy, profily nebo galerii a zvětšování fotek. Zkontroluj cíle odkazů, načtení obrázků a chyby v konzoli. V předání rozlišuj skutečně provedené kontroly od neověřených částí.
 
-Kamarádovi pošli celý repozitář nebo odkaz na něj; samotné README nemůže nahradit kód. AI můžeš dát například:
+## Další dokumentace a publikování
 
-> Přečti README.md a AGENTS.md, potom soubory související s mým úkolem. Jde o statický web bez buildu. Vysvětli stručně, kudy vede aktuální chování, a udělej nejmenší změnu, která řeší zadání. Zachovej společnou hlavičku a nativní popovery. Návrhy v README nejsou hotové opravy ani zadání přepsat celý web. Nakonec uveď, co jsi změnil a skutečně ověřil. Můj úkol: …
+- [Rozdělení CSS složek a souborů](css/css.md)
+- [Podrobnosti společné hlavičky a menu](docs/header-layout-notes.md)
+- [Měření komprese fotografií](docs/webp-compression.md)
+- [Pokyny pro práci v repozitáři a pro AI](AGENTS.md)
 
-## Publikování a licence
+Web je určený pro GitHub Pages pod `/Chynicky_LARP/` a publikuje přímo soubory bez buildu. Zdrojovou větev a složku ověř v **Settings → Pages**; vlastní nasazovací workflow tu není. Před publikováním zkontroluj hlavně cesty z vnořených stránek.
 
-Web je určený pro GitHub Pages a publikuje přímo soubory bez buildu. Zdrojovou větev a složku ověř v nastavení repozitáře **Settings → Pages**; v tomto repozitáři není vlastní nasazovací workflow. Při nasazení pod `/Chynicky_LARP/` zkontroluj zejména cesty a odkazy z vnořených stránek.
-
-Soubor [LICENSE](LICENSE) obsahuje CC0 1.0 Universal. Převzaté ikony mají uvedené autory v HTML detailech; SVG šipka menu má v `scripts/generace-menu.js` samostatnou poznámku Font Awesome Free 7, CC BY 4.0.
+[LICENSE](LICENSE) obsahuje CC0 1.0 Universal. U převzatých ikon zachovej uvedené autory a licenční poznámky v HTML a skriptech.
