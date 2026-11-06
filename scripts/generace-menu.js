@@ -24,6 +24,11 @@ class SiteMenu extends HTMLElement {
         "Odehrane LARPy/Odehrane LARPy.html",
         "menu-archiv",
         [
+          ["Za linií", "za-linii/za-linii.html"],
+          [
+            "Z popelu kalicha",
+            "Odehrane LARPy/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
+          ],
           [
             "Návrat mocného",
             "Odehrane LARPy/Navrat-mocneho/Navrat-mocneho.html",
