@@ -1,3 +1,12 @@
+document.body.insertAdjacentHTML("beforeend", `
+    <div id="zvetsene" class="zvetsene hidden" role="dialog" aria-modal="true" aria-label="Zvětšená fotografie" tabindex="-1">
+        <button type="button" id="closeBtn" class="close" aria-label="Zavřít zvětšenou fotografii">&times;</button>
+        <img id="zvetsene-img" alt="Zvětšená fotografie">
+        <button type="button" class="arrow left" id="prev" aria-label="Předchozí fotografie">&#10094;</button>
+        <button type="button" class="arrow right" id="next" aria-label="Následující fotografie">&#10095;</button>
+    </div>
+`);
+
 const lightbox = document.getElementById("zvetsene");
 const lightboxImg = document.getElementById("zvetsene-img");
 const closeBtn = document.getElementById("closeBtn");
