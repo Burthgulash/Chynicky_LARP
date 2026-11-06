@@ -1,5 +1,7 @@
 # Komprese fotografií – 14. 10. 2026
 
+Při sloučení PR #49 dne 6. 11. 2026 se všech 13 JPEG originálů a 13 WebP náhledů PER přesunulo do `assets/per-foto/`. Jejich obsah zůstal stejný; cesty `assets/O.S.2-img/` v tomto historickém měření a jeho CSV označují původní umístění.
+
 Bylo vyzkoušeno 68 existujících WebP fotografií a převedeno všech 13 JPEG fotografií Per1 až Per13 z `assets/O.S.2-img/`. Vyměnilo se 63 existujících WebP; pět dalších zůstalo původních, protože nová verze byla větší nebo ušetřila méně než 5 %. Ikony, ilustrace, `LALOK/` a ostatní obrázky v jiných formátech se neměnily.
 
 ## Výsledek

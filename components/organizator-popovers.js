@@ -5,26 +5,26 @@ const organizerData = {
   "Hugo Redl": {
     id: "Hugo Redl",
     image:
-      new URL("O nás-img/20250309_090631.webp", organizerImageRoot).href,
+      new URL("O nás-img/hugo-hrabe.webp", organizerImageRoot).href,
     title: "Hugo",
     description:
-      "Štítonoš, berserk. Svou sekerou rozmlátí vše, co se mu postaví do cesty. Na něj rozhodně neútočte, pokud nemáte dostatečnou početní převahu, a i tak si to pořádně rozmyslete. Často, mimo jiné, řeší rozpočet.",
+      "Řeší spoustu fyzických příprav, jako je výroba zbraní, herních předmětů a hlavně rozpočet a finance. Podílí se také na vytváření postav a jiných pilířů příběhu.",
   },
   "Kvido Redl": {
     id: "Kvido Redl",
     image:
-      new URL("O nás-img/20250309_081702.webp", organizerImageRoot).href,
+      new URL("O nás-img/kvido-tulak-zpk.webp", organizerImageRoot).href,
     title: "Kvido, Ereth",
     description:
-      "Lukostřelec a obstojný šermíř. Střežte se jeho šípům, a hlavně si dávejte pozor na rychlá přepadení ze zálohy. Navíc je tvůrce většiny herních mechanik.",
+      "V jeho hlavě se rodí většina konceptů herních mechanik a samotných akcí. Má na starosti spoustu fází přípravy, jako psaní postav či pravidel, a také rozvrhuje čas a CP na místě.",
   },
   "Kristián Páca": {
     id: "Kristián Páca",
     image:
-      new URL("O nás-img/20250309_093520.webp", organizerImageRoot).href,
+      new URL("O nás-img/kristian-jednoruk-zpk.webp", organizerImageRoot).href,
     title: "Kristian, Haakon",
     description:
-      "Bard a čaroděj. Pokud s ním budete smlouvat, nikdy nezískáte přívětivou cenu. V boji zvládne přemoct většinu nepřátel. K tomu vytváří spoustu pravidel.",
+      "Přispívá ke psaní postav a jiných dokumentů ke hře. Vymýšlí části příběhu a mechaniky pro jejich funkčnost. Mimo to komentuje pravidla, koncepty akcí a další.",
   },
   "Julie Redlová": {
     id: "Julie Redlová",
@@ -32,7 +32,7 @@ const organizerData = {
       new URL("O nás-img/IMG-20250112-WA0007.webp", organizerImageRoot).href,
     title: "Julie",
     description:
-      "Skupina CéPek by bez ní nebyla úplná. Střílí z luku a poradí si i s mečem, štítem někdy i s kopím.",
+      "Jejím hlavním přispíváním k našim LARPům je koordinace a tvoření kostýmů i doplňků. To, že zde její práce na přípravách končí, je však dávná minulost. Orgnizuje hráče a je k ruce při jakékoli činnosti.",
   },
 };
 

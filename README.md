@@ -20,7 +20,7 @@ HTML neotvírej dvojklikem jako `file://`, protože web používá JavaScriptov�
 | -------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Termín, název, místo nebo obrázek akce v kalendáři | `scripts/kalendar/kalendar-data.js`                                                                                                                         |
 | Vzhled karet kalendáře, archivu a návodů           | `css/kalendar-akci.css`; HTML kalendáře tvoří `scripts/kalendar/generace-kalendare.js`                                                                      |
-| Text konkrétní akce, pravidla, přihlášení          | Příslušné HTML v `Odehrane LARPy/`                                                                                                                          |
+| Text konkrétní akce, pravidla, přihlášení          | Příslušné HTML v `Odehrane LARPy/` nebo `za-linii/`                                                                                                                          |
 | Seznam odehraných akcí                             | `Odehrane LARPy/Odehrane LARPy.html` — karty jsou ručně v HTML                                                                                              |
 | O nás nebo příběhy                                 | `O nas/O nás.html`, `pribehy/pribehy.html`                                                                                                                  |
 | Odkazy a položky společného menu                   | `scripts/generace-menu.js`                                                                                                                                  |
@@ -43,7 +43,7 @@ Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](
 - **Cesty:** relativní odkazy v HTML a kartách kalendáře či návodů vycházejí z HTML stránky, importy z JS souboru a `url(...)` z CSS souboru. Nové vlastní odkazy piš relativně a počítej s vnořenými složkami, diakritikou i velikostí písmen. Před přesunem nebo smazáním souboru vyhledej všechna použití.
 - **Ikony motivu:** označ je atributem `data-name="název"`, bez společného ID. Při výměně ověř běžnou i světlou variantu `-light` v `assets/Ikony-img/`. Kalendář a návody označují otazník podle obrázku `questionmark.png`, nezávisle na textu karty.
 
-`LALOK/` obsahuje samostatné žertovné stránky, na které vedou odkazy z akcí. Nejde o vzor společné hlavičky. Katalog galerie je určený pro fotografie alb; portréty, ikony a ilustrace do něj nepatří. Data a HTML podnadpisů jsou autorský obsah repozitáře; cizí nebo uživatelský vstup vyžaduje bezpečné vložení, protože renderery používají `innerHTML`.
+`LALOK/` obsahuje samostatné žertovné stránky, na které vedou odkazy z akcí. Nejde o vzor společné hlavičky. Fotky Perninku mají originály i WebP náhledy v `assets/per-foto/`; katalog používá tuto složku také pro album PER. Osm fotek ubytování na Za linií zůstává přímo v HTML, aby se výběr veřejných fotek alba PER nezměnil. Katalog galerie je určený pro fotografie alb; portréty, ikony a ilustrace do něj nepatří. Data a HTML podnadpisů jsou autorský obsah repozitáře; cizí nebo uživatelský vstup vyžaduje bezpečné vložení, protože renderery používají `innerHTML`.
 
 ## Co zlepšit a zjednodušit dál
 
@@ -51,7 +51,7 @@ Následující body jsou rozpracovaný obsah a známé nedostatky, nikoli hotov�
 
 - Doplnit skutečné údaje a detaily návodů; zatím používají „Zatím neuvedeno“ a odkaz `#`. `mista-akci/mista-akci.html` je prázdný soubor.
 - Dořešit `a další` v kalendáři, jehož tlačítko nemá cílový profil organizátora.
-- Doplnit chybějící světlou variantu `jidlo-icon-light.webp` použitou v Z Popelu kalicha.
+- Sjednotit datum Za linií: kalendář uvádí 2.–4. 11. 2026, detail 2.–4. 10. 2026. Při sloučení PR #49 zůstaly obě autorské hodnoty zachované.
 
 ## Kontrola změn
 
@@ -64,6 +64,7 @@ Na místním serveru vyzkoušej změněnou stránku v úzkém i širokém okně 
 - [Rozdělení CSS složek a souborů](css/css.md)
 - [Podrobnosti společné hlavičky a menu](docs/header-layout-notes.md)
 - [Měření komprese fotografií](docs/webp-compression.md)
+- [Sloučení PR #49 a porovnání s produkcí](docs/pr-49-merge-overeni.md)
 - [Pokyny pro práci v repozitáři a pro AI](AGENTS.md)
 
 Web je určený pro GitHub Pages pod `/Chynicky_LARP/` a publikuje přímo soubory bez buildu. Zdrojovou větev a složku ověř v **Settings → Pages**; vlastní nasazovací workflow tu není. Před publikováním zkontroluj hlavně cesty z vnořených stránek.

@@ -1,15 +1,12 @@
 export const data = [
   {
-    nazev: "Již brzy",
-    datum: ["Již brzy"],
+    nazev: "Za linií",
+    datum: ["2.-4.11.2026"],
     organizatori: ["Kvido Redl", "Hugo Redl", "a další"],
     obrazek:
-      "../assets/Ikony-img/questionmark.png",
-    link: "#",
-    misto: {
-      misto: "Pernink, kostelní 11 - apartmánová chalupa",
-      mapyLink: "https://mapy.com/s/pejegocono",
-    },
+      "../assets/Chalupa.jpg",
+    link: "../za-linii/za-linii.html",
+    misto: "Pernink, kostelní 11 - apartmánová chalupa",
   },
   {
     nazev: "Poslední ortel",

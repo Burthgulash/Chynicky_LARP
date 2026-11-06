@@ -1,6 +1,6 @@
 # Jak funguje společná hlavička a menu
 
-Aktualizováno 14. 10. 2026 při nahrazení iframe motivu přímým `localStorage` a přesunu obrázků do `assets/`. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu a historické záznamy kontrol jsou oddělené.
+Aktuální popis doplněn 6. 11. 2026 při zapojení Za linií; historické kontroly níže se tím neopakovaly. Tento dokument doplňuje [README](../README.md) podrobnostmi pro úpravy hlavičky. Popis kódu a historické záznamy kontrol jsou oddělené.
 
 ## Rozdělení práce
 
@@ -13,7 +13,7 @@ Aktualizováno 14. 10. 2026 při nahrazení iframe motivu přímým `localStorag
 | `scripts/obecny.js` | Globální `toggleMenu()` delegující na komponentu, volitelná minimapa a easter egg. |
 | `scripts/light-modV2.js` | Importuje menu, přepíná téma a obrázky ikon a čte i ukládá volbu přímo v `localStorage`. |
 
-Hlavičku nyní používá 12 HTML stránek: kalendář, O nás, Příběhy, Návody, samostatná galerie, archiv a šest detailů akcí (Hraniční tvrz, Návrat mocného, obě Ozvěny stínů, Přes hřebeny a Z Popelu Kalicha). Každá má právě jeden `<site-header>` a jeden import modulu motivu. Komponenta používá běžný DOM bez Shadow DOM; společné CSS přímo styluje její obsah.
+Hlavičku nyní používá 13 HTML stránek: kalendář, O nás, Příběhy, Návody, samostatná galerie, archiv a sedm detailů akcí (Hraniční tvrz, Návrat mocného, obě Ozvěny stínů, Přes hřebeny, Z Popelu Kalicha a Za linií). Každá má právě jeden `<site-header>` a jeden import modulu motivu. Komponenta používá běžný DOM bez Shadow DOM; společné CSS přímo styluje její obsah.
 
 ## Vložení do stránky
 
@@ -37,7 +37,7 @@ Na konec `<body>` nové stránky vlož následující blok. Počet `../` uprav p
 
 Hlavička musí běžet před registrací menu, aby existovalo `<site-menu id="sideMenu">`. Modul tématu importuje `generace-menu.js` jako závislost, aby při jeho spuštění existovalo tlačítko `#button-theme-switch`; samostatný import menu do HTML nepřidávej. `obecny.js` ponech jako klasický skript: inline `onclick="toggleMenu()"` na tlačítku `.menu-toggle` hledá globální funkci. Obrázek `.menu-btn` zůstává uvnitř tlačítka. Spouštěč má do připojení komponenty `disabled` a globální delegace bezpečně snese i volání před její registrací. Samotný `obecny.js` může běžet před komponentou, protože menu hledá až při kliknutí.
 
-Všech 12 stránek se společnou hlavičkou nyní používá pořadí výše a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje. `LALOK/`, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
+Všech 13 stránek se společnou hlavičkou nyní používá pořadí výše a jediný import motivu, včetně Přes hřebeny. Motiv iframe nepotřebuje. `LALOK/`, prázdná stránka míst a přesměrování ze starých vstupních a mobilních adres společné menu nepoužívají.
 
 ## Rozložení a změny velikosti
 
@@ -72,7 +72,7 @@ Staré skripty `responsivni-nav.js` a `responzivni-pro-pocitacV2.js` ani styly `
 
 ## Známá omezení
 
-- U ikony `assets/Ikony-img/jidlo-icon.webp` stále chybí světlá varianta `jidlo-icon-light.webp`.
+- Ikona jídla má nyní také světlou variantu `assets/Ikony-img/jidlo-icon-light.webp`; historické zmínky o chybějícím souboru níže popisují tehdejší stav.
 - `localStorage` patří jednomu originu (protokol, doména a port) a prohlížeči. Lokální server má vlastní volbu oddělenou od produkce; při zablokovaném úložišti se motiv neuchová pro další načtení stránky.
 
 ## Jak změnu ověřit
