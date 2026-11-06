@@ -37,6 +37,7 @@ Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](
 ## Běžné úpravy
 
 - **Akce:** pořadí karet určuje pořadí v `kalendar-data.js`. Archiv a detaily upravuj zvlášť v HTML; změna kalendáře je automaticky neupraví. U místa s mapou patří do `mapyLink` adresa `src` z kódu pro vložení mapy na Mapy.com.
+- **Aktuální kalendář:** obsahuje Poslední ortel a vedle něj zástupnou kartu „Již brzy“ s otazníkem. Z Popelu Kalicha i Za linií už proběhly. Kalendář má v menu pouze hlavní odkaz bez podnabídky, dokud nebude hotová stránka Posledního ortelu; jeho karta zatím používá odkaz `#`.
 - **Organizátoři:** jméno v datech musí přesně odpovídat profilu v `organizator-popovers.js` a prvku `<organizator-popover name="…">` na stránce.
 - **Nová stránka:** vyjdi například z `pribehy/pribehy.html`, uprav obsah, nadpis a cesty. Zachovej pořadí společných skriptů a načti jen styly a funkce, které stránka potřebuje. Menu načítá modul motivu; jeho samostatný import do HTML není potřeba. Odkaz do menu nebo kalendáře se přidává ručně; zapojení hlavičky popisují [samostatné poznámky](docs/header-layout-notes.md).
 - **Fotografie:** soubor ulož do `assets/` a záznam přidej do `foto-galerie-data.js`. Cesty `src` a `original` jsou vůči `assets/`; doplň skutečné rozměry náhledu a popis `alt`. `usedOnSite: true` fotku zařadí do galerie, `false` ji ponechá jen v katalogu. Pro nové album doplň také volbu v samostatné galerii a odpovídající `data-akce` v detailu. Náhledy do HTML ručně nepřidávej. Okno pro zvětšení fotek včetně tlačítek vytváří `foto-lightbox.js` při načtení a připojí ho na konec `body`; jeho HTML do stránek nekopíruj. Modul se načítá přes `foto-galerie.js`.
@@ -50,8 +51,6 @@ Rozdělení stylů a důvody jejich umístění popisuje [přehled CSS složek](
 Následující body jsou rozpracovaný obsah a známé nedostatky, nikoli hotové opravy:
 
 - Doplnit skutečné údaje a detaily návodů; zatím používají „Zatím neuvedeno“ a odkaz `#`. `mista-akci/mista-akci.html` je prázdný soubor.
-- Dořešit `a další` v kalendáři, jehož tlačítko nemá cílový profil organizátora.
-- Sjednotit datum Za linií: kalendář uvádí 2.–4. 11. 2026, detail 2.–4. 10. 2026. Při sloučení PR #49 zůstaly obě autorské hodnoty zachované.
 
 ## Kontrola změn
 

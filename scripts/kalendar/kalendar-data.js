@@ -1,24 +1,22 @@
 export const data = [
   {
-    nazev: "Za linií",
-    datum: ["2.-4.11.2026"],
-    organizatori: ["Kvido Redl", "Hugo Redl", "a další"],
-    obrazek:
-      "../assets/Chalupa.jpg",
-    link: "../za-linii/za-linii.html",
-    misto: "Pernink, kostelní 11 - apartmánová chalupa",
-  },
-  {
     nazev: "Poslední ortel",
     datum: ["Někdy v červnu 2027"],
     organizatori: ["Kvido Redl", "Hugo Redl", "Kristián Páca"],
-    obrazek:
-      "../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
+    obrazek: "../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp",
     link: "#",
     misto: {
       misto: "Školní Farma (Chýnice 29)",
       mapyLink: "https://mapy.com/s/hufumuzega",
     },
+  },
+  {
+    nazev: "Již brzy",
+    datum: ["Již brzy"],
+    organizatori: ["Již brzy"],
+    obrazek: "../assets/Ikony-img/questionmark.png",
+    link: "#",
+    misto: "Již brzy",
   },
 ];
 

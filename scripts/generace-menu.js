@@ -16,17 +16,7 @@ class SiteMenu extends HTMLElement {
 
   render() {
     this.append(
-      this.createGroup(
-        "Kalendář akcí",
-        "kalendar-akci/index.html",
-        "menu-kalendar",
-        [
-          [
-            "Z Popelu Kalicha",
-            "Odehrane LARPy/Z.Popelu.kalicha/Z.Popelu.kalicha.html",
-          ],
-        ],
-      ),
+      this.createLink("Kalendář akcí", "kalendar-akci/index.html"),
       this.createLink("O nás", "O nas/O nás.html"),
       this.createLink("Příběhy", "pribehy/pribehy.html"),
       this.createGroup(
