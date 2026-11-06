@@ -1,97 +1,67 @@
+import "./generace-menu.js";
 import { getImageFormat } from "./utilities/imgformat.js";
 
-const iframe = document.getElementById("theme-sync");
 const btn = document.getElementById("button-theme-switch");
-const navBar = document.querySelector("nav")
-const iconContainer = document.getElementById("icon-img-container")
+const imageRoot = new URL("../assets/", import.meta.url);
 
-applyTheme("dark")// Default theme
-// 1. Ask iframe for theme on load
-iframe.onload = () => {
-    iframe.contentWindow.postMessage("get-theme", "https://burthgulash.github.io");
-};
+let theme = "dark";
+try {
+  theme = localStorage.getItem("theme") === "light" ? "light" : "dark";
+} catch {
+  // Při blokovaném úložišti použijeme výchozí tmavý motiv.
+}
+applyTheme(theme);
+// Renderery karet mohou vložit další ikony až po spuštění tohoto modulu.
+document.addEventListener("DOMContentLoaded", updateIcons, { once: true });
 
-// 2. Receive the theme and apply it
-window.addEventListener("message", (event) => {
-    // console.log("Mesage", event)
-    if (event.origin !== "https://burthgulash.github.io") return;
-    if (event.data?.type === "theme") {
-        applyTheme(event.data.value);
-    }
-});
-
-// 3. User changes theme
 btn.addEventListener("click", () => {
-    const newTheme = document.body.classList.contains("dark") ? "light" : "dark";
-    // Save to iframe
-    iframe.contentWindow.postMessage({ type: "set-theme", value: newTheme }, "https://burthgulash.github.io");
-    applyTheme(newTheme);
+  const newTheme = document.body.classList.contains("dark") ? "light" : "dark";
+  applyTheme(newTheme);
+  try {
+    localStorage.setItem("theme", newTheme);
+  } catch {
+    // Při blokovaném úložišti přepnutí platí jen pro aktuální stránku.
+  }
 });
 
 function applyTheme(theme) {
-    document.body.classList.remove("dark", "light");
-    const akceTlacitko = document.querySelectorAll(".akce-tlacitko");
-    const akceContainer = document.querySelectorAll(".akce-container")
-
-    // info card clases
-    // const info = document.querySelectorAll(".info2")
-    // const info21 = document.querySelectorAll(".info2-1")
-    // const info22 = document.querySelectorAll(".info2-2")
-    if (theme === "dark") {
-        document.body.classList.toggle("dark");
-
-        updateIcons();
-    } else if (theme === "light") {
-        document.body.classList.toggle("light");
-
-        updateIcons();
-    }
-    updateThemeIcon()
+  document.body.classList.remove("dark", "light");
+  document.body.classList.add(theme);
+  updateIcons();
+  updateThemeIcon();
 }
 
 function updateIcons() {
-    const isLight = document.querySelector("body").classList.contains("light")
-    const hamburgerSwords = document.querySelector(".menu-btn")
-    // pocitat s responsivnim nav ktery ma jiny class
-    if (hamburgerSwords) {
-        if (isLight) {
-            hamburgerSwords.src = "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final-light.png"
-        } else {
-            hamburgerSwords.src = "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final.png"
-        }
+  const isLight = document.querySelector("body").classList.contains("light");
+  const hamburgerSwords = document.querySelector(".menu-btn");
+  if (hamburgerSwords) {
+    if (isLight) {
+      hamburgerSwords.src =
+        new URL("Nav.panel/tri mece final final-light.png", imageRoot).href;
     } else {
-        const divnyFlexMenuhamburgerSwords = document.querySelector(".divny-flex-menu-mece-img")
-            if (isLight) {
-            divnyFlexMenuhamburgerSwords.src = "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final-light.png"
-        } else {
-            divnyFlexMenuhamburgerSwords.src = "https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/tri%20mece%20final%20final.png"
-        }
+      hamburgerSwords.src =
+        new URL("Nav.panel/tri mece final final.png", imageRoot).href;
     }
-    document.querySelectorAll("#icon-img").forEach(image => {
-        if (!image) return;
-        const imgFormat = getImageFormat(image.src) // Get the image format is correct
-        const name = image.dataset.name;
-        if (isLight) {
-            image.src = `https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/${name}-light.${imgFormat}`;
-        }
-        else {
-            image.src = `https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/${name}.${imgFormat}`;
-        }
-    });
+  }
+  document.querySelectorAll("img[data-name]").forEach((image) => {
+    const imgFormat = getImageFormat(image.src); // Get the image format is correct
+    const name = image.dataset.name;
+    if (isLight) {
+      image.src = new URL(`Ikony-img/${name}-light.${imgFormat}`, imageRoot).href;
+    } else {
+      image.src = new URL(`Ikony-img/${name}.${imgFormat}`, imageRoot).href;
+    }
+  });
 }
 
 function updateThemeIcon() {
-    const themebtn = document.getElementById("button-theme-switch")
-
-    if (document.body.classList.contains("dark")) {
-        themebtn.innerHTML = `
-            <img src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/slunce-icon2.png">
-        `
-    } else {
-        themebtn.innerHTML = `
-            <img style="margin-left: 8px;" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/Mesic-icon2.png">
-        `
-    }
+  const themebtn = document.getElementById("button-theme-switch");
+  const isDark = document.body.classList.contains("dark");
+  const image = themebtn.querySelector("img");
+  image.src = new URL(
+    `Ikony-img/${isDark ? "slunce-icon" : "Mesic-icon"}.webp`,
+    imageRoot,
+  ).href;
+  image.style.marginLeft = isDark ? "0" : "8px";
+  themebtn.setAttribute("aria-label", `Přepnout na ${isDark ? "světlý" : "tmavý"} motiv`);
 }
-
-

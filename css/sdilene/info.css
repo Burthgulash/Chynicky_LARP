@@ -1,0 +1,86 @@
+.info-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    text-align: center;
+    padding: 7px 15px 7px 15px;
+    width: 100%;
+    gap: 1rem;
+}
+
+.info-karta {
+    border-radius: 15px;
+    background-color: var(--bg-accent-clr);
+    padding: 1em;
+}
+
+@media only screen and (min-width: 1300px) {
+    .info {
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 650px) {
+    .info {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .info {
+        grid-template-columns: 1fr;
+    }
+}
+
+.info p {
+    font-weight: 600;
+    font-size: 1.1em;
+}
+
+/* mini map */
+.mini-map {
+    width: 100%;
+    height: 280px;
+    border: 0;
+    display: none;
+}
+
+#toggle-minimap {
+    display: flex;
+    align-items: center;
+}
+
+.toggle-minimap-container {
+    display: flex;
+    justify-content: center;
+}
+
+.organizatori {
+    display: flex;
+    flex-direction: column;
+}
+
+.foto {
+    width: 150px;
+}
+
+
+@media only screen and (min-width: 1400px) {
+    .foto {
+        width: 40%;
+        height: auto;
+    }
+}
+
+
+@media only screen and (max-width: 500px) {
+    .foto {
+        width: 50%;
+        height: auto;
+    }
+}

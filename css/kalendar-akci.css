@@ -22,7 +22,9 @@ p {
 }
 
 /*pro tlacitko na jinou akci*/
-.akce-tlacitko {
+.kalendar-akci2 .akce-tlacitko {
+    display: inline-block;
+    text-decoration: none;
     background-color: transparent;
     border: 2px solid rgb(86, 86, 86);
     border-radius: 2px;
@@ -35,16 +37,9 @@ p {
 }
 
 .akce-tlacitko:hover {
-    background: rgb(86, 86, 86) !important;
+    background: rgb(86, 86, 86);
     color: white;
-}
-
-.akce-tlacitko-light {
-    color: black;
-}
-
-.akce-tlacitko-dark {
-    color: white;
+    border-color: rgb(86, 86, 86);
 }
 
 /**/
@@ -52,9 +47,10 @@ p {
     display: flex;
     /* width: 100%; */
     flex-direction: row;
-    background-color: var(--bg-accent-clr) !important;
+    background-color: var(--bg-accent-clr);
     border-radius: 15px;
     padding: 1rem;
+    gap: 1em
 }
 
 .organizatori-div {
@@ -67,66 +63,11 @@ p {
 .organizatori-text {
     display: inline-block;
     flex: 1;
-}
-
-
-/*
-@media only screen and (min-width: 1500px) {
-    .ozveny-stinu2 {
-        display: flex;
-        width: 20%;
-    }
-}
-
-
-@media only screen and (min-width: 1000px) {
-    .ozveny-stinu2 {
-        display: flex;
-        width: 30%;
-    }
-}
-
-@media only screen and (min-width: 601px) and (max-width: 999px){
-    .ozveny-stinu2 {
-        display: flex;
-        width: 45%;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    .ozveny-stinu2 {
-        display: flex;
-        width: 60%;
-    }
-}
-*/
-
-
-.ozveny2-popis {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.ozveny2-img {
-    flex: 1;
-    display: flex;
+    margin-bottom: 4px;
 }
 
 .datum-left {
     display: block;
-}
-
-.datum-left2 {
-    display: inline-block;
-}
-
-.datum-left3 {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .moznost {
@@ -144,11 +85,6 @@ p {
 }
 
 
-.datum-right {
-    display: inline-block;
-    margin-right: 5px;
-}
-
 .datumy {
     /* margin-top: 10px;
     margin-bottom: 10px; */
@@ -163,41 +99,35 @@ p {
     align-items: center;
 }
 
-/* obecne styly k stránce*/
-
-.ozveny-stinu-link {
-    text-decoration: none;
-    color: rgb(192, 210, 230) !important;
+.misto .popover {
+    width: min(600px, 85vw);
+    max-height: 85vh;
+    background-color: var(--bg-accent-clr);
 }
 
-.popis-ozveny-stinu {
-    text-align: center;
-    font-family: "Roboto", Arial;
-
+.misto .mini-map {
+    width: 100%;
+    height: 280px;
+    border: 0;
 }
 
-/*na popover pro oraganizotory*/
-
-:popover-open {
+.akce-popis {
+    flex: 1;
+    width: 100%;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
-    width: 50%;
-    /* max-width: 70%;
-    max-height: 70%; */
-    background-color: rgba(0, 0, 0, 0.65);
-    text-align: center;
-    border: 1px solid #ccc;
+}
+
+.akce-img {
+    width: 100%;
+    flex: 1;
+    display: flex;
 }
 
 @media only screen and (max-width: 800px) {
     .kalendar-akci2 {
-        grid-template-columns: 1fr !important;
-    }
-
-    :popover-open {
-        max-width: 85%;
-        max-height: 85%;
+        grid-template-columns: 1fr;
     }
 }

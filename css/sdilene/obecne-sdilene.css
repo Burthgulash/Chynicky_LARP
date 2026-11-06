@@ -12,9 +12,10 @@
     --bg-clr: hsl(0, 0%, 4%);
     --bg-accent-clr: hsl(0, 0%, 14%);
     --text-clr: white;
-    --nav-img: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
-    --nav-img-light: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/IMG_6357.jpg);
-    --nav-img-dark: url(https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Nav.panel/temný%20les%203.jpg);
+    /* URL v proměnné se vyhodnotí vůči menu/menu.css, kde se použije. */
+    --nav-img: url(../../../assets/Nav.panel/temný%20les%203.jpg);
+    --nav-img-light: url(../../../assets/Nav.panel/IMG_6357.webp);
+    --nav-img-dark: url(../../../assets/Nav.panel/temný%20les%203.jpg);
 }
 
 * {
@@ -30,7 +31,7 @@ body {
     width: 100%;
     margin: 0;
     font-family: 'Times New Roman', Times, serif;
-    padding-top: 100px;
+    padding-top: var(--site-header-height, 100px);
 }
 
 /*nastaveni pro light a dark mode*/
@@ -137,8 +138,6 @@ a,
     width: 100%;
 }
 
-/*pro ty popovery ktere jsou zatim jen na kalendar akci*/
-
 :popover-open {
     display: flex;
     flex-direction: column;
@@ -215,23 +214,7 @@ img {
     font-size: 8px;
 }
 
-/* utililty clasy */
-.bold-100 {
-    font-weight: 100;
-}
-
-.bold-200 {
-    font-weight: 200;
-}
-
-.bold-300 {
-    font-weight: 300;
-}
-
-.bold-400 {
-    font-weight: 400;
-}
-
+/* Používané tloušťky textu */
 .bold-500 {
     font-weight: 500;
 }
@@ -240,18 +223,6 @@ img {
     font-weight: 600;
 }
 
-.bold-700 {
-    font-weight: 700;
-}
-
 .bold {
     font-weight: bold;
-}
-
-.bold-800 {
-    font-weight: 800;
-}
-
-.bold-900 {
-    font-weight: 900;
 }

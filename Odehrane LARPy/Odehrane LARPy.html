@@ -2,65 +2,20 @@
 <html lang="cz">
 
 <head>
-    <script src=""></script>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="../assets/Ikony-img/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shorcut icon" href="../larphlavni/favicon.svg">
     <title>Odehranné LARPy</title>
-    <link rel=" stylesheet" href="../css/kalendar-akci.css">
+    <link rel="stylesheet" href="../css/kalendar-akci.css">
     <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../css/sdilene/menu/menu.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
 </head>
 
 <body>
-    <nav>
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-        <div class="center">
-            <div class="ozveny">
-                <h1 class="nadpis">Odehrané LARPy</h1>
-            </div>
-            <h4 class="nadpis">
-                Historie skrze některé naše akce
-            </h4>
-        </div>
-
-        <div class="side-menu" id="sideMenu">
-            <div class="menu-item-s-submenu">
-                <a href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/index.html" class="ma-submenu"
-                    onclick="toggleMenu()">Kalendář akcí</a>
-                <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Navrat-mocneho/Navrat-mocneho.html"
-                        onclick="toggleMenu()">Návrat mocného</a>
-                </div>
-            </div>
-            <a href="https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html" onclick="toggleMenu()">O nás</a>
-            <a href="https://burthgulash.github.io/Chynicky_LARP/pribehy/pribehy.html"
-                onclick="toggleMenu()">Příběhy</a>
-
-            <div class="menu-item-s-submenu">
-                <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Odehranne%20LARPy.html">Odehrané
-                    LARPy</a>
-                <div class="submenu">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozvěny%20stínů%202.html"
-                        onclick="toggleMenu()">Ozvěny Stínů 2</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Ozvěny%20stínů.html"
-                        onclick="toggleMenu()">Ozvěny stínů</a>
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz.html"
-                        onclick="toggleMenu()">Hraniční tvrz</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <site-header title="Odehrané LARPy" subtitle="Historie skrze některé naše akce"
+        image="../assets/Nav.panel/tri mece final final.png"></site-header>
     <!---->
     <!---->
     <!---->
@@ -69,11 +24,8 @@
         <div class="kalendar-akci2">
             <!--Návrat mocného-->
             <div class="akce-container">
-                <div class="ozveny2-popis">
-                    <a
-                        href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Hranicni%20tvrz/Hranicni%20tvrz.html">
-                        <button class="akce-tlacitko">Hraniční tvrz</button>
-                    </a>
+                <div class="akce-popis">
+                    <a href="Hranicni tvrz/Hranicni tvrz.html" class="akce-tlacitko">Hraniční tvrz</a>
                     <div class="datumy">
                         <div style="margin: 0 0 10px 0;">
                             <p class="datum-right">Anotace:</p>
@@ -91,18 +43,16 @@
                         <p class="organizatori-text">Hraniční tvrz</p>
                     </div>
                 </div>
-                <div class="ozveny2-img">
-                    <img style="width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Odehrane%20LARPy/Hranicni.tvrz-zaver.foto.jpg">
+                <div class="akce-img">
+                    <img class="akce-obrazek"
+                        src="../assets/Odehrane LARPy/Hranicni.tvrz-zaver.foto.webp">
                 </div>
             </div>
             <!---->
             <!--Os1-->
             <div class="akce-container">
-                <div class="ozveny2-popis">
-                    <a href="Ozveny stinu/Ozvěny stínů.html">
-                        <button class="akce-tlacitko">Ozvěny stínů</button>
-                    </a>
+                <div class="akce-popis">
+                    <a href="Ozveny stinu/Ozvěny stínů.html" class="akce-tlacitko">Ozvěny stínů</a>
                     <div class="datumy">
                         <p class="datum-right">Anotace</p>
                         <p class="datum-left">Život v severské vesnici v zimě je drsný už tak. Usedlost Sölleron však
@@ -113,17 +63,15 @@
                         <p class="organizatori-text">Ozvěny stínů</p>
                     </div>
                 </div>
-                <div class="ozveny2-img">
-                    <img style=" width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="https://burthgulash.github.io/Chynicky_LARP/larphlavni/img/ozveny2IL.jpg">
+                <div class="akce-img">
+                    <img class="akce-obrazek"
+                        src="../assets/Kalendar.akci-img/ozveny2IL.webp">
                 </div>
             </div>
             <!--OS2-->
             <div class="akce-container">
-                <div class="ozveny2-popis">
-                    <a href="Ozveny stinu2/Ozvěny stínů 2.html">
-                        <button class="akce-tlacitko">Ozvěny stínů 2</button>
-                    </a>
+                <div class="akce-popis">
+                    <a href="Ozveny stinu2/Ozvěny stínů 2.html" class="akce-tlacitko">Ozvěny stínů 2</a>
                     <div class="datumy">
                         <p class="datum-right">Anotace</p>
                         <p class="datum-left">Po porážce Skuggy na Sölleronském pahorku mor vesnici opustil, ale na
@@ -136,17 +84,15 @@
                         <p class="organizatori-text">Ozvěny stínů</p>
                     </div>
                 </div>
-                <div class="ozveny2-img">
-                    <img style=" width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="../kvido html-img/foto/Odehrane LARPy/IMG-20250426-WA0009.jpg">
+                <div class="akce-img">
+                    <img class="akce-obrazek"
+                        src="../assets/Odehrane LARPy/IMG-20250426-WA0009.webp">
                 </div>
             </div>
             <!--Přes hřebeny-->
             <div class="akce-container">
-                <div class="ozveny2-popis">
-                    <a href="Ozveny stinu2/Ozvěny stínů 2.html">
-                        <button class="akce-tlacitko">Přes hřebeny</button>
-                    </a>
+                <div class="akce-popis">
+                    <a href="Pres.hrebeny/Pres.hrebeny.html" class="akce-tlacitko">Přes hřebeny</a>
                     <div class="datumy">
                         <p class="datum-right">Anotace</p>
                         <p class="datum-left">Víkendová akce nabitá různými krátkými LARPy. Mezi nimi i komorní LARP o odsunu sudetských Němců, List beze jmen.</p>
@@ -156,17 +102,15 @@
                         <p class="organizatori-text">Historické LARPy</p>
                     </div>
                 </div>
-                <div class="ozveny2-img">
-                    <img style=" width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="../kvido html-img/foto/Odehrane LARPy/hranicni.kamen.png">
+                <div class="akce-img">
+                    <img class="akce-obrazek"
+                        src="../assets/Odehrane LARPy/hranicni.kamen.webp">
                 </div>
             </div>
              <!--ZPK-->
             <div class="akce-container">
-                <div class="ozveny2-popis">
-                    <a href="https://burthgulash.github.io/Chynicky_LARP/Odehrane%20LARPy/Z.Popelu.kalicha/Z.Popelu.kalicha.html">
-                        <button class="akce-tlacitko">Z popelu kalicha</button>
-                    </a>
+                <div class="akce-popis">
+                    <a href="Z.Popelu.kalicha/Z.Popelu.kalicha.html" class="akce-tlacitko">Z popelu kalicha</a>
                     <div class="datumy">
                         <p class="datum-right">Anotace</p>
                         <p class="datum-left">Bitva u Lipan se odehrála již před necelým rokem. V zemi panuje chudoba a bývalí členové vojsk nemají co k snědku. Formují se loupeživé skupiny, jako je ta Petra z dvorce. Brzy ale banda narazí na problém, někdo je ze stínů sleduje - zvěsti o jedorukém lapkovi se krajem šíří jako požár.</p>
@@ -176,22 +120,18 @@
                         <p class="organizatori-text">Historické LARPy</p>
                     </div>
                 </div>
-                <div class="ozveny2-img">
-                    <img style=" width: 100%; justify-content: center; margin: 5px 0 5px 0;"
-                        src="../kvido html-img/Z.Popelu.kalicha-foto/Prapor-chatgpt.png">
+                <div class="akce-img">
+                    <img class="akce-obrazek"
+                        src="../assets/Z.Popelu.kalicha-img/Prapor-chatgpt.webp">
                 </div>
             </div>
         </div>
     </div>
 
     </div>
-        <script src="https://burthgulash.github.io/Chynicky_LARP/scripts/responsivni-nav.js"></script>
-    <script src="../obecny.js"></script>
-    <script src="https://burthgulash.github.io/Chynicky_LARP/generace-menu.js"></script>
-    <script src="../scripts/light-modV2.js" type="module"></script>
-    <iframe id="theme-sync"
-    src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-    style="display:none;"></iframe>
+    <script src="../components/site-header.js"></script>
+    <script src="../scripts/obecny.js"></script>
+    <script type="module" src="../scripts/light-modV2.js"></script>
 </body>
 
 </html>

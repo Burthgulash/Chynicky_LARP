@@ -1,82 +1,58 @@
 <!DOCTYPE html>
-<html lang="cz">
+<html lang="cs">
 
 <head>
-    <script src="../responzivni-pro-pocitacV2.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/sdilene/menu/menu-mobil.css">
     <link rel="stylesheet" href="../css/sdilene/obecne-sdilene.css">
     <link rel="stylesheet" href="../css/sdilene/obrazky.css">
     <link rel="stylesheet" href="../css/sdilene/menu/menu.css">
-    <link rel="stylesheet" href="../css/sdilene/info/info.css">
-    <link rel="shorcut icon" href="https://burthgulash.github.io/Chynicky_LARP/larphlavni/favicon.svg">
+    <link rel="stylesheet" href="../css/sdilene/info.css">
+    <link rel="icon" type="image/svg+xml" href="../assets/Ikony-img/favicon.svg">
     <title>Za linií</title>
 </head>
 
 <body>
-    <header class="header">
-        <div class="pravo">
-
-            <div class="menu" onclick="toggleMenu()">
-                <img class="menu-btn" src="../kvido html-img/foto/Nav.panel/tri mece final final.png" height="100"
-                    alt="Menu">
-            </div>
-        </div>
-
-        <div class="center">
-            <div class="ozveny">
-                <div class="icons">
-                    <h1 class="nadpis">Za linií</h1>
-                </div>
-            </div>
-            <h4 class="nadpis">
-                2.-4.10.2026
-            </h4>
-        </div>
-
-        <nav class="side-menu" id="sideMenu">
-        </nav>
-    </header>
+    <site-header title="Za linií" subtitle="2.-4.10.2026"
+        image="../assets/Nav.panel/tri mece final final.png"></site-header>
     <main class="center">
         <p class="bold-500" style="margin-left: 5px; margin-right: 5px; padding-top: 10px;">
             Celovíkendová akce Za linií bude oproti jiným již odehraným LARPům naší výroby poněkud volnější. Celému programu bude vévodit stejnojmenný komorní LARP, který se bude odehrávat na pozadí všech činností hráčů. Dějem se budou proplétat různé aktivity, vytvořené podle zájmu účastníků, ať už to bude třeba výroba krosny, chladných zbraní, či čehokoliv jiného, stavba pevnosti, nebo jen výlet po Krušnohoří. Možností je nekonečně mnoho. </p>
         <div class="">
             <img class="decorative-ornamented-divider"
-                src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/Ikony-img/Odrazka-decorative.png">
+                src="../assets/Ikony-img/Odrazka-decorative.png" alt="">
             <p>Registrace je již uzavřená, pro registraci kontaktujte jednoho z organizátorů.</p>
         </div>
         <!---->
         <!---->
         <!---->
         <article class="info">
-            <section class="info2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/popis-akce.png"
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/popis-akce.png"
                     data-name="popis-akce" alt="icon" width="100px">
                 <h2>Popis akce</h2>
                 <p class="bold-600"> Akce za linií je postavena na komorním LARPu odehrávajícím se po téměř celou dobu pobytu hráčů. Mezitím můžou účastníci dělat téměř cokoliv. Od hraní deskovek, po boj se zbraněmi. Komorní LARP, zasazený do fiktivního světa, bude o dopadech války na odlehlou vesnici z období podobného 20. století. <br>
                 </p>
             </section>
-            <section class="info2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/cena3.png"
-                    data-name="cena3" alt="icon" width="100px">
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/cena.png"
+                    data-name="cena" alt="icon" width="100px">
                 <h2>Cena</h2>
-                <p>
                     <ul>
                     <li>Vstupné včetně stravování - <b>300kč</b><br>
                     (Vstupné nevracíme ani pokud na akci nepojedete)</li>
                     <li>Půjčovné za jednoruční zbraň - <b>15kč</b> <br>
                     (Zbraň si půjčovat nemusíte, nebudou přímou součástí hry)</li>
-                    <li>Cesta do Perninku - Pokud pojedete s námi je to 240 kč za obě cesty + cca 50 kč na dopravu z Karlových Varů do Perninku a naopak (viz níže).</li> 
+                    <li>Cesta do Perninku - Pokud pojedete s námi je to 240 kč za obě cesty + cca 50 kč na dopravu z Karlových Varů do Perninku a naopak (viz níže).</li>
 
 
                     </ul>
                 </section>
-            <section class="info2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/bagpack.png"
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/bagpack.png"
                     data-name="bagpack" alt="icon" width="100px">
                 <h2>Vybavení</h2>
                 <p> POVINNÉ: <br>
@@ -86,23 +62,24 @@
                     mobil slabou baterku)
                 </p>
             </section>
-            <section class="info2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/worker.png"
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/worker.png"
                     data-name="worker" alt="icon" width="100px">
                 <h2>Organizátoři</h2>
                 <p>Hugo, <br> Kvido
                     <br>
                     <a href="../O nas/O nás.html">Více informací zde.</a>
+                </p>
             </section>
-            <section class="info2-1">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/pin2.png"
-                    data-name="pin2" alt="icon" width="100px">
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/pin.png"
+                    data-name="pin" alt="icon" width="100px">
                 <h2>Místo</h2>
                 <p>LARP se bude v krušnohorské obci Pernink (Kostelní 11). Ubytování je ve staré apartmánové chalupě, se splachovacím záchodem, sprchou, pitnou vodou, funkční kuchyní a lednicí.</p>
                 <div class="toggle-minimap-container">
-                    <button id="toggle-minimap">Zobrazit mapu
+                    <button id="toggle-minimap" type="button" aria-controls="mini-map" aria-expanded="false"><span>Zobrazit mapu</span>
                         <svg xmlns="http://www.w3.org/2000/svg" height="1.25em" viewBox="0 -960 960 960" width="1.25em"
                             fill="white">
                             <path
@@ -110,13 +87,15 @@
                         </svg>
                     </button>
                 </div>
+                <iframe class="mini-map" id="mini-map" src="https://mapy.com/s/pejegocono"
+                    title="Mapa ubytování v Perninku" loading="lazy"></iframe>
             </section>
-            <section class="info2-2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/hodiny.png"
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/hodiny.png"
                     data-name="hodiny" alt="icon" width="100px">
                 <h2>Program</h2>
-                <p>PÁTEK: <br>
+                <p>PÁTEK: <br></p>
                     <ul>
                     <li> Oficialní sraz na <a target="_blank" href="https://mapy.com/cs/turisticka?source=pubt&id=17246086&x=14.4407443&y=50.0892909&z=19">nástupišti 2 ÚAN florenc</a>v 15:15 </li>
                     <li> Odjezd <a target="_blank" href="https://regiojet.cz/reservation/seating/there?routeId=8732346944&fromStationId=10204003&toStationId=17902024&tariffs=CZECH_STUDENT_PASS_15&seatClassKey=NO">autobusu do karlových varů</a> 15:30  </li>
@@ -136,32 +115,30 @@
                     <li>15:00 odjezd <a target="_blank" href="https://regiojet.cz/reservation/seating/there?routeId=8732518018&fromStationId=17902024&toStationId=10204003&tariffs=CZECH_STUDENT_PASS_15&seatClassKey=NO">autobusem do Prahy</a></li>
                     <li>17:15 příjezd na ÚAN Florenc (je možnost se odpojit po cestě)</li>
                     </ul>
-                </p>
             </section>
-            <section class="info2-2">
-                <img id="icon-img"
-                    src="https://Burthgulash.github.io/Chynicky_LARP/kvido html-img/foto/Ikony-img/jidlo-icon.webp"
+            <section class="info-karta">
+                <img
+                    src="../assets/Ikony-img/jidlo-icon.webp"
                     data-name="jidlo-icon" alt="icon" width="100px">
                 <h2>Stravování:</h2>
                 <p>Cena za stravování je zahrunuta ve vstupném. Hráči budou dostávat suroviny na vaření v průběhu hry a
-                    následně budou vařit, též součástí hry a za podpory organizátorů. 
+                    následně budou vařit, též součástí hry a za podpory organizátorů.
                 </p>
             </section>
-            </div>
             <!---->
             <!---->
             <!---->
         </article>
         <p class="center">Fotky z ubytování</p>
     <div class="per-foto">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per6.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per7.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per8.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per9.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per10.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per11.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per12.jpg">
-        <img class="per-foto-img" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/per-foto/Per13.jpg">
+        <img class="per-foto-img" src="../assets/per-foto/Per6.webp" alt="Fotografie 1 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per7.webp" alt="Fotografie 2 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per8.webp" alt="Fotografie 3 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per9.webp" alt="Fotografie 4 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per10.webp" alt="Fotografie 5 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per11.webp" alt="Fotografie 6 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per12.webp" alt="Fotografie 7 z ubytování v Perninku">
+        <img class="per-foto-img" src="../assets/per-foto/Per13.webp" alt="Fotografie 8 z ubytování v Perninku">
 
     </div>
         <h6>Ikony použity na tomto webu jsou od těchto tvůrců: Prettycons, Bercahicon, Vectors tank, Mayor icons,
@@ -171,23 +148,14 @@
             <p>lalok</p>
         </a>
 
-        <script src="../obecny.js"></script>
-        <script src="../generace-menu.js"></script>
-        <script src="../scripts/responsivni-nav.js"></script>
-        <script type="module" src="../scripts/light-modV2.js"></script>
-        <!-- Hidden iframe to store and sync theme -->
-        <iframe id="theme-sync"
-            src="https://burthgulash.github.io/Chynicky_LARP/light-mod-cloud-web/light-mod-cloud-web.html"
-            style="display:none;"></iframe>
     </main>
 
-    <div class="popover" popover id="Kvido Redl">
-        <img class="foto" src="https://burthgulash.github.io/Chynicky_LARP/kvido%20html-img/foto/O%20nás-img/kvido-tulak-zpk.webp" alt="icon" width="150px">
-        <h2>Kvido, Ereth</h2>
-        <h3>V jeho hlavě se rodí většina konceptů herních mechanik a samotných akcí. Má na starosti spoustu fází přípravy, jako psaní postav či pravidel, a také rozvrhuje čas a CP na místě.
-        </h3>
-        <a href="https://burthgulash.github.io/Chynicky_LARP/O%20nas/O%20nás.html">Více info na O nás</a>
-    </div>
+    <script src="../components/site-header.js"></script>
+    <script src="../scripts/obecny.js"></script>
+    <script type="module" src="../scripts/light-modV2.js"></script>
+    <script type="module" src="../components/organizator-popovers.js"></script>
+
+    <organizator-popover name="Kvido Redl"></organizator-popover>
 </body>
 
 </html>
