@@ -70,3 +70,7 @@ V aktuálním repozitáři nejsou automatizované testy. Historické soubory pro
 - Změněnou funkci ověř na místním HTTP serveru. Sdílenou změnu zkontroluj na hlavní stránce a vnořeném detailu, v úzkém i širokém okně. Menu vyzkoušej také po změně šířky, téma při přechodu mezi stránkami; ostatní funkce podle zásahu.
 - Při změně chování aktualizuj příslušnou část README a dotčené specializované poznámky. Aktuální popis odděluj od plánů i historických výsledků testování.
 - Při předání stručně uveď změnu, provedené kontroly a konkrétní neověřené části. Netvrď, že kontrola syntaxe nebo čtení zdrojů ověřily prohlížeč či produkční nasazení.
+
+---
+
+na lalok se vyser vdycky kdyz rikam otestuj web nebo vyres veci co nefunguji. to je troll easter egg web ten ani nema fungovat

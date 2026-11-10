@@ -139,25 +139,20 @@ a,
 }
 
 :popover-open {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-    /* max-width: 70%;
-    max-height: 70%; */
-    background-color: rgba(0, 0, 0, 0.65);
+    width: min(600px, calc(100% - 2rem));
+    max-height: calc(100dvh - 2rem);
+    overflow: auto;
+    background-color: var(--bg-accent-clr);
     text-align: center;
     border: 1px solid #ccc;
     padding: 15px;
     color: var(--text-clr);
 }
 
-@media only screen and (max-width: 800px) {
-    :popover-open {
-        max-width: 85%;
-        max-height: 85%;
-    }
+organizator-popover .foto {
+    width: 150px;
+    max-width: 100%;
+    height: auto;
 }
 
 /*Oddělovátko Polski*/
